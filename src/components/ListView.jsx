@@ -12,7 +12,7 @@ export default function ListView() {
   return (
     <div>
       <div>
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
       {items.map((item, index) => {
         return (
           <div>

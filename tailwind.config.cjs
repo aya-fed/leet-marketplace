@@ -4,6 +4,13 @@ module.exports = {
   darkMode: "media", // or remove this line if darkMode is not used
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/**/*.html"],
   theme: {
+    screens: {
+      xs: { min: "420px" },
+      sm: { min: "640px" },
+      md: { min: "768px" },
+      lg: { min: "1024px" },
+      xl: { min: "1280px" },
+    },
     extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
