@@ -28,7 +28,6 @@ function App() {
     <div className="App">
       <Router>
         <Header />
-        {/* <ItemCard /> */}
         <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />

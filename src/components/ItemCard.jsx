@@ -4,9 +4,10 @@ import WishlistIcon from './ui/WishlistIcon'
 
 function ItemCard({item}) {
     return (
+
       <div className="flex-col h-90 w-full rounded-lg overflow-hidden shadow-lg bg-background-3 text-neutral-light">
   
-        <div className="">
+        <div className="bg-neutral-light">
           {item.imageUrls && item.imageUrls.length > 0 ? (<img className="w-full h-40" src={item.imageUrls[0]} alt={item.title} />) : (
             <div className="w-full h-full bg-black">No image</div>)}
         </div>
@@ -17,13 +18,13 @@ function ItemCard({item}) {
             {item.title}
           </div>
             
-          <p className='text-neutral-400 line-clamp-2 mb-2'>
+          <p className='text-neutral-400 line-clamp-2 mb-2 h-12'>
             {item.description}
           </p>
           
-          <div className='flex justify-between w-full py-4 px-4 drop-shadow-lg'>
+          <div className='flex justify-between w-full py-2 px-4 drop-shadow-lg'>
             <p className='text-primary'>${item.price}</p>
-            <WishlistIcon/>
+            <WishlistIcon />
           </div>
   
         </div>
