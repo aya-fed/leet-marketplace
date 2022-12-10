@@ -1,23 +1,82 @@
-import Button from "../components/ui/Button";
+import { useState } from "react";
+
 import { HiHeart } from "react-icons/hi";
+import Button from "../components/ui/Button";
+import Modal from "../components/Modal";
+import PopupAuthForm from "../components/PopupAuthForm";
+import InputField from "../components/form/InputField";
+import Textarea from "../components/form/Textarea";
+import SelectDropdown from "../components/form/SelectDropdown";
+import Checkbox from "../components/form/Checkbox";
 
 export default function TEST() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [isModalOpenAuth, setIsModalOpenAuth] = useState(false);
+  useState;
   return (
     <div className="w-[90%] my-6 mx-auto">
-      {/* Checking Button component -------------------------------------------------- */}
+      {/* Checking Form components -------------------------------------------------- */}
+      <form className="w-[85%] md:max-w-[600px] mx-auto mt-10">
+        {/* Input ---------------------------------------------------------------- */}
+        <InputField label="Input Text" placeholder="Input text field" required />
+        <SelectDropdown
+          label="Select dropdown"
+          placeholder="Select dropdown example"
+          options={["category1", "category2", "category3", "categoryyyy4"]}
+          required
+        />
+        <Textarea label="Textarea" className="h-[150px]" placeholder="Textarea" required />
+        <InputField label="Input with $" type="number" currency="$" placeholder="0" onChange={() => {}} required />
+        <Checkbox label="Checkbox" reverse checked={false} required />
+      </form>
+      <hr className="my-6" />
 
-      <div className="w-60 flex flex-wrap gap-2">
-        <Button>Test Button</Button>
-        <Button className="border-white text-white" onClick={() => alert("Clicked!")}>
-          onClick & className props
-        </Button>
-        <Button className="bg-primary border-none text-background-1 font-semibold">
-          <HiHeart />
-          With Icon
-        </Button>
-        <Button className="!w-fit px-4 text-secondary border-secondary">
-          <HiHeart />
-        </Button>
+      <div className="flex gap-10">
+        {/* Checking Button component -------------------------------------------------- */}
+        <div className="w-60 flex flex-wrap gap-2">
+          <Button>Test Button</Button>
+          <Button className="border-white text-white" onClick={() => alert("Clicked!")}>
+            onClick & className props
+          </Button>
+          <Button className="bg-primary border-none text-background-1 font-semibold">
+            <HiHeart />
+            With Icon
+          </Button>
+          <Button className="!w-fit px-4 text-secondary border-secondary">
+            <HiHeart />
+          </Button>
+        </div>
+
+        {/* Checking Modal component -------------------------------------------------- */}
+        <div className="w-60 flex flex-wrap items-start gap-2">
+          <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
+          {isModalOpen && (
+            <Modal
+              title="Modal Test"
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              onClose={() => alert("Closed modal.")}
+            />
+          )}
+
+          <Button onClick={() => setIsModalOpen2(true)}>Modal with contents</Button>
+
+          {isModalOpen2 && (
+            <Modal title="Modal Test" isModalOpen={isModalOpen2} setIsModalOpen={setIsModalOpen2}>
+              <p>This is the content.</p>
+              <Button className="mt-6" onClick={() => setIsModalOpen2(false)}>
+                Close
+              </Button>
+            </Modal>
+          )}
+
+          {isModalOpenAuth && (
+            <Modal isModalOpen={isModalOpenAuth} setIsModalOpen={setIsModalOpenAuth}>
+              <PopupAuthForm />
+            </Modal>
+          )}
+        </div>
       </div>
 
       {/* Checking tailwind theme config... -------------------------------------------------- */}
