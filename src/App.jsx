@@ -21,6 +21,7 @@ import MyPurchases from "./pages/MyPurchases";
 import SoldItems from "./pages/SoldItems";
 import Wishlist from "./pages/Wishlist";
 import CheckOut from "./pages/CheckOut";
+import TEST from "./pages/TEST";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/my-purchases" element={<MyPurchases />} />
           <Route path="/sold-items" element={<SoldItems />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/test" element={<TEST />} />
         </Routes>
         <Footer />
       </Router>
