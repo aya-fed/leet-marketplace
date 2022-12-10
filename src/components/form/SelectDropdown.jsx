@@ -72,7 +72,7 @@ const SelectDropdown = ({
       `}
     >
       {label && (
-        <div className={`flex justify-between items-center md:flex-wrap md:justify-start`}>
+        <div className={`flex justify-start items-center md:flex-wrap md:justify-start`}>
           <label htmlFor={id} className={`my-1 mr-2 ${labelClassName}`}>
             {label}
           </label>

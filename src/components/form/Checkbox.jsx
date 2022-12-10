@@ -24,7 +24,7 @@ const Checkbox = ({ id, label, labelClassName, value, checked, onChange, classNa
         id={id}
         value={value ?? value}
         className={twMerge(`
-          px-2 py-2 mt-1
+          px-2 py-2 mt-[6px]
           text-sm text-primary
           bg-white
          rounded 
@@ -39,7 +39,7 @@ const Checkbox = ({ id, label, labelClassName, value, checked, onChange, classNa
       />
       {label && (
         <div
-          className={`flex justify-between items-center md:flex-wrap md:justify-start`}
+          className={`flex justify-start items-center md:flex-wrap md:justify-start`}
           style={reverse && { order: 1 }}
         >
           <label htmlFor={id} className={twMerge(`my-1 mr-2 ${labelClassName}`)}>

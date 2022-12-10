@@ -27,7 +27,7 @@ const InputField = ({
       className={`text-left my-6 ${!stacked && label ? "sm:grid items-center sm:grid-cols-[1fr_minmax(0,_2fr)]" : ""}`}
     >
       {label && (
-        <div className="flex justify-between items-center md:flex-wrap md:justify-start">
+        <div className="flex justify-start items-center md:flex-wrap md:justify-start">
           <label htmlFor={id} className={`my-1 mr-2 ${labelClassName}`}>
             {label}
           </label>
