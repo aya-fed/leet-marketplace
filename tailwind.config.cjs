@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['"Inter"', "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       colors: {
         primary: {
@@ -15,7 +15,6 @@ module.exports = {
         secondary: {
           DEFAULT: "#9747FF",
           dark: "#5A328F",
-          2: "#FBBC05",
         },
         background: {
           4: "#424867",
@@ -28,8 +27,11 @@ module.exports = {
           DEFAULT: "#ABADC6",
           dark: "#7d7e89",
         },
-        alert: {
+        warning: {
           DEFAULT: "#EA4335",
+        },
+        yellow: {
+          DEFAULT: "#FBBC05",
         },
       },
     },
