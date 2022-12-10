@@ -4,7 +4,7 @@ import { HiOutlineHeart } from 'react-icons/hi'
 function WishlistIcon() {
     return (
        
-        <HiOutlineHeart />
+        <HiOutlineHeart className='text-neutral-light' />
    
     )
     
