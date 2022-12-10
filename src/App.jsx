@@ -21,12 +21,14 @@ import MyPurchases from "./pages/MyPurchases";
 import SoldItems from "./pages/SoldItems";
 import Wishlist from "./pages/Wishlist";
 import CheckOut from "./pages/CheckOut";
+import ItemCard from "./components/ItemCard";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
+        {/* <ItemCard /> */}
         <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />
