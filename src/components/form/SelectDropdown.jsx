@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Select from "react-select";
 import RequiredChip from "./RequiredChip";
 
@@ -19,6 +20,7 @@ const SelectDropdown = ({
   isFilter,
 }) => {
   let dropdownOptions = [];
+  const [isFocused, setIsFocused] = useState(false);
 
   if (typeof options[0] === "string") {
     options.map(opt => {
@@ -44,8 +46,7 @@ const SelectDropdown = ({
     }),
     control: () => ({
       // styles for the box itself
-      // width: 200,
-      border: isFilter ? "solid 0 0 1px 0 #FFF" : "solid 1px #FFF",
+      border: isFilter ? "solid 0 0 1px 0 #FFF" : isFocused ? "solid 1px #FBBC05" : "solid 1px #FFF",
       borderRadius: "4px",
       display: "flex",
       backgroundColor: "transparent",
@@ -91,6 +92,8 @@ const SelectDropdown = ({
         isDisabled={isDisabled}
         isSearchable={isSearchable}
         onChange={e => onChange(e)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         styles={customStylesFilter}
         components={{
           IndicatorSeparator: () => null,
