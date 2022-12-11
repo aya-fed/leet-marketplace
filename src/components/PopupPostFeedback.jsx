@@ -1,5 +1,5 @@
-import { FaRegSmile, FaRegMeh, FaRegFrown } from "react-icons/fa";
-import { IoPersonCircle } from "react-icons/io5";
+import { PositiveIcon, NeutralIcon, NegativeIcon } from "./ui/IconRatings";
+import { PlaceholderProfilePic } from "./ui/PlaceholderProfilePic";
 import { useFetchOneUser } from "../hooks/useFetchOneUser";
 import Button from "./ui/Button";
 import Textarea from "./form/Textarea";
@@ -128,7 +128,7 @@ export default function PopupPostFeedback({ onClose }) {
               {userInfo.profilePic ? (
                 <img src={userInfo.profilePic} className="w-full h-full rounded-[28px]" />
               ) : (
-                <IoPersonCircle className="w-full h-full rounded-[28px] text-neutral" />
+                <PlaceholderProfilePic className="w-full h-full rounded-[28px] text-neutral" />
               )}
             </div>
             <div>{userInfo.name}</div>
@@ -142,7 +142,7 @@ export default function PopupPostFeedback({ onClose }) {
               ${isActive === "positive" && "bg-primary text-background-1 font-medium"}`}
               onClick={() => onRatingClick("positive")}
             >
-              <FaRegSmile size={20} />
+              <PositiveIcon size={20} />
               <span>Positive</span>
             </Chip>
             <Chip
@@ -150,7 +150,7 @@ export default function PopupPostFeedback({ onClose }) {
               ${isActive === "neutral" && "bg-primary text-background-1 font-medium"}`}
               onClick={() => onRatingClick("neutral")}
             >
-              <FaRegMeh size={20} />
+              <NeutralIcon size={20} />
               <span>Neutral</span>
             </Chip>
             <Chip
@@ -158,7 +158,7 @@ export default function PopupPostFeedback({ onClose }) {
               ${isActive === "negative" && "bg-primary text-background-1 font-medium"}`}
               onClick={() => onRatingClick("negative")}
             >
-              <FaRegFrown size={20} />
+              <NegativeIcon size={20} />
               <span>Negative</span>
             </Chip>
           </div>
