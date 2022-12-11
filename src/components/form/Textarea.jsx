@@ -21,7 +21,7 @@ const Textarea = ({ id, label, labelClassName, onChange, value, placeholder, cla
         w-full px-4 py-2 
         border-white
         bg-transparent
-        rounded 
+        rounded
         ${className ?? ""}
       `)}
         placeholder={placeholder}
