@@ -9,11 +9,12 @@ import Textarea from "../components/form/Textarea";
 import SelectDropdown from "../components/form/SelectDropdown";
 import Checkbox from "../components/form/Checkbox";
 import PopupDeleteConfirmation from "../components/PopupDeleteConfirmation";
+import PopupPostFeedback from "../components/PopupPostFeedback";
 
 export default function TEST() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpenDeleteConf, setIsModalOpenDeleteConf] = useState(true);
+  const [isModalOpenContentCheck, setIsModalOpenContentCheck] = useState(true);
   return (
     <div className="w-[90%] my-6 mx-auto">
       {/* Checking Form components -------------------------------------------------- */}
@@ -31,12 +32,15 @@ export default function TEST() {
         <Checkbox label="Checkbox" reverse checked={false} required />
       </form>
       <hr className="my-6" />
-
       <div className="flex gap-10">
         {/* Checking Button component -------------------------------------------------- */}
         <div className="w-60 flex flex-wrap gap-2">
           <Button>Test Button</Button>
-          <Button className="border-white text-white" onClick={() => alert("Clicked!")}>
+          <Button cancel />
+          <Button
+            className="border-white text-white hover:border-secondary hover:text-secondary"
+            onClick={() => alert("Clicked!")}
+          >
             onClick & className props
           </Button>
           <Button className="bg-primary border-none text-background-1 font-semibold">
@@ -71,19 +75,34 @@ export default function TEST() {
             </Modal>
           )}
 
-          {isModalOpenDeleteConf && (
+          {isModalOpenContentCheck && (
             <Modal
-              isModalOpen={isModalOpenDeleteConf}
-              setIsModalOpen={setIsModalOpenDeleteConf}
-              onClose={() => setIsModalOpenDeleteConf(false)}
+              isModalOpen={isModalOpenContentCheck}
+              setIsModalOpen={setIsModalOpenContentCheck}
+              onClose={() => setIsModalOpenContentCheck(false)}
             >
               {/* <PopupAuthForm /> */}
-              <PopupDeleteConfirmation onClose={() => setIsModalOpenDeleteConf(false)} />
+              {/* <PopupDeleteConfirmation onClose={() => setIsModalOpenContentCheck(false)} /> */}
+              <PopupPostFeedback onClose={() => setIsModalOpenContentCheck(false)} />
             </Modal>
           )}
         </div>
       </div>
-
+      {/* Truncate text using  -------------------------------------------------- */}
+      <hr className="my-6" />
+      <div className="text-neutral max-w-[350px]">
+        "line-clamp" class to truncate text
+        <p className="text-xs">(@tailwindcss/line-clamp - an official Tailwind plugin)</p>
+        <div className="mt-6">
+          e.g. <br />
+          className="line-clamp-2" to truncate 2 lines
+        </div>
+        <div className="my-6 p-6 bg-background-3 ">
+          <p className="text-white line-clamp-2">
+            *NEW* Razer Blade 14 - 14" Gaming Laptop w/ AMD Ryzen 6900HX |Black|16GB RAM|1TB
+          </p>
+        </div>
+      </div>
       {/* Checking tailwind theme config... -------------------------------------------------- */}
       <hr className="my-6" />
       <p className="w-fit">Base</p>
@@ -96,7 +115,6 @@ export default function TEST() {
       <p className="w-fit text-neutral">neutral</p>
       <p className="w-fit text-neutral-dark">neutral-dark</p>
       <p className="w-fit text-gradient-1 text-xl">gradient-1</p>
-
       <div className="flex mt-5 gap-2 flex-wrap max-w-20">
         <div className="h-20 w-40 p-2 text-xs bg-background-1 rounded shadow-xl">background-1</div>
         <div className="h-20 w-40 p-2 text-xs bg-background-2 rounded shadow-xl">background-2</div>
