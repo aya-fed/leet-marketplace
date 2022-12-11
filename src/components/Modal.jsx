@@ -1,0 +1,84 @@
+import { useEffect, useRef } from "react";
+import { twMerge } from "tailwind-merge";
+import { AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { RiCloseLine } from "react-icons/ri";
+import Button from "./ui/Button";
+
+const defaultClassNamesArr = [
+  "relative",
+  "w-[90vw]",
+  "p-10",
+  "border",
+  "rounded-[10px]",
+  "border-neutral",
+  "bg-background-1",
+  "max-w-[500px]",
+  "max-h-[95vh]",
+  "overflow-y-scroll",
+  "scrollbar-thin",
+  "scrollbar-track-neutral-100",
+  "scrollbar-thumb-neutral-400",
+];
+const defaultClasses = defaultClassNamesArr.map(className => className).join(" ");
+
+const Modal = ({ isModalOpen, setIsModalOpen, onClose, title, className, ...props }) => {
+  const modalRef = useRef(null); //modal reference
+
+  useEffect(() => {
+    if (isModalOpen) open();
+    else close();
+  }, [isModalOpen]);
+
+  const open = () => {
+    document.body.style.overflow = "hidden"; // Stop background scroll
+    gsap.fromTo(
+      modalRef.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+      }
+    );
+  };
+
+  function close() {
+    document.body.style.overflow = "unset"; // Enable background scroll
+    gsap.to(modalRef.current, {
+      opacity: 0,
+    });
+    setTimeout(() => {
+      onClose && onClose();
+      setIsModalOpen(false);
+    }, 500);
+  }
+
+  const bgHeight = window.innerHeight < document.body.clientHeight ? document.body.clientHeight : window.innerHeight;
+  return (
+    <AnimatePresence>
+      <div
+        ref={modalRef}
+        className={`bg-black bg-opacity-60 w-[100vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed flex justify-center items-center`}
+        style={{ height: bgHeight, opacity: 0 }}
+      >
+        <div className="flex items-center">
+          <div className={twMerge(`${defaultClasses} ${className ?? ""}`)}>
+            <h3 className="mb-6">{title}</h3>
+            <div className="absolute right-0 top-0 p-1 text-neutral cursor-pointer " onClick={close}>
+              <RiCloseLine size={28} />
+            </div>
+            {props.children ?? (
+              <div className="flex gap-[14px]">
+                <Button cancel className="w-1/2" onClick={close} />
+                <Button className="w-1/2" onClick={close}>
+                  OK
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </AnimatePresence>
+  );
+};
+
+export default Modal;
