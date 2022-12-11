@@ -5,17 +5,13 @@ import Button from "./ui/Button";
 import Textarea from "./form/Textarea";
 import Chip from "./ui/Chip";
 import { useState } from "react";
+import { serverTimestamp } from "firebase/firestore";
 
 export default function PopupPostFeedback({ onClose }) {
-  const [isActive, setIsActive] = useState("");
-  const [formData, setFormData] = useState({});
   // add itemId, buyerId, sellerId props later (or maybe we can just pass "item" object...)
   const itemId = "k8C7V6lKhzmosfN3Zf02"; //// HARD CODED FOR TEST
   const sellerId = "xfMIznl4DISG1YCXqSawo7PrCIK2"; //// HARD CODED FOR TEST
   const buyerId = "e0WTZI0qj7YjRCz3eWtGbMMxuO82"; //// HARD CODED FOR TEST
-
-  const { userInfo, isLoading } = useFetchOneUser(buyerId);
-
   ///////////// HARDCODED FOR TEST
   const item = {
     metadata: [
@@ -65,14 +61,45 @@ export default function PopupPostFeedback({ onClose }) {
     pickupSuburb: "",
     pickup: false,
     condition: "Brand new",
+    seller: "xfMIznl4DISG1YCXqSawo7PrCIK2",
+    buyer: "e0WTZI0qj7YjRCz3eWtGbMMxuO82",
   };
 
-  function onClick(option) {
+  const [isActive, setIsActive] = useState("");
+  const [formData, setFormData] = useState({
+    sellerId: item.seller,
+    buyerId: item.buyer,
+    itemId: itemId,
+    itemTitle: item.title,
+    itemPrice: item.price,
+    comment: "",
+    rating: "",
+  });
+
+  const { userInfo, isLoading } = useFetchOneUser(buyerId);
+
+  function onChange(e) {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
+  function onRatingClick(option) {
     setIsActive(option);
+    setFormData(prev => ({
+      ...prev,
+      rating: option,
+    }));
   }
   function onSubmit(e) {
     e.preventDefault();
-    /// Add this later
+    const formDataCopy = {
+      ...formData,
+      createdAt: serverTimestamp(),
+    };
+    console.log(formDataCopy);
+    // Add this later =create docRef and save to db
     alert("will add submit feedback function later");
   }
   return (
@@ -99,45 +126,52 @@ export default function PopupPostFeedback({ onClose }) {
           <div className="my-4 w-full flex gap-3 items-center">
             <div className="w-9 h-9">
               {userInfo.profilePic ? (
-                <img src={userInfo.profilePic} className="w-full h-full" />
+                <img src={userInfo.profilePic} className="w-full h-full rounded-[28px]" />
               ) : (
-                <IoPersonCircle className="w-full h-full text-neutral" />
+                <IoPersonCircle className="w-full h-full rounded-[28px] text-neutral" />
               )}
             </div>
             <div>{userInfo.name}</div>
           </div>
         )}
         {/* Feedback form ----------------------------------------------------- */}
-        <div className="w-full">
-          <div className="mb-6 grid grid-cols-3 gap-3">
+        <div className="w-full mt-6">
+          <div className="w-full flex gap-[8px] justify-self-stretch ">
             <Chip
-              className={`flex gap-1 py-1 text-sm font-normal cursor-pointer
+              className={`flex gap-1 py-1 grow text-xs xs:text-sm font-normal cursor-pointer 
               ${isActive === "positive" && "bg-primary text-background-1 font-medium"}`}
-              onClick={() => onClick("positive")}
+              onClick={() => onRatingClick("positive")}
             >
               <FaRegSmile size={20} />
               <span>Positive</span>
             </Chip>
             <Chip
-              className={`flex gap-1 py-1 text-sm font-normal cursor-pointer
+              className={`flex gap-1 py-1 grow text-xs xs:text-sm font-normal cursor-pointer
               ${isActive === "neutral" && "bg-primary text-background-1 font-medium"}`}
-              onClick={() => onClick("neutral")}
+              onClick={() => onRatingClick("neutral")}
             >
               <FaRegMeh size={20} />
               <span>Neutral</span>
             </Chip>
             <Chip
-              className={`flex gap-1 py-1 text-sm font-normal cursor-pointer
+              className={`flex gap-1 py-1 grow text-xs xs:text-sm font-normal cursor-pointer
               ${isActive === "negative" && "bg-primary text-background-1 font-medium"}`}
-              onClick={() => onClick("negative")}
+              onClick={() => onRatingClick("negative")}
             >
               <FaRegFrown size={20} />
               <span>Negative</span>
             </Chip>
           </div>
-          <form>
+          <form className="mt-6">
             <p>Your feedback (max 500 characters)</p>
-            <Textarea className="h-60" max="500" />
+            <Textarea
+              id="comment"
+              value={formData.comment}
+              placeholder=""
+              className="h-60"
+              max="500"
+              onChange={onChange}
+            />
           </form>
           <Button onClick={onSubmit}>Submit Feedback</Button>
         </div>
