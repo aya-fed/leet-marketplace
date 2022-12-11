@@ -8,7 +8,9 @@ import Button from "./ui/Button";
 const defaultClassNamesArr = [
   "relative",
   "w-[90vw]",
-  "p-10",
+  "py-[62px]",
+  "px-[3%]",
+  "md:p-10",
   "border",
   "rounded-[10px]",
   "border-neutral",
@@ -57,14 +59,14 @@ const Modal = ({ isModalOpen, setIsModalOpen, onClose, title, className, ...prop
     <AnimatePresence>
       <div
         ref={modalRef}
-        className={`bg-black bg-opacity-60 w-[100vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed flex justify-center items-center`}
+        className={`bg-black bg-opacity-70 w-[100vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed flex justify-center items-center`}
         style={{ height: bgHeight, opacity: 0 }}
       >
         <div className="flex items-center">
           <div className={twMerge(`${defaultClasses} ${className ?? ""}`)}>
             <h3 className="mb-6">{title}</h3>
             <div className="absolute right-0 top-0 p-1 text-neutral cursor-pointer " onClick={close}>
-              <RiCloseLine size={28} />
+              <RiCloseLine size={40} />
             </div>
             {props.children ?? (
               <div className="flex gap-[14px]">

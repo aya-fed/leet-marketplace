@@ -47,7 +47,7 @@ const SelectDropdown = ({
     control: () => ({
       // styles for the box itself
       border: isFilter ? "solid 0 0 1px 0 #FFF" : isFocused ? "solid 1px #FBBC05" : "solid 1px #FFF",
-      borderRadius: "4px",
+      borderRadius: "10px",
       display: "flex",
       backgroundColor: "transparent",
     }),

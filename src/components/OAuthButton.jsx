@@ -40,9 +40,9 @@ export default function OAuthButton({ label, propOnSubmit }) {
     }
   }
   return (
-    <Button type="button" onClick={onGoogleClick} className="bg-background-4">
+    <Button type="button" onClick={onGoogleClick} className="bg-background-4 border-none">
       <FcGoogle size={28} />
-      Continue with Google
+      {label ? label : "Continue with Google"}
     </Button>
   );
 }

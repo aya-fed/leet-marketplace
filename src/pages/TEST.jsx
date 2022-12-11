@@ -12,7 +12,7 @@ import Checkbox from "../components/form/Checkbox";
 export default function TEST() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpenAuth, setIsModalOpenAuth] = useState(false);
+  const [isModalOpenAuth, setIsModalOpenAuth] = useState(true);
   useState;
   return (
     <div className="w-[90%] my-6 mx-auto">
