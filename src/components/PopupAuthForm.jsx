@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { toast } from "react-toastify";
 
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
