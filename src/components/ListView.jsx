@@ -1,6 +1,7 @@
 import itemCategories from "../data/categories";
 import { useFetchItems } from "../hooks/useFetchItems";
 import ItemCard from "./ItemCard";
+import { Link } from 'react-router-dom';
 
 export default function ListView() {
   const categories = itemCategories.slice();
@@ -13,10 +14,11 @@ export default function ListView() {
     <div>
       <div>
       <div className="grid grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-      {items.map((item, index) => {
+          {items.map((item, index) => {
+            console.log(item);
         return (
           <div>
-            <ItemCard key={index} item={item} />
+            <Link to={`/item-detail/${item.itemId}`} > <ItemCard key={index} item={item} /></Link>
           </div>
         );
       })}
