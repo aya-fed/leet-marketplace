@@ -8,12 +8,12 @@ import InputField from "../components/form/InputField";
 import Textarea from "../components/form/Textarea";
 import SelectDropdown from "../components/form/SelectDropdown";
 import Checkbox from "../components/form/Checkbox";
+import PopupDeleteConfirmation from "../components/PopupDeleteConfirmation";
 
 export default function TEST() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpenAuth, setIsModalOpenAuth] = useState(true);
-  useState;
+  const [isModalOpenDeleteConf, setIsModalOpenDeleteConf] = useState(true);
   return (
     <div className="w-[90%] my-6 mx-auto">
       {/* Checking Form components -------------------------------------------------- */}
@@ -71,9 +71,14 @@ export default function TEST() {
             </Modal>
           )}
 
-          {isModalOpenAuth && (
-            <Modal isModalOpen={isModalOpenAuth} setIsModalOpen={setIsModalOpenAuth}>
-              <PopupAuthForm />
+          {isModalOpenDeleteConf && (
+            <Modal
+              isModalOpen={isModalOpenDeleteConf}
+              setIsModalOpen={setIsModalOpenDeleteConf}
+              onClose={() => setIsModalOpenDeleteConf(false)}
+            >
+              {/* <PopupAuthForm /> */}
+              <PopupDeleteConfirmation onClose={() => setIsModalOpenDeleteConf(false)} />
             </Modal>
           )}
         </div>

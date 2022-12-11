@@ -144,7 +144,7 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
 
   return (
     <>
-      <div className="flex justify-center flex-wrap items-center px-6 py-6 max-w-lg mx-auto">
+      <div className="flex justify-center flex-wrap items-center max-w-lg mx-auto">
         <div className="w-full">
           <h3>{title}</h3>
           <div className="mt-6">{textTop}</div>
