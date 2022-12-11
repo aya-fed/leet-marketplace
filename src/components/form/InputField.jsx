@@ -15,12 +15,13 @@ const InputField = ({
   required,
   className,
   stacked,
+  showPassword,
+  setShowPassword,
   ...props
 }) => {
   let inputType = type ?? "text";
-  const [showPassword, setShowPassword] = useState(false);
   function toggleShowPassword() {
-    setShowPassword(!showPassword);
+    setShowPassword();
   }
   return (
     <div
@@ -34,10 +35,10 @@ const InputField = ({
           {required && <RequiredChip />}
         </div>
       )}
-      <div className="relative rounded overflow-hidden">
+      <div className="relative rounded-[10px] overflow-hidden">
         {currency && (
           <div
-            className="absolute h-full w-7 left-0 rounded rounded-r-none border-t border-b border-l border-r-0 border-white font-medium text-center text-background-4 bg-yellow"
+            className="absolute h-full w-7 left-0 rounded-[10px] rounded-r-none border-t border-b border-l border-r-0 border-white font-medium text-center text-background-4 bg-yellow"
             style={{ borderTopLeftRadius: "0.25rem" }}
           >
             <div className="absolute w-full top-[50%] translate-y-[-50%] mx-auto">{currency}</div>
@@ -51,7 +52,7 @@ const InputField = ({
             w-full py-2 
             border-white
             bg-transparent
-            rounded 
+            rounded-[10px] 
             ${currency ? "pl-9 pr-4" : "px-4"}
             ${className ?? ""}
           `)}

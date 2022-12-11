@@ -12,30 +12,37 @@ import OAuthButton from "./OAuthButton";
 
 export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }) {
   const [mode, setMode] = useState(propMode ?? "signIn");
+  const [showPassword, setShowPassword] = useState(false);
   let buttonLabel = "";
   let title = "";
-  let text = "";
+  let textTop = "";
+  let textBottom = "";
+  let linkTextToResetPW = "";
+
   switch (mode) {
+    //////////// Sign In //////////////////////////////////////////////////////////////////////////////////////////////
     case "signIn":
       title = "Sign In";
       buttonLabel = "Sign in";
-      text = (
+      textTop = (
         <p>
-          Don't have an account?
+          New to LEET?
           <span
             className="ml-2 text-primary hover:text-primary-dark transition duration-200 ease-in-out cursor-pointer"
             onClick={() => {
               setMode("signUp");
             }}
           >
-            Sign up now
+            Register now
           </span>
         </p>
       );
+      linkTextToResetPW = "Forgotten password?";
       break;
+    //////////// Sign Up //////////////////////////////////////////////////////////////////////////////////////////////
     case "signUp":
-      title = "Sign Up";
-      text = (
+      title = "Create your account";
+      textTop = (
         <p>
           Already have an account?
           <span
@@ -44,16 +51,38 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
               setMode("signIn");
             }}
           >
-            Sign in
+            Log in
           </span>
         </p>
       );
       buttonLabel = "Sign up now";
       break;
+    //////////// Reset Password //////////////////////////////////////////////////////////////////////////////////////////////
     case "forgotPassword":
       title = "Reset Password";
-      buttonLabel = "Reset my password";
-      text = "############";
+      buttonLabel = "Submit";
+      textTop = "Enter your email address and we'll send you password reset instructions.";
+      textBottom = (
+        <div className="flex mt-8 gap-5">
+          <span
+            className="text-primary hover:text-primary-dark transition duration-200 ease-in-out cursor-pointer"
+            onClick={() => {
+              setMode("signIn");
+            }}
+          >
+            Log in
+          </span>
+
+          <span
+            className="text-primary hover:text-primary-dark transition duration-200 ease-in-out cursor-pointer"
+            onClick={() => {
+              setMode("signUp");
+            }}
+          >
+            Register
+          </span>
+        </div>
+      );
       break;
   }
 
@@ -63,7 +92,7 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
     password: "",
     confirmPassword: "",
   });
-  const { name, email, password } = formData;
+  const { name, email, password, confirmPassword } = formData;
   function onChange(e) {
     setFormData(prevState => ({
       ...prevState,
@@ -118,7 +147,7 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
       <div className="flex justify-center flex-wrap items-center px-6 py-6 max-w-lg mx-auto">
         <div className="w-full">
           <h3>{title}</h3>
-          <div className="mt-6">{text}</div>
+          <div className="mt-6">{textTop}</div>
           <form onSubmit={onSubmit}>
             {mode === "signUp" && (
               <InputField type="text" id="name" value={name} placeholder="Display name" onChange={onChange} />
@@ -135,6 +164,8 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
                     value={password}
                     placeholder="Password"
                     onChange={onChange}
+                    showPassword={showPassword}
+                    setShowPassword={() => setShowPassword(!showPassword)}
                   />
                 </div>
 
@@ -146,40 +177,35 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
                       value={confirmPassword}
                       placeholder="Confirm Password"
                       onChange={onChange}
+                      showPassword={showPassword}
+                      setShowPassword={() => setShowPassword(!showPassword)}
                     />
                   </div>
                 )}
 
                 {mode === "signIn" && (
-                  <p
-                    className="mt-3 mb-6 text-right text-sm text-primary cursor-pointer"
-                    onClick={() => setMode("forgotPassword")}
-                  >
-                    Forgot password?
+                  <p className="text-sm text-primary cursor-pointer" onClick={() => setMode("forgotPassword")}>
+                    {linkTextToResetPW}
                   </p>
                 )}
               </>
             )}
 
-            <Button className="">{buttonLabel}</Button>
+            <Button className="mt-14">{buttonLabel}</Button>
             {mode !== "forgotPassword" && (
               <>
-                <div className="my-4 before:border-t before:flex-1 before:border-neutral flex items-center after:border-t after:flex-1 after:border-neutral ">
-                  <p className="text-center font-semibold mx-4">or</p>
+                <div className="my-8 before:border-t before:flex-1 before:border-neutral flex items-center after:border-t after:flex-1 after:border-neutral ">
+                  <p className="text-center text-neutral mx-4">or</p>
                 </div>
 
                 <OAuthButton
-                  label={`${mode === "signUp" ? "Sign up" : "Sign in"} with Google account`}
+                  label={`${mode === "signUp" ? "Sign up" : "Sign in"} with Google`}
                   propOnSubmit={propOnSubmit && (() => propOnSubmit())}
                 />
               </>
             )}
           </form>
-          {mode === "forgotPassword" && (
-            <p className="mt-6 text-primary cursor-pointer text-center" onClick={() => setMode("signIn")}>
-              Cancel
-            </p>
-          )}
+          {mode === "forgotPassword" && textBottom}
         </div>
       </div>
     </>
