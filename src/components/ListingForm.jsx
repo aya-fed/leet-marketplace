@@ -1,16 +1,17 @@
 // Coded by Aya Saito
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { serverTimestamp, getDoc, doc, updateDoc, addDoc, collection, deleteDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useHref, useLocation, useNavigate, useParams } from "react-router";
 import { FaTrash } from "react-icons/fa";
 
 import { db } from "../firebaseConfig";
 import itemCategories from "../data/categories";
+import AuthContext from "../context/AuthContext";
 
 import SelectDropdown from "./form/SelectDropdown";
 import Checkbox from "./form/Checkbox";
@@ -22,16 +23,17 @@ import Modal from "./Modal";
 import PopupAuthForm from "./PopupAuthForm";
 
 export default function ListingForm({ className }) {
-  let itemId = "";
-
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
 
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   const [isNewListing, setIsNewListing] = useState(true);
+  const [listing, setListing] = useState(null);
+  const [itemId, setItemId] = useState();
   const auth = getAuth();
   const formRef = useRef();
-  const [loading, setLoading] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const categories = itemCategories;
@@ -51,12 +53,48 @@ export default function ListingForm({ className }) {
   });
   const { images, title, category, metadata, condition, description, price, pickup, pickupSuburb, postage } = formData;
   const [categoryMeta, setCategoryMeta] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   // ----------------------------------------------------------------------------
   // Mode - Create new  or Edit existing
   // ----------------------------------------------------------------------------
-  // Editing - check path and if edit-listing fetch data
+  // Is it Edit listing? Check path and if edit-listing fetch data
+  useEffect(() => {
+    if (location.pathname.indexOf("/edit-listing") > -1) {
+      setIsNewListing(false);
+      setItemId(params.itemId);
+    }
+  }, [params.itemId]);
 
+  // Check if the listing exists and belongs to the user
+  useEffect(() => {
+    if (!isNewListing && itemId) {
+      const docRef = doc(db, "listings", itemId);
+      getItemData(docRef);
+      async function getItemData(docRef) {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setListing(data);
+          if (auth.currentUser && auth.currentUser.uid === data.seller) {
+            setFormData({ ...data });
+            setImageUrls(data.imageUrls);
+          } else {
+            navigate("/");
+            toast.error("You can't edit this listing");
+          }
+        }
+      }
+    }
+  }, [itemId, auth]);
+
+  // If it's editing and user is not logged in, show error and navigate to home page
+  useEffect(() => {
+    if (listing && !isLoggedIn) {
+      navigate("/");
+      toast.error("You can't edit this listing");
+    }
+  }, [listing]);
   // ----------------------------------------------------------------------------
   // onChange - update formData state
   // ----------------------------------------------------------------------------
@@ -85,6 +123,8 @@ export default function ListingForm({ className }) {
       [id]: e.value,
     }));
   }
+
+  console.log(formData);
 
   // ----------------------------------------------------------------------------
   // metadata - display category specific fields
@@ -135,10 +175,10 @@ export default function ListingForm({ className }) {
       setIsModalOpen(true);
     } else {
       // validation - title, category, condition, description, price, postage
-      let isFormDataValid; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      // validation - images: max number of images, file type, max file size
-      if (images !== undefined && images.length > 0) {
+      if (!isFormValid) {
+        toast.error("Please fill in all the required fields");
+      } else if (images !== undefined && images.length > 0) {
+        // validation - images: max number of images, file type, max file size
         const isImageValid = imageValidation();
         // upload images to firebase storage
         if (isImageValid) {
@@ -203,6 +243,27 @@ export default function ListingForm({ className }) {
   }
 
   // ----------------------------------------------------------------------------
+  // Input validation - check if required fields are filled
+  // ----------------------------------------------------------------------------
+  function onBlur(e, ref) {
+    //
+    inputValidation(e, ref);
+  }
+
+  function inputValidation(e, ref) {
+    const targetId = e.target.id;
+    if (targetId.indexOf("react-select") > -1) {
+      //
+    } else if (e.target.required && !e.target.value) {
+      setIsFormValid(false);
+      findTargetElement(formRef.current.children, e.target.id, false);
+    } else {
+      setIsFormValid(true);
+      findTargetElement(formRef.current.children, e.target.id, true);
+    }
+  }
+
+  // ----------------------------------------------------------------------------
   // Image validation - checking the number of images, file type & the file size
   // ----------------------------------------------------------------------------
   function imageValidation() {
@@ -240,13 +301,14 @@ export default function ListingForm({ className }) {
     }
   }
   // ----------------------------------------------------------------------------
-  // Validation - change bg if invalid
+  // Validation invalid- change bg if invalid
   // ----------------------------------------------------------------------------
   function findTargetElement(children, idName, state) {
     [...children].forEach(child => {
       if (child.id === idName) {
+        console.log(state);
         if (state === false) {
-          child.style.background = "#EFBBCC";
+          child.style.borderColor = "#EA4335";
         } else {
           child.removeAttribute("style");
         }
@@ -303,7 +365,7 @@ export default function ListingForm({ className }) {
             pickupSuburb: "",
             postage: "",
           });
-          navigate(`/item/${docRef.id}`);
+          navigate(`/item-detail/${docRef.id}`);
           toast.success(`created a new listing`);
         })
         .catch(error => {
@@ -318,13 +380,13 @@ export default function ListingForm({ className }) {
         updatedTimestamp: serverTimestamp(), // add updated timestamp
       };
       console.log(formDataCopy);
-      const docRef = doc(db, "listings", params.itemId);
+      const docRef = doc(db, "listings", itemId);
       ////// loading spinner
       await updateDoc(docRef, formDataCopy)
         .then(() => {
           ////// loading spinner
           toast.success(`Listing has been updated`);
-          navigate(`/item/${params.itemId}`);
+          navigate(`/item-detail/${itemId}`);
         })
         .catch(error => {
           toast.error(`Error - Listing has not been updated"}`);
@@ -340,7 +402,7 @@ export default function ListingForm({ className }) {
     // show alert
     if (window.confirm("Are you sure you want to delete this listing?")) {
       // delete from db
-      const docRef = doc(db, "listings", params.itemId);
+      const docRef = doc(db, "listings", itemId);
       await deleteDoc(docRef)
         .then(() => {
           toast.success("Listing deleted");
@@ -356,10 +418,15 @@ export default function ListingForm({ className }) {
 
   return (
     <div className={className}>
-      <form ref={formRef} onSubmit={onSubmit}>
-        <h3>{isNewListing ? "Add a new listing" : "Edit listing"}</h3>
-
-        <InputField id="images" label="Images" type="file" multiple onChange={onChange} />
+      <form ref={formRef} onSubmit={onSubmit} className="flex flex-col">
+        <InputField
+          id="images"
+          label="Images"
+          type="file"
+          accept="image/png, image/jpeg, image/webp"
+          multiple
+          onChange={onChange}
+        />
         <div className="sm:grid items-start sm:grid-cols-[1fr_minmax(0,_2fr)]">
           <div></div>
           <p className="text-xs -mt-4">Max 5 images</p>
@@ -371,29 +438,31 @@ export default function ListingForm({ className }) {
           label="Title"
           placeholder="Listing title"
           onChange={onChange}
+          onBlur={onBlur}
           required={true}
         />
 
         <Select
           id="category"
-          value={category}
+          value={{ value: category, label: category }}
           label="Category"
           labelClassName="text-white"
           placeholder="Select category"
           options={categories}
           onChange={e => onSelectChange("category", e)}
+          onBlur={onBlur}
           required
         />
 
         {/* Meta data - category specific ----------------------------- */}
-        <div className="">
+        <div className="flex flex-col">
           {categoryMeta &&
             categoryMeta.map((meta, index) => {
               switch (meta.type) {
                 case "select":
                   return (
                     <SelectDropdown
-                      value={metadata[meta.name]}
+                      value={{ value: metadata[meta.name], label: metadata[meta.name] }}
                       label={meta.name}
                       key={index}
                       placeholder="Select..."
@@ -421,11 +490,11 @@ export default function ListingForm({ className }) {
             })}
         </div>
 
-        <hr className="my-10 border-dashed border-neutral-500" />
+        <hr className="my-10 border-background-4" />
 
         <Select
           id="condition"
-          value={condition}
+          value={{ value: condition, label: condition }}
           label="Condition"
           labelClassName="text-white"
           placeholder="Select item condition"
@@ -438,6 +507,7 @@ export default function ListingForm({ className }) {
             "As-is or not working",
           ]}
           onChange={e => onSelectChange("condition", e)}
+          onBlur={onBlur}
           required
         />
 
@@ -446,12 +516,13 @@ export default function ListingForm({ className }) {
           value={description}
           label="Description"
           placeholder="Listing Description"
-          className="h-48"
+          className="h-60"
           onChange={onChange}
+          onBlur={onBlur}
           required
         />
 
-        <hr className="my-10 border-dashed border-neutral-500" />
+        <hr className="my-10 border border-background-4" />
 
         <InputField
           id="price"
@@ -462,6 +533,7 @@ export default function ListingForm({ className }) {
           type="number"
           min="1"
           onChange={onChange}
+          onBlur={onBlur}
           required
         />
 
@@ -485,6 +557,7 @@ export default function ListingForm({ className }) {
           type="number"
           min="0"
           onChange={onChange}
+          onBlur={onBlur}
           required
         />
         <div className="sm:grid items-start sm:grid-cols-[1fr_minmax(0,_2fr)]">
@@ -493,18 +566,18 @@ export default function ListingForm({ className }) {
         </div>
       </form>
 
-      <hr className="my-10 border-dashed border-neutral-500" />
+      <hr className="my-10 border border-background-4" />
 
-      <div className="flex justify-center items-center gap-2">
-        <Button className="border-neutral-light text-neutral-light mt-6 w-1/2" onClick={() => redirectPage()}>
+      <div className="flex justify-center items-center gap-4">
+        <Button className="border-neutral-light text-neutral-light mt-6 w-1/2" onClick={() => navigate(-1)}>
           Cancel
         </Button>
-        <Button className="mt-6 w-1/2" onClick={onSubmit}>
+        <Button className="mt-6 w-1/2" onClick={onSubmit} disabled={!isFormValid ? true : false}>
           {`${isNewListing ? "Create" : "Update"} Listing`}
         </Button>
       </div>
       {!isNewListing && (
-        <Button className="mt-8" onClick={() => onDelete(params.itemId)}>
+        <Button className="mt-8 border-neutral-light text-neutral-light" onClick={() => onDelete(itemId)}>
           <FaTrash size={13} />
           Delete this listing
         </Button>

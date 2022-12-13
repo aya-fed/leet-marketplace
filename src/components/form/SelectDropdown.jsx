@@ -5,6 +5,7 @@ import Select from "react-select";
 import RequiredChip from "./RequiredChip";
 
 const SelectDropdown = ({
+  ref,
   label,
   labelClassName,
   stacked,
@@ -15,6 +16,7 @@ const SelectDropdown = ({
   value,
   closeMenuOnSelect,
   onChange,
+  onBlur,
   isMulti,
   isDisabled,
   isClearable,
@@ -23,6 +25,7 @@ const SelectDropdown = ({
 }) => {
   let dropdownOptions = [];
   const [isFocused, setIsFocused] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
 
   if (typeof options[0] === "string") {
     options.map(opt => {
@@ -36,10 +39,12 @@ const SelectDropdown = ({
   const customStylesFilter = {
     menuList: styles => ({
       ...styles,
+      color: "#FFF",
       background: "#1E2235",
     }),
     option: (styles, state) => ({
       ...styles,
+      color: "#FFF",
       backgroundColor: "#1E2235",
       // padding: 20,
       "&:hover": {
@@ -48,15 +53,23 @@ const SelectDropdown = ({
     }),
     control: () => ({
       // styles for the box itself
-      border: isFilter ? "solid 0 0 1px 0 #FFF" : isFocused ? "solid 1px #FBBC05" : "solid 1px #FFF",
+      color: "#FFF",
+      border: isFilter
+        ? "solid 0 0 1px 0 #FFF"
+        : isFocused
+        ? "solid 1px #FBBC05"
+        : isInvalid
+        ? "solid 1px #EA4335"
+        : "solid 1px #FFF",
       borderRadius: "10px",
       display: "flex",
       backgroundColor: "transparent",
     }),
     singleValue: (styles, state) => {
       const opacity = state.isDisabled ? 0.5 : 1;
+      const color = "#FFF";
       const transition = "opacity 300ms";
-      return { ...styles, opacity, transition };
+      return { ...styles, color, opacity, transition };
     },
   };
   // group style
@@ -85,8 +98,8 @@ const SelectDropdown = ({
 
       <Select
         id={id}
-        placeholder={placeholder}
-        value={value}
+        placeholder={<div>{placeholder}</div>}
+        value={!value.value ? null : value}
         closeMenuOnSelect={closeMenuOnSelect}
         isMulti={isMulti}
         options={dropdownOptions}
@@ -95,7 +108,11 @@ const SelectDropdown = ({
         isSearchable={isSearchable}
         onChange={e => onChange(e)}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onBlur={() => {
+          setIsFocused(false);
+          // needs refactoring
+          setIsInvalid(required && value.value === "" ? true : false);
+        }}
         styles={customStylesFilter}
         components={{
           IndicatorSeparator: () => null,
