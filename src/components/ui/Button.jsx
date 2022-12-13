@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { twMerge } from "tailwind-merge";
 const defaultClassNamesArr = [
   "w-full",

@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
@@ -5,8 +7,8 @@ import { useEffect, useState } from "react";
 // function to fetch data of one item from firestore
 export function useFetchOneItem(itemId = null) {
   const [isLoading, setIsLoading] = useState(true);
-  const [item, setItem] = useState();
-  const [sellerInfo, setSellerInfo] = useState();
+  const [item, setItem] = useState(null);
+  const [sellerInfo, setSellerInfo] = useState(null);
 
   useEffect(() => {
     if (itemId) {

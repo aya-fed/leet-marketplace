@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { PositiveIcon, NeutralIcon, NegativeIcon } from "./ui/IconRatings";
 import { PlaceholderProfilePic } from "./ui/PlaceholderProfilePic";
 import { useFetchOneUser } from "../hooks/useFetchOneUser";
