@@ -12,6 +12,7 @@ import { FaTrash } from "react-icons/fa";
 import { db } from "../firebaseConfig";
 import itemCategories from "../data/categories";
 import AuthContext from "../context/AuthContext";
+import { useHandleListing } from "../hooks/useHandleListing";
 
 import SelectDropdown from "./form/SelectDropdown";
 import Checkbox from "./form/Checkbox";
@@ -21,6 +22,7 @@ import Textarea from "./form/Textarea";
 import Button from "./ui/Button";
 import Modal from "./Modal";
 import PopupAuthForm from "./PopupAuthForm";
+import PopupDeleteConfirmation from "./PopupDeleteConfirmation";
 
 export default function ListingForm({ className }) {
   const location = useLocation();
@@ -35,7 +37,10 @@ export default function ListingForm({ className }) {
   const auth = getAuth();
   const formRef = useRef();
 
+  const { createListing, updateListing, deleteListing } = useHandleListing();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const categories = itemCategories;
   const [imageUrls, setImageUrls] = useState();
   const [submit, setSubmit] = useState(false);
@@ -123,8 +128,6 @@ export default function ListingForm({ className }) {
       [id]: e.value,
     }));
   }
-
-  console.log(formData);
 
   // ----------------------------------------------------------------------------
   // metadata - display category specific fields
@@ -245,12 +248,12 @@ export default function ListingForm({ className }) {
   // ----------------------------------------------------------------------------
   // Input validation - check if required fields are filled
   // ----------------------------------------------------------------------------
-  function onBlur(e, ref) {
+  function onBlur(e) {
     //
-    inputValidation(e, ref);
+    inputValidation(e);
   }
 
-  function inputValidation(e, ref) {
+  function inputValidation(e) {
     const targetId = e.target.id;
     if (targetId.indexOf("react-select") > -1) {
       //
@@ -335,6 +338,7 @@ export default function ListingForm({ className }) {
     let formDataCopy = {
       ...formData,
       price: parseFloat(price), // change type from string to number
+      postage: parseFloat(price), // change type from string to number
       imageUrls,
     };
     // delete unnecessary data
@@ -392,27 +396,6 @@ export default function ListingForm({ className }) {
           toast.error(`Error - Listing has not been updated"}`);
           console.log(error);
         });
-    }
-  }
-
-  // ----------------------------------------------------------------------------
-  // Delete listing - alert popup then delete
-  // ----------------------------------------------------------------------------
-  async function onDelete(listingId) {
-    // show alert
-    if (window.confirm("Are you sure you want to delete this listing?")) {
-      // delete from db
-      const docRef = doc(db, "listings", itemId);
-      await deleteDoc(docRef)
-        .then(() => {
-          toast.success("Listing deleted");
-          navigate(-1);
-        })
-        .catch(error => {
-          toast.error("The listing was not deleted due to an error");
-          console.log(error);
-        });
-      // delete images from storage
     }
   }
 
@@ -577,7 +560,7 @@ export default function ListingForm({ className }) {
         </Button>
       </div>
       {!isNewListing && (
-        <Button className="mt-8 border-neutral-light text-neutral-light" onClick={() => onDelete(itemId)}>
+        <Button className="mt-8 border-neutral-light text-neutral-light" onClick={() => setIsDeleteModalOpen(true)}>
           <FaTrash size={13} />
           Delete this listing
         </Button>
@@ -585,18 +568,30 @@ export default function ListingForm({ className }) {
 
       {/* lazy login - show Authform modal popup ----------------------------- */}
       {isModalOpen && (
+        <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <PopupAuthForm
+            onSubmit={() => {
+              setIsModalOpen(false);
+            }}
+          />
+        </Modal>
+      )}
+
+      {/* Delete confirmation modal popup ----------------------------- */}
+      {isDeleteModalOpen && (
         <Modal
-          content={
-            <PopupAuthForm
-              mode="signIn"
-              onSubmit={() => {
-                setIsModalOpen(false);
-              }}
-            />
-          }
-          isModalOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
+          isModalOpen={isDeleteModalOpen}
+          setIsModalOpen={setIsDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+        >
+          <PopupDeleteConfirmation
+            onClose={() => setIsDeleteModalOpen(false)}
+            onSubmit={() => {
+              setIsDeleteModalOpen(false);
+              deleteListing(itemId);
+            }}
+          />
+        </Modal>
       )}
     </div>
   );
