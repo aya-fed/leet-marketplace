@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import AccountContext from "./context/AccountContext";
+import AuthContext from "./context/AuthContext";
+import { useAuthStatus } from "./hooks/useAuthStatus";
+import { useAccountData } from "./hooks/useAccountData";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -21,9 +24,38 @@ import MyPurchases from "./pages/MyPurchases";
 import SoldItems from "./pages/SoldItems";
 import Wishlist from "./pages/Wishlist";
 import CheckOut from "./pages/CheckOut";
-import ItemCard from "./components/ItemCard";
-
+import TEST from "./pages/TEST";
 function App() {
+  const { loggedIn, currentUserId } = useAuthStatus();
+  const { userInfo } = useAccountData();
+  const [accountData, setAccountData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // auth status to save in context
+  useEffect(() => {
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, [loggedIn]);
+  // user info to save in context
+  useEffect(() => {
+    if (userInfo) {
+      console.log("checking", userInfo);
+      setAccountData({
+        ...userInfo,
+        userId: currentUserId,
+      });
+    } else if (!isLoggedIn) {
+      setAccountData({
+        userId: "",
+        name: "",
+        profilePic: "",
+        timestamp: "",
+        wishlist: [],
+        purchasedItems: [],
+        soldItems: [],
+      });
+    }
+  }, [userInfo]);
   return (
     <div className="App">
       <Router>
@@ -45,14 +77,12 @@ function App() {
                 <Route path="/my-purchases" element={<MyPurchases />} />
                 <Route path="/sold-items" element={<SoldItems />} />
                 <Route path="/wishlist" element={<Wishlist />} />
-                <Route path="/test" element={<TEST />} />
               </Routes>
             </div>
             <Footer />
           </AccountContext.Provider>
         </AuthContext.Provider>
       </Router>
-      
       <BottomNav />
       <ToastContainer
         position="bottom-center"
@@ -69,5 +99,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
