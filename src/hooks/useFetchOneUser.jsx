@@ -2,7 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 
-// function to fetch all items from firestore
+// function to fetch data for one user from firestore
 export function useFetchOneUser(userId = null) {
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState();

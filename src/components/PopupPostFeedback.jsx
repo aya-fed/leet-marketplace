@@ -45,7 +45,6 @@ export default function PopupPostFeedback({ onClose }) {
     ],
     description:
       "unused, unopened, undamaged item in its original packaging (where packaging is applicable). \n\nPackaging should be the same as what is available in a retail store, unless the item was packaged by the manufacturer in non-retail packaging, such as an unprinted box or plastic bag.",
-    seller: "xfMIznl4DISG1YCXqSawo7PrCIK2",
     postage: "",
     timestamp: {
       seconds: 1669716045,
@@ -57,7 +56,7 @@ export default function PopupPostFeedback({ onClose }) {
       seconds: 1669914816,
       nanoseconds: 842000000,
     },
-    price: "799",
+    price: 799,
     pickupSuburb: "",
     pickup: false,
     condition: "Brand new",
@@ -117,7 +116,7 @@ export default function PopupPostFeedback({ onClose }) {
           <div className="max-w-[70%] flex flex-col justify-between">
             <div className="w-full h-11 line-clamp-2 text-sm font-medium">{item.title}</div>
             <div className="w-full text-sm font-light">
-              Sold for <span className="text-primary font-medium text-base">${item.price}</span>
+              Sold for <span className="text-primary font-medium text-base">${item.price.toFixed(2)}</span>
             </div>
           </div>
         </div>

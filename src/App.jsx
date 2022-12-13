@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import AccountContext from "./context/AccountContext";
 import AuthContext from "./context/AuthContext";
 import { useAuthStatus } from "./hooks/useAuthStatus";
 import { useAccountData } from "./hooks/useAccountData";
+
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -25,17 +27,21 @@ import SoldItems from "./pages/SoldItems";
 import Wishlist from "./pages/Wishlist";
 import CheckOut from "./pages/CheckOut";
 import TEST from "./pages/TEST";
+
 function App() {
   const { loggedIn, currentUserId } = useAuthStatus();
   const { userInfo } = useAccountData();
+
   const [accountData, setAccountData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   // auth status to save in context
   useEffect(() => {
     if (loggedIn) {
       setIsLoggedIn(true);
     }
   }, [loggedIn]);
+
   // user info to save in context
   useEffect(() => {
     if (userInfo) {
@@ -56,29 +62,30 @@ function App() {
       });
     }
   }, [userInfo]);
+
   return (
     <div className="App">
       <Router>
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <AccountContext.Provider value={{ accountData, setAccountData }}>
             <Header />
-            <div className="w-[90%] max-w-[1200px] my-[100px] py-[80px] mx-auto">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/search/:keywords" element={<Search />} />
-                <Route path="/category/:categoryName" element={<Category />} />
-                <Route path="/item-detail/:itemId" element={<ItemDetail />} />
-                <Route path="/user-profile/:userId" element={<UserProfile />} />
-                <Route path="/create-listing" element={<CreateListing />} />
-                <Route path="/checkout" element={<CheckOut />} />
-                <Route path="/edit-listing/:itemId" element={<EditListing />} />
-                <Route path="/my-account" element={<MyAccount />} />
-                <Route path="/my-listings" element={<MyListings />} />
-                <Route path="/my-purchases" element={<MyPurchases />} />
-                <Route path="/sold-items" element={<SoldItems />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-              </Routes>
-            </div>
+              <div className="w-[90%] max-w-[1200px] my-[100px] py-[80px] mx-auto">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/search/:keywords" element={<Search />} />
+                  <Route path="/category/:categoryName" element={<Category />} />
+                  <Route path="/item-detail/:itemId" element={<ItemDetail />} />
+                  <Route path="/user-profile/:userId" element={<UserProfile />} />
+                  <Route path="/create-listing" element={<CreateListing />} />
+                  <Route path="/checkout" element={<CheckOut />} />
+                  <Route path="/edit-listing/:itemId" element={<EditListing />} />
+                  <Route path="/my-account" element={<MyAccount />} />
+                  <Route path="/my-listings" element={<MyListings />} />
+                  <Route path="/my-purchases" element={<MyPurchases />} />
+                  <Route path="/sold-items" element={<SoldItems />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
+                </Routes>
+              </div>
             <Footer />
           </AccountContext.Provider>
         </AuthContext.Provider>

@@ -23,9 +23,9 @@ export default function ListView() {
           <div>
             <Link to={`/item-detail/${item.itemId}`} > <ItemCard key={index} item={item} /></Link>
           </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
         </div>
     </div>
   );
