@@ -1,11 +1,11 @@
 // Coded by Michele Carter
 
 import { useState } from 'react'
-import { HiOutlineHeart } from 'react-icons/hi'
-import { HiHeart } from 'react-icons/hi'
+import { FaRegHeart} from 'react-icons/fa'
+import { FaHeart} from 'react-icons/fa'
 
 
-function WishlistIcon() {
+function WishlistIcon({ className, size }) {
 
     const [isActive, setIsActive] = useState(false);
 
@@ -15,8 +15,8 @@ function WishlistIcon() {
 
     return (
         <div>
-            {!isActive && <HiOutlineHeart className='text-neutral-light' onClick={toggleState} />}
-            {isActive && <HiHeart onClick={toggleState}/>}
+            {!isActive && <FaRegHeart  className='text-neutral-light' onClick={toggleState} size={size} />}
+            {isActive && <FaHeart  onClick={toggleState} size={size} />}
         </div>
    
     )
