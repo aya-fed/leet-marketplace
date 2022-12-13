@@ -1,3 +1,5 @@
+// Coded by Michele Carter
+
 import React from 'react'
 import WishlistIcon from './ui/WishlistIcon'
 

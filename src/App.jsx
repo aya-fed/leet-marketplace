@@ -28,24 +28,26 @@ function App() {
     <div className="App">
       <Router>
         <Header />
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search/:keywords" element={<Search />} />
-          <Route path="/category/:categoryName" element={<Category />} />
-          <Route path="/item-detail/:itemId" element={<ItemDetail />} />
-          <Route path="/user-profile/:userId" element={<UserProfile />} />
-          <Route path="/create-listing" element={<CreateListing />} />
-          <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/edit-listing/:itemId" element={<EditListing />} />
-          <Route path="/my-account" element={<MyAccount />} />
-          <Route path="/my-listings" element={<MyListings />} />
-          <Route path="/my-purchases" element={<MyPurchases />} />
-          <Route path="/sold-items" element={<SoldItems />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-        </Routes>
+        <div className="mt-[100px] py-[80px]">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search/:keywords" element={<Search />} />
+            <Route path="/category/:categoryName" element={<Category />} />
+            <Route path="/item-detail/:itemId" element={<ItemDetail />} />
+            <Route path="/user-profile/:userId" element={<UserProfile />} />
+            <Route path="/create-listing" element={<CreateListing />} />
+            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/edit-listing/:itemId" element={<EditListing />} />
+            <Route path="/my-account" element={<MyAccount />} />
+            <Route path="/my-listings" element={<MyListings />} />
+            <Route path="/my-purchases" element={<MyPurchases />} />
+            <Route path="/sold-items" element={<SoldItems />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+          </Routes>
+        </div>
         <Footer />
       </Router>
+      
       <BottomNav />
       <ToastContainer
         position="bottom-center"

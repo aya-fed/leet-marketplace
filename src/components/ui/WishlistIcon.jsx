@@ -1,3 +1,5 @@
+// Coded by Michele Carter
+
 import { useState } from 'react'
 import { HiOutlineHeart } from 'react-icons/hi'
 import { HiHeart } from 'react-icons/hi'
