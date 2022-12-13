@@ -27,25 +27,30 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
-        <div className="mt-[100px] py-[80px]">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search/:keywords" element={<Search />} />
-            <Route path="/category/:categoryName" element={<Category />} />
-            <Route path="/item-detail/:itemId" element={<ItemDetail />} />
-            <Route path="/user-profile/:userId" element={<UserProfile />} />
-            <Route path="/create-listing" element={<CreateListing />} />
-            <Route path="/checkout" element={<CheckOut />} />
-            <Route path="/edit-listing/:itemId" element={<EditListing />} />
-            <Route path="/my-account" element={<MyAccount />} />
-            <Route path="/my-listings" element={<MyListings />} />
-            <Route path="/my-purchases" element={<MyPurchases />} />
-            <Route path="/sold-items" element={<SoldItems />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-          </Routes>
-        </div>
-        <Footer />
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+          <AccountContext.Provider value={{ accountData, setAccountData }}>
+            <Header />
+            <div className="w-[90%] max-w-[1200px] my-[100px] py-[80px] mx-auto">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/search/:keywords" element={<Search />} />
+                <Route path="/category/:categoryName" element={<Category />} />
+                <Route path="/item-detail/:itemId" element={<ItemDetail />} />
+                <Route path="/user-profile/:userId" element={<UserProfile />} />
+                <Route path="/create-listing" element={<CreateListing />} />
+                <Route path="/checkout" element={<CheckOut />} />
+                <Route path="/edit-listing/:itemId" element={<EditListing />} />
+                <Route path="/my-account" element={<MyAccount />} />
+                <Route path="/my-listings" element={<MyListings />} />
+                <Route path="/my-purchases" element={<MyPurchases />} />
+                <Route path="/sold-items" element={<SoldItems />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/test" element={<TEST />} />
+              </Routes>
+            </div>
+            <Footer />
+          </AccountContext.Provider>
+        </AuthContext.Provider>
       </Router>
       
       <BottomNav />
