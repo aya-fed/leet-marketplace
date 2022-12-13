@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import Button from "./ui/Button";
 
 export default function PopupDeleteConfirmation({ onClose }) {

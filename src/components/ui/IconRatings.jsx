@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { FaRegSmile, FaRegMeh, FaRegFrown } from "react-icons/fa";
 
 const PositiveIcon = ({ className, size }) => <FaRegSmile className={className} size={size} />;

@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 

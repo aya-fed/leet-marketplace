@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import Chip from "../ui/Chip";
 
 export default function RequiredChip() {

@@ -1,4 +1,5 @@
-import { useState } from "react";
+// Coded by Aya Saito
+
 import { twMerge } from "tailwind-merge";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import RequiredChip from "./RequiredChip";
@@ -54,6 +55,7 @@ const InputField = ({
           max={max}
           className={twMerge(`
             w-full py-2 
+            border 
             border-white
             bg-transparent
             rounded-[10px] 

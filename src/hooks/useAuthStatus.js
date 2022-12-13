@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 

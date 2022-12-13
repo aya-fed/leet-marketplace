@@ -1,3 +1,9 @@
+import ListingForm from "../components/ListingForm";
+
 export default function CreateListing() {
-  return <div>CreateListing</div>;
+  return (
+    <div>
+      <ListingForm />
+    </div>
+  );
 }
