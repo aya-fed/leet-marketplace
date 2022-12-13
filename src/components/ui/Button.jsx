@@ -1,4 +1,4 @@
-// Coded by Michele
+// Coded by Michele Carter
 
 import React from 'react'
 
