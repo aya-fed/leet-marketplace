@@ -61,3 +61,62 @@
     @apply pb-1 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary;
   }
 }
+
+.sidebar{
+
+  
+
+  height: 100%;
+  overflow: auto;
+}
+
+
+.sidebar-item{
+  margin-left: 1.em;
+  padding: 1.75em 1em;
+  display: block;
+  transition: background-color .15s;
+  border-radius: 5px;
+}
+
+
+
+.sidebar-title{
+  display: flex;
+  font-size: 1.2em;
+  justify-content: space-between;
+}
+.sidebar-title span i{
+  display: inline-block;
+  width: 1.5em;
+}
+.sidebar-title .toggle-btn{
+  cursor: pointer;
+  transition: transform .3s;
+}
+.sidebar-item.open > .sidebar-title .toggle-btn{
+  transform: rotate(180deg);
+}
+.sidebar-content{
+  padding-top: 2.25em;
+  height: 0;
+  overflow: hidden;
+}
+.sidebar-item.open > .sidebar-content{
+  height: auto;
+}
+
+.sidebar-item.plain{
+  color: #fff;
+  text-decoration: none;
+  background: #1E2235;
+}
+.sidebar-item.plain:hover{
+  background: #51D9D9;
+  color: #1E2235;
+}
+.sidebar-item.plain i{
+ 
+  width: 1.7em;
+  
+}

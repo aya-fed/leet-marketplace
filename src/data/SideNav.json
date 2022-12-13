@@ -1,0 +1,88 @@
+[
+  
+    {
+        "title": "Components",
+
+        "childrens": [
+            {
+                "title": "RAM",
+                "path": "/ram"
+            },
+            {
+                "title": "CPU",
+                "path": "/cpu"
+            },
+            {
+                "title": "Hard Drive",
+                "path": "/harddrive"
+            },
+            {
+                "title": "Graphics Card",
+                "path": "/Graphicscard"
+            },
+            {
+                "title": "Desktop Cases",
+                "path": "/casing"
+            }
+        ]
+
+        
+    },
+    {
+         "title": "Devices",
+           "childrens": [
+            {
+                "title": "Desktop",
+                "path": "/desktop"
+            },
+            {
+                "title": "Laptop",
+                "path": "/laptop"
+            },
+            {
+                "title": "Consoles",
+                "path": "/console"
+            }
+           ]
+
+    },
+    {
+         "title": "Accessories",
+           "childrens": [
+            {
+                "title": "Keyboard",
+                "path": "/keyboard"
+            },
+            {
+                "title": "Mice",
+                "path": "/mice"
+            },
+            {
+                "title": "Headsets",
+                "path": "/headsets"
+            },
+            {
+                "title": "Monitor",
+                "path": "/monitor"
+            }
+           ]
+
+    },
+    {
+         "title": "Other",
+           "childrens": [
+            {
+                "title": "Games",
+                "path": "/games"
+            },
+            {
+                "title": "Other",
+                "path": "/other"
+            }
+         
+           ]
+           
+           
+
+    }
+]
