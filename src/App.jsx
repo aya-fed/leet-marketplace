@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import AccountContext from "./context/AccountContext";
+import AuthContext from "./context/AuthContext";
+import { useAuthStatus } from "./hooks/useAuthStatus";
+import { useAccountData } from "./hooks/useAccountData";
 
 import "./App.css";
 import Footer from "./components/Footer";
@@ -24,28 +29,65 @@ import CheckOut from "./pages/CheckOut";
 import TEST from "./pages/TEST";
 
 function App() {
+  const { loggedIn, currentUserId } = useAuthStatus();
+  const { userInfo } = useAccountData();
+
+  const [accountData, setAccountData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // auth status to save in context
+  useEffect(() => {
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, [loggedIn]);
+
+  // user info to save in context
+  useEffect(() => {
+    if (userInfo) {
+      console.log("checking", userInfo);
+      setAccountData({
+        ...userInfo,
+        userId: currentUserId,
+      });
+    } else if (!isLoggedIn) {
+      setAccountData({
+        userId: "",
+        name: "",
+        profilePic: "",
+        timestamp: "",
+        wishlist: [],
+        purchasedItems: [],
+        soldItems: [],
+      });
+    }
+  }, [userInfo]);
+
   return (
     <div className="App">
       <Router>
-        <Header />
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search/:keywords" element={<Search />} />
-          <Route path="/category/:categoryName" element={<Category />} />
-          <Route path="/item-detail/:itemId" element={<ItemDetail />} />
-          <Route path="/user-profile/:userId" element={<UserProfile />} />
-          <Route path="/create-listing" element={<CreateListing />} />
-          <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/edit-listing/:itemId" element={<EditListing />} />
-          <Route path="/my-account" element={<MyAccount />} />
-          <Route path="/my-listings" element={<MyListings />} />
-          <Route path="/my-purchases" element={<MyPurchases />} />
-          <Route path="/sold-items" element={<SoldItems />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/test" element={<TEST />} />
-        </Routes>
-        <Footer />
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+          <AccountContext.Provider value={{ accountData, setAccountData }}>
+            <Header />
+            <Sidebar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search/:keywords" element={<Search />} />
+              <Route path="/category/:categoryName" element={<Category />} />
+              <Route path="/item-detail/:itemId" element={<ItemDetail />} />
+              <Route path="/user-profile/:userId" element={<UserProfile />} />
+              <Route path="/create-listing" element={<CreateListing />} />
+              <Route path="/checkout" element={<CheckOut />} />
+              <Route path="/edit-listing/:itemId" element={<EditListing />} />
+              <Route path="/my-account" element={<MyAccount />} />
+              <Route path="/my-listings" element={<MyListings />} />
+              <Route path="/my-purchases" element={<MyPurchases />} />
+              <Route path="/sold-items" element={<SoldItems />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+            </Routes>
+            <Footer />
+          </AccountContext.Provider>
+        </AuthContext.Provider>
       </Router>
       <BottomNav />
       <ToastContainer
