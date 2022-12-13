@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import AccountContext from "../context/AccountContext";
@@ -22,10 +24,12 @@ export default function Wishlist() {
   console.log(newWishlist);
 
   useEffect(() => {
-    setAccountData(prev => ({
-      ...prev,
-      wishlist: newWishlist,
-    }));
+    if (newWishlist.length > 0) {
+      setAccountData(prev => ({
+        ...prev,
+        wishlist: newWishlist,
+      }));
+    }
   }, [newWishlist]);
 
   if (!isLoggedIn) {
@@ -57,7 +61,7 @@ export default function Wishlist() {
                   </div>
                   <div className="flex flex-col gap-4">
                     <div className="line-clamp-2">{item.title}</div>
-                    <div className="text-primary">${item.price.toFixed(2)}</div>
+                    <div className="text-primary">${parseFloat(item.price).toFixed(2)}</div>
                   </div>
                 </div>
                 <div>
