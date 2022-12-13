@@ -2,7 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 
-// function to fetch all items from firestore
+// function to fetch data of one item from firestore
 export function useFetchOneItem(itemId = null) {
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState();
