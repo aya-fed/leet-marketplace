@@ -50,6 +50,7 @@
   input[type=range]::-webkit-slider-runnable-track, input[type=range]::-moz-range-track { 
     @apply w-[188px] h-[2px] cursor-pointer bg-white rounded;
   }
+
 }
 
 @layer components {

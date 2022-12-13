@@ -2,11 +2,11 @@
 
 
 import { useState } from 'react'
-import { BsBellFill } from 'react-icons/bs'
-import { BsBell } from 'react-icons/bs'
+import { FaRegBell  } from 'react-icons/fa'
+import { FaBell } from 'react-icons/fa'
 
 
-function NotificationIcon() {
+function NotificationIcon({ className, size }) {
 
     const [isActive, setIsActive] = useState(false);
 
@@ -16,8 +16,8 @@ function NotificationIcon() {
 
     return (
         <div>
-            {!isActive && <BsBell className='text-neutral-light' onClick={toggleState} />}
-            {isActive && <BsBellFill onClick={toggleState}/>}
+            {!isActive && <FaRegBell className='text-neutral-light' onClick={toggleState} size={size} />}
+            {isActive && <FaBell onClick={toggleState} size={size} />}
         </div>
    
     )
