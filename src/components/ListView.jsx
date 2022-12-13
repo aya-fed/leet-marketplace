@@ -2,6 +2,9 @@
 
 import itemCategories from "../data/categories";
 import { useFetchItems } from "../hooks/useFetchItems";
+import { Link } from "react-router-dom";
+import ItemCard from "./ItemCard";
+
 
 export default function ListView() {
   const categories = itemCategories.slice();
