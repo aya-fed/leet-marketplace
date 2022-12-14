@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 
@@ -8,7 +10,6 @@ export function useAuthStatus() {
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
-      console.log("useAuthStatus hook");
       if (user) {
         //if user exists
         setLoggedIn(true);
@@ -21,6 +22,5 @@ export function useAuthStatus() {
     });
   }, []);
 
-  console.log(currentUserId);
   return { loggedIn, currentUserId, isLoading };
 }

@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";

@@ -1,4 +1,5 @@
-import { useState } from "react";
+// Coded by Aya Saito
+
 import { twMerge } from "tailwind-merge";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import RequiredChip from "./RequiredChip";
@@ -12,6 +13,7 @@ const InputField = ({
   max,
   currency,
   onChange,
+  onBlur,
   value,
   placeholder,
   required,
@@ -40,10 +42,12 @@ const InputField = ({
       <div className="relative rounded-[10px] overflow-hidden">
         {currency && (
           <div
-            className="absolute h-full w-7 left-0 rounded-[12px] rounded-r-none border border-r-0 border-white font-medium text-center text-background-4 bg-yellow"
+            className="absolute p-[1px] h-full w-7 left-0 font-medium text-center text-background-4"
             style={{ borderTopLeftRadius: "0.25rem" }}
           >
-            <div className="absolute w-full top-[50%] translate-y-[-50%] mx-auto">{currency}</div>
+            <div className="flex w-full h-full rounded-tl-[10px] rounded-bl-[10px] bg-yellow justify-center items-center">
+              <span>{currency}</span>
+            </div>
           </div>
         )}
         <input
@@ -54,14 +58,17 @@ const InputField = ({
           max={max}
           className={twMerge(`
             w-full py-2 
-            border-white
+            border 
+            border-neutral-light
             bg-transparent
             rounded-[10px] 
             ${currency ? "pl-9 pr-4" : "px-4"}
             ${className ?? ""}
           `)}
           placeholder={placeholder}
+          required={required}
           onChange={onChange}
+          onBlur={onBlur}
           {...props}
         />
         {type === "password" && // Toggle display of password chars

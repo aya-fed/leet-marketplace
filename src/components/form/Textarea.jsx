@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { twMerge } from "tailwind-merge";
 import RequiredChip from "./RequiredChip";
 
@@ -8,6 +10,7 @@ const Textarea = ({
   min,
   max,
   onChange,
+  onBlur,
   value,
   placeholder,
   className,
@@ -46,7 +49,9 @@ const Textarea = ({
         ${className ?? ""}
       `)}
         placeholder={placeholder}
+        required={required}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );

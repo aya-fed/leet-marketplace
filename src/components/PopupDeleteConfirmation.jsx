@@ -1,10 +1,9 @@
+// Coded by Aya Saito
+
 import Button from "./ui/Button";
 
-export default function PopupDeleteConfirmation({ onClose }) {
-  function deleteItem() {
-    /// Add this later
-    alert("will add delete function later");
-  }
+export default function PopupDeleteConfirmation({ onClose, onSubmit }) {
+  function deleteItem() {}
   return (
     <>
       <div className="flex justify-center flex-wrap items-center max-w-lg mx-auto">
@@ -14,7 +13,7 @@ export default function PopupDeleteConfirmation({ onClose }) {
         </div>
         <div className="w-full mt-[50px] flex gap-[14px]">
           <Button cancel className="w-1/2" onClick={onClose} />
-          <Button className="w-1/2" onClick={deleteItem}>
+          <Button className="w-1/2" onClick={onSubmit}>
             Delete
           </Button>
         </div>

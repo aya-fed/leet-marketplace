@@ -1,3 +1,5 @@
+// Coded by Aya Saito
+
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence } from "framer-motion";
@@ -28,12 +30,18 @@ const Modal = ({ isModalOpen, setIsModalOpen, onClose, title, className, ...prop
   const modalRef = useRef(null); //modal reference
 
   useEffect(() => {
+    document.body.style.overflow = "hidden"; // Stop background scroll
+    return () => {
+      document.body.style.overflow = "unset"; // Enable background scroll
+    };
+  }, []);
+
+  useEffect(() => {
     if (isModalOpen) open();
     else close();
   }, [isModalOpen]);
 
   const open = () => {
-    document.body.style.overflow = "hidden"; // Stop background scroll
     gsap.fromTo(
       modalRef.current,
       { opacity: 0 },
@@ -44,7 +52,6 @@ const Modal = ({ isModalOpen, setIsModalOpen, onClose, title, className, ...prop
   };
 
   function close() {
-    document.body.style.overflow = "unset"; // Enable background scroll
     gsap.to(modalRef.current, {
       opacity: 0,
     });
@@ -59,7 +66,7 @@ const Modal = ({ isModalOpen, setIsModalOpen, onClose, title, className, ...prop
     <AnimatePresence>
       <div
         ref={modalRef}
-        className={`bg-black bg-opacity-70 w-[100vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed flex justify-center items-center`}
+        className={`z-[300] bg-black bg-opacity-70 w-[100vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed flex justify-center items-center`}
         style={{ height: bgHeight, opacity: 0 }}
       >
         <div className="flex items-center">

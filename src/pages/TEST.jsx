@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { HiHeart } from "react-icons/hi";
 import Button from "../components/ui/Button";
@@ -10,11 +10,24 @@ import SelectDropdown from "../components/form/SelectDropdown";
 import Checkbox from "../components/form/Checkbox";
 import PopupDeleteConfirmation from "../components/PopupDeleteConfirmation";
 import PopupPostFeedback from "../components/PopupPostFeedback";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
+import AccountContext from "../context/AccountContext";
 
 export default function TEST() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpenContentCheck, setIsModalOpenContentCheck] = useState(true);
+  const [isModalOpenContentCheck, setIsModalOpenContentCheck] = useState(false);
+  const auth = getAuth();
+
+  const { accountData } = useContext(AccountContext);
+  console.log(accountData);
+
+  function onLogout() {
+    auth.signOut();
+    toast.success("Successfully logged out");
+  }
+
   return (
     <div className="w-[90%] my-6 mx-auto">
       {/* Checking Form components -------------------------------------------------- */}
@@ -63,9 +76,7 @@ export default function TEST() {
               onClose={() => alert("Closed modal.")}
             />
           )}
-
           <Button onClick={() => setIsModalOpen2(true)}>Modal with contents</Button>
-
           {isModalOpen2 && (
             <Modal title="Modal Test" isModalOpen={isModalOpen2} setIsModalOpen={setIsModalOpen2}>
               <p>This is the content.</p>
@@ -74,6 +85,11 @@ export default function TEST() {
               </Button>
             </Modal>
           )}
+          <Button onClick={onLogout} className="sm:w-[400px] mx-auto">
+            Sign out
+          </Button>
+
+          {!accountData && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>}
 
           {isModalOpenContentCheck && (
             <Modal
@@ -81,10 +97,17 @@ export default function TEST() {
               setIsModalOpen={setIsModalOpenContentCheck}
               onClose={() => setIsModalOpenContentCheck(false)}
             >
-              {/* <PopupAuthForm /> */}
+              <PopupAuthForm />
               {/* <PopupDeleteConfirmation onClose={() => setIsModalOpenContentCheck(false)} /> */}
-              <PopupPostFeedback onClose={() => setIsModalOpenContentCheck(false)} />
+              {/* <PopupPostFeedback onClose={() => setIsModalOpenContentCheck(false)} /> */}
             </Modal>
+          )}
+          {accountData && (
+            <div>
+              <p>{accountData.name}</p>
+              <p>{accountData.email}</p>
+              <p>{accountData.userId}</p>
+            </div>
           )}
         </div>
       </div>
