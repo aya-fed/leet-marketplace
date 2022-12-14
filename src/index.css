@@ -64,3 +64,16 @@
     @apply pb-1 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary;
   }
 }
+
+:root{
+  /* react-toastify override */
+  --toastify-color-light: #dcdef3;
+  --toastify-color-dark: #1E2235;
+  --toastify-color-info: #252A41;
+  --toastify-color-success: #252A41;
+  --toastify-color-warning: #FBBC05;
+  --toastify-color-error: #EA4335;
+  --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+  --toastify-text-color-success: #51D9D9;
+}
