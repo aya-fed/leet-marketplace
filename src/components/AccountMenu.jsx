@@ -7,6 +7,8 @@ import { AiOutlineDollarCircle, AiOutlineTag } from "react-icons/ai";
 import { IoReceiptOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import WishlistIcon from "./ui/WishlistIcon";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const accountMenuItems = [
   {
@@ -41,6 +43,7 @@ const accountMenuItems = [
 ];
 
 export default function AccountMenu() {
+  const auth = getAuth();
   const [isMenuHidden, setIsMenuHidden] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState();
   const location = useLocation();
@@ -72,13 +75,15 @@ export default function AccountMenu() {
         {accountMenuItems.map((menuItem, index) => (
           <div key={index}>
             <div
-              className={`flex justify-between items-center cursor-pointer ${
+              className={`flex justify-between items-center cursor-pointer hover:text-primary ${
                 menuItem === activeMenuItem && "md:text-primary"
               }`}
               onClick={() => {
                 setIsMenuHidden(true);
                 if (menuItem.name === "Log out") {
-                  //
+                  auth.signOut();
+                  navigate("/");
+                  toast.success("Successfully logged out");
                 } else {
                   navigate(menuItem.path);
                 }

@@ -35,6 +35,7 @@ export default function TEST() {
         {/* Input ---------------------------------------------------------------- */}
         <InputField label="Input Text" placeholder="Input text field" required />
         <SelectDropdown
+          value=""
           label="Select dropdown"
           placeholder="Select dropdown example"
           options={["category1", "category2", "category3", "categoryyyy4"]}
@@ -85,21 +86,21 @@ export default function TEST() {
               </Button>
             </Modal>
           )}
-          <Button onClick={onLogout} className="sm:w-[400px] mx-auto">
-            Sign out
-          </Button>
+          {auth.currentUser && (
+            <Button onClick={onLogout} className="sm:w-[400px] mx-auto">
+              Sign out
+            </Button>
+          )}
 
-          {!accountData && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>}
+          {!auth.currentUser && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>}
 
           {isModalOpenContentCheck && (
-            <Modal
-              isModalOpen={isModalOpenContentCheck}
-              setIsModalOpen={setIsModalOpenContentCheck}
-              onClose={() => setIsModalOpenContentCheck(false)}
-            >
-              <PopupAuthForm />
-              {/* <PopupDeleteConfirmation onClose={() => setIsModalOpenContentCheck(false)} /> */}
-              {/* <PopupPostFeedback onClose={() => setIsModalOpenContentCheck(false)} /> */}
+            <Modal isModalOpen={isModalOpenContentCheck} onClose={() => setIsModalOpenContentCheck(false)}>
+              <PopupAuthForm
+                onSubmit={() => {
+                  setIsModalOpenContentCheck(false);
+                }}
+              />
             </Modal>
           )}
           {accountData && (
