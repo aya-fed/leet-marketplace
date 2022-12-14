@@ -73,7 +73,7 @@
 
 .sidebar-item{
   margin-left: 1.em;
-  padding: 1.75em 1em;
+  padding: 5%;
   display: block;
   transition: background-color .15s;
   border-radius: 5px;
@@ -88,7 +88,7 @@
 }
 .sidebar-title span i{
   display: inline-block;
-  width: 1.5em;
+  width: 1em;
 }
 .sidebar-title .toggle-btn{
   cursor: pointer;
@@ -98,7 +98,7 @@
   transform: rotate(180deg);
 }
 .sidebar-content{
-  padding-top: 2.25em;
+  padding-top: 1.25em;
   height: 0;
   overflow: hidden;
 }
@@ -119,4 +119,10 @@
  
   width: 1.7em;
   
+} 
+
+.scrollbar {
+  scrollbar-width: thin;
 }
+
+

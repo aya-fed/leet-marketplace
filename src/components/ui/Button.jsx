@@ -16,7 +16,7 @@ const defaultClassNamesArr = [
   "transition",
   "duration-500",
   "ease-in-out",
-  "hover:scale-105",
+  "hover:scale-100",
 ];
 const defaultClasses = defaultClassNamesArr.map(className => className).join(" ");
 const cancelButtonDefaultClasses = "border-white text-white";

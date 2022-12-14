@@ -90,7 +90,8 @@ function App() {
           </AccountContext.Provider>
         </AuthContext.Provider>
       </Router>
-      <BottomNav />
+      <BottomNav className="h-screen  ">
+  /</BottomNav>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
