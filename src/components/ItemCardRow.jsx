@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// Coded by Aya Saito
+
+import { useState } from "react";
 import Button from "./ui/Button";
 
 export default function ItemCardRow({ item, userId, buyerId, sellerId, isClosed, review }) {
