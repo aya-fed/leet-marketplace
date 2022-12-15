@@ -1,7 +1,11 @@
+// Coded by Aya Saito
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import ListView from "../components/ListView";
 import { useFetchItems } from "../hooks/useFetchItems";
+import Filter from "../components/Filter";
+import ListView from "../components/ListView";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 
 export default function Category() {
@@ -9,7 +13,7 @@ export default function Category() {
   const [category, setCategory] = useState(() => params.categoryName);
   const [items, setItems] = useState();
 
-  const { getItems, listings } = useFetchItems();
+  const { getItems, listings, isLoading } = useFetchItems();
 
   useEffect(() => {
       getItems();
@@ -19,11 +23,22 @@ export default function Category() {
     setItems(listings.filter(item => item.category === category))
   }, [category, listings]);
 
-  console.log(items)
-  console.log(category);
+  if (isLoading){
+    return <LoadingSpinner color="text-primary" />
+  }
+  
   return (
-    <div className="max-w-[1400px] mx-auto ">
-      <ListView items={items} />
+    <div className="w-[90%] max-w-[1200px] mx-auto flex flex-wrap md:flex-nowrap md:gap-20">
+      <h3 className="mb-6 md:hidden text-neutral-light">{category}</h3>
+      {items && items.length > 0 && (
+        <>
+          <Filter items={items} category={category} setItems={setItems} setCategory={setCategory} allItems={listings} />
+          <div>
+            <h2 className="mb-6 hidden md:block w-full text-neutral-light">{category} </h2>
+            <ListView items={items} />
+          </div>
+        </>
+      )}
     </div>
   );
 }
