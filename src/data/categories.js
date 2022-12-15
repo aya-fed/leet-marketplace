@@ -6,13 +6,55 @@ const itemCategories = [
         id: "laptops",
         value: "Laptops",
         label: "Laptops",
-        metadata: [],
+        metadata: [
+          {
+            name: "Brand",
+            type: "select",
+            options: ["Acer", "Asus", "Gigabyte", "Hp", "Lenovo", "MSI", "Toshiba", "Razer", "Other"],
+          },
+          {
+            name: "Storage Capacity",
+            type: "select",
+            options: ["500GB", "1TB", "2TB", "3TB", "4TB & over"],
+          },
+          {
+            name: "Memory Size",
+            type: "select",
+            options: ["8GB", "16GB", "32GB", "64GB", "128GB & over"],
+          },
+          {
+            name: "Screen Size",
+            type: "select",
+            options: ['13.3"', '14"', '15"', '16"', '17" & over'],
+          },
+          {
+            name: "Cores",
+            type: "select",
+            options: [1, 2, 4, 6, 8, 12],
+          },
+        ],
       },
       {
         id: "desktops",
         value: "Desktops",
         label: "Desktops",
-        metadata: [],
+        metadata: [
+          {
+            name: "Monitor size", // "With Monitor" case only - will display a checkbox on frontend for create listing & the filter
+            type: "inputNumber",
+            unit: "inch",
+          },
+          {
+            name: "Storage Capacity",
+            type: "select",
+            options: ["500GB", "1TB", "2TB", "3TB", "4TB & over"],
+          },
+          {
+            name: "Memory Size",
+            type: "select",
+            options: ["8GB", "16GB", "32GB", "64GB", "128GB & over"],
+          },
+        ],
       },
       {
         id: "consoles",
@@ -41,8 +83,8 @@ const itemCategories = [
               "PlayStation 5",
               "PSP",
               "PlayStation Vita",
+              "Other",
             ],
-            selectOther: "inputText",
           },
         ],
       },
@@ -80,8 +122,8 @@ const itemCategories = [
               "SDR SDRAM",
               "SGRAM",
               "VRAM",
+              "Other",
             ],
-            selectOther: "inputText",
           },
           {
             name: "Base Clock Speed",
@@ -132,8 +174,8 @@ const itemCategories = [
               "Intel FCBGA 1667",
               "sTRX4",
               "sWRX8",
+              "Other",
             ],
-            selectOther: "inputText",
           },
           {
             name: "Chipset",
@@ -179,26 +221,23 @@ const itemCategories = [
               "Z590",
               "Z690",
               "Z790",
+              "Other",
             ],
-            selectOther: "inputText",
           },
           {
             name: "Form factor",
             type: "select",
             options: ["ATX", "EATX", "Flex ATX", "mATX", "M.2", "mini-ITX", "SSI CEB", "uATX", "XL-ATX", "Other"],
-            selectOther: "inputText",
           },
           {
             name: "Memory Type",
             type: "select",
-            options: ["DDR", "DDR2", "DDR3", "DDR4", "DDR5"],
-            selectOther: "inputText",
+            options: ["DDR", "DDR2", "DDR3", "DDR4", "DDR5", "Other"],
           },
           {
             name: "PCIE slots",
             type: "select",
-            options: ["PCIE x1", "PCIE x2", "PCIE x4", "PCIE x8", "PCIE x16"],
-            selectOther: "inputText",
+            options: ["PCIE x1", "PCIE x2", "PCIE x4", "PCIE x8", "PCIE x16", "Other"],
           },
           {
             name: "Wi-Fi",
@@ -215,19 +254,17 @@ const itemCategories = [
           {
             name: "RAM Type",
             type: "select",
-            options: ["DDR", "DDR2", "DDR3", "DDR4", "DDR5"],
-            selectOther: "inputText",
+            options: ["DDR", "DDR2", "DDR3", "DDR4", "DDR5", "Other"],
           },
           {
-            name: "Memory capacity (per module)",
-            type: "inputNumber",
-            unit: "GB",
+            name: "Memory capacity",
+            type: "select",
+            options: ["8GB", "16GB", "32GB", "64GB", "128GB & over"],
           },
           {
             name: "Form factor",
             type: "select",
-            options: ["DIMM", "SODIMM", "UDIMM"],
-            selectOther: "inputText",
+            options: ["DIMM", "SODIMM", "UDIMM", , "Other"],
           },
           {
             name: "Memory Speed",
@@ -240,7 +277,18 @@ const itemCategories = [
         id: "hardDrives",
         value: "Hard Drives",
         label: "Hard Drives",
-        metadata: [],
+        metadata: [
+          {
+            name: "SSD",
+            type: "select",
+            options: ["500GB", "1TB", "2TB", "3TB & over"],
+          },
+          {
+            name: "HDD",
+            type: "select",
+            options: ["500GB", "1TB", "2TB", "3TB & over"],
+          },
+        ],
       },
       {
         id: "desktopCases",
@@ -264,8 +312,8 @@ const itemCategories = [
               "3U Rackmount",
               "4U Rackmount",
               "XL-ATX",
+              "Other",
             ],
-            selectOther: "inputText",
           },
         ],
       },
@@ -298,14 +346,31 @@ const itemCategories = [
               "Intel Xeon Bronze",
               "Intel Xeon Silver",
               "Intel Xeon Gold",
+              "Other",
             ],
-            selectOther: "inputText",
           },
           {
             name: "Cores",
             type: "select",
-            options: ["4", "6", "8", "10", "12", "14", "16", "18", "20", "24", "26", "28", "32", "48", "64", "72"],
-            selectOther: "inputNumber",
+            options: [
+              "4",
+              "6",
+              "8",
+              "10",
+              "12",
+              "14",
+              "16",
+              "18",
+              "20",
+              "24",
+              "26",
+              "28",
+              "32",
+              "48",
+              "64",
+              "72",
+              "Other",
+            ],
           },
           {
             name: "Socket",
@@ -327,8 +392,8 @@ const itemCategories = [
               "AMD AM5",
               "AMD SP3",
               "AMD sWRX8",
+              "Other",
             ],
-            selectOther: "inputText",
           },
           {
             name: "Base Clock Speed",
@@ -338,6 +403,18 @@ const itemCategories = [
           {
             name: "Intergrated graphics",
             type: "checkbox",
+          },
+        ],
+      },
+      {
+        id: "powerSupplies",
+        value: "Power Supplies",
+        label: "Power Supplies",
+        metadata: [
+          {
+            name: "Output Power",
+            type: "select",
+            options: ["600W", "650W", "700W", "750W", "800W", "850W", "100W & over", "Other"],
           },
         ],
       },
@@ -372,8 +449,9 @@ const itemCategories = [
         label: "Headsets",
         metadata: [
           {
-            name: "With mic",
-            type: "checkbox",
+            name: "With or Without mic",
+            type: "select",
+            options: ["With mic", "Without mic"],
           },
         ],
       },
@@ -382,13 +460,25 @@ const itemCategories = [
         id: "keyboards",
         value: "Keyboards",
         label: "Keyboards",
-        metadata: [],
+        metadata: [
+          {
+            name: "Wired or Wireless",
+            type: "select",
+            options: ["Wired", "Wireless"],
+          },
+        ],
       },
       {
         id: "mice",
         value: "Mice",
         label: "Mice",
-        metadata: [],
+        metadata: [
+          {
+            name: "Wired or Wireless",
+            type: "select",
+            options: ["Wired", "Wireless"],
+          },
+        ],
       },
     ],
   },
