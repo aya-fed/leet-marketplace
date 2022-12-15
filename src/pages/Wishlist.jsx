@@ -29,7 +29,7 @@ export default function Wishlist() {
   return (
     <div className="w-full h-full md:w-[90%] md:max-w-[1200px] md:flex md:justify-center md:gap-20 mx-auto md:px-10">
       <AccountMenu />
-      <div className="w-[90%] mx-auto md:">
+      <div className="w-[85%] mx-auto md:w-full">
         <h3 className="mb-9">Wishlist</h3>
         <div>
           {wishlist &&

@@ -1,17 +1,21 @@
 // Coded by Aya Saito
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
 
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
+import AuthContext from "../context/AuthContext";
+
 import Button from "./ui/Button";
 import InputField from "./form/InputField";
 import OAuthButton from "./OAuthButton";
 
 export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }) {
+  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
+
   const [mode, setMode] = useState(propMode ?? "signIn");
   const [showPassword, setShowPassword] = useState(false);
   let buttonLabel = "";
@@ -119,6 +123,8 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
         // save to firestore
         await setDoc(doc(db, "users", user.uid), formDataCopy);
         toast.success("Sign up was successful");
+        setIsLoggedIn(true);
+        setUserId(auth.currentUser.uid);
         propOnSubmit && propOnSubmit();
         // navigate("/");
       } catch (error) {
@@ -132,6 +138,8 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         if (userCredential.user) {
+          setIsLoggedIn(true);
+          setUserId(auth.currentUser.uid);
           propOnSubmit && propOnSubmit();
         }
       } catch (error) {

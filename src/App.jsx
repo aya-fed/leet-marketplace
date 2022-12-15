@@ -34,11 +34,13 @@ function App() {
 
   const [accountData, setAccountData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(false);
 
   // auth status to save in context
   useEffect(() => {
     if (loggedIn) {
       setIsLoggedIn(true);
+      setUserId(currentUserId);
     }
   }, [loggedIn]);
 
@@ -66,10 +68,10 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}>
           <AccountContext.Provider value={{ accountData, setAccountData }}>
             <Header />
-            <div className="w-[90%] max-w-[1200px] my-[100px] py-[80px] mx-auto">
+            <div className="max-w-[1200px] my-[100px] py-[80px] flex flex-col justify-center">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/search/:keywords" element={<Search />} />
@@ -91,8 +93,7 @@ function App() {
           </AccountContext.Provider>
         </AuthContext.Provider>
       </Router>
-      <BottomNav className="h-screen  ">
-  /</BottomNav>
+      <BottomNav className="h-screen  ">/</BottomNav>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
