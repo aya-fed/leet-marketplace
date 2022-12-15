@@ -6,19 +6,23 @@
         "childrens": [
             {
                 "title": "RAM",
-                "path": "/ram"
+                "path": "/category/RAM"
             },
             {
                 "title": "CPU",
-                "path": "/cpu"
+                "path": "/category/CPU"
             },
             {
-                "title": "Hard Drive",
-                "path": "/harddrive"
+                "title": "Hard Drives",
+                "path": "/category/Hard Drives"
             },
             {
-                "title": "Graphics Card",
-                "path": "/Graphicscard"
+                "title": "Graphic Cards",
+                "path": "/category/Graphic Cards"
+            },
+            {
+                "title": "Motherboards",
+                "path": "/category/Motherboards"
             },
             {
                 "title": "Desktop Cases",
@@ -32,16 +36,16 @@
          "title": "Devices",
            "childrens": [
             {
-                "title": "Desktop",
-                "path": "/desktop"
+                "title": "Desktops",
+                "path": "/category/Desktops"
             },
             {
-                "title": "Laptop",
-                "path": "/laptop"
+                "title": "Laptops",
+                "path": "/category/Laptops"
             },
             {
                 "title": "Consoles",
-                "path": "/console"
+                "path": "/category/Consoles"
             }
            ]
 
@@ -50,20 +54,20 @@
          "title": "Accessories",
            "childrens": [
             {
-                "title": "Keyboard",
-                "path": "/keyboard"
+                "title": "Keyboards",
+                "path": "/category/Keyboards"
             },
             {
                 "title": "Mice",
-                "path": "/mice"
+                "path": "/category/Mice"
             },
             {
                 "title": "Headsets",
-                "path": "/headsets"
+                "path": "/category/Headsets"
             },
             {
-                "title": "Monitor",
-                "path": "/monitor"
+                "title": "Monitors",
+                "path": "/category/Monitors"
             }
            ]
 
@@ -73,11 +77,11 @@
            "childrens": [
             {
                 "title": "Games",
-                "path": "/games"
+                "path": "/category/Games"
             },
             {
                 "title": "Other",
-                "path": "/other"
+                "path": "/category/Other"
             }
          
            ]
