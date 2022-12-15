@@ -27,22 +27,22 @@ const Header = () => {
           <div className="h-6 w-[34px] bg-gradient-2" ></div>
           {/* hamburger menu */}
           <div className="flex-col flex-nowrap justify-around w-8 h-8 z-10 mr-10 text-background-4 cursor-pointer" onClick={handleToggle}>
-            <div className="w-8 h-1 rounded-lg bg-neutral-light origin-top-left mb-2"></div>
-            <div className="w-8 h-1 rounded-lg bg-neutral-light origin-top-left mb-2"></div>
-            <div className="w-8 h-1 rounded-lg bg-neutral-light origin-top-left mb-2"></div>
+            <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
+            <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
+            <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
           </div>
           {/* Leet logo */}
           <div className="mr-10 w-[90px] h-[77px]"><img src={Logo} /></div>
         </div>
 
         {/* search bar */}
-        <div className="h-8 w-full rounded-3xl mr-10 bg-background-2 border border-primary justify-center"><HiMagnifyingGlass className="className='text-neutral-light float-right mt-2 mx-4"/></div>
+        <div className="h-8 w-full rounded-3xl mr-10 bg-background-2 border border-primary justify-center"><HiMagnifyingGlass className="text-neutral-light float-right mt-2 mx-4"/></div>
 
         {/* wishlist/notification icons and sign in/account button */}
         <div className="flex items-center gap-6">
           <div className="hidden md:block"><NotificationIcon size={20} /></div>
           <div className="hidden md:block"><WishlistIcon size={20}/></div>
-          <div className="hidden md:block border items-center rounded-lg w-max p-2"><Button /></div>
+          <Button className="hidden md:block border items-center rounded-lg w-max px-4">Sign in</Button>
         </div>
       </div>
 
