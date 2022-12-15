@@ -5,17 +5,15 @@ import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 
 // function to fetch data for one user from firestore
-export function useFetchOneUser(userId = null) {
+export function useFetchOneUser() {
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState();
 
-  useEffect(() => {
-    if (userId) {
-      getUser(userId);
-    }
-  }, [userId]);
+  function fetchOneUser(userId) {
+    getUserInfo(userId);
+  }
 
-  async function getUser(userId) {
+  async function getUserInfo(userId) {
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -27,5 +25,5 @@ export function useFetchOneUser(userId = null) {
     }
   }
 
-  return { userInfo, isLoading };
+  return { fetchOneUser, userInfo, isLoading };
 }
