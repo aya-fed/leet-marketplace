@@ -9,9 +9,7 @@ export function useFetchItems() {
   const [isLoading, setIsLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [soldItems, setSoldItems] = useState([]);
-  useEffect(() => {
-    getItems();
-  }, []);
+
   async function getItems() {
     const listingsRef = collection(db, "listings");
     const q = query(listingsRef, orderBy("timestamp", "desc")); // maybe add limit later on and add "load more" ?
@@ -28,5 +26,5 @@ export function useFetchItems() {
     setIsLoading(false);
   }
 
-  return { listings, soldItems, isLoading };
+  return { getItems, listings, soldItems, isLoading };
 }
