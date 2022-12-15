@@ -2,24 +2,19 @@
 
 import { useState, useEffect, useContext } from "react";
 import { FaTrash } from "react-icons/fa";
-import AuthContext from "../context/AuthContext";
 import AccountContext from "../context/AccountContext";
 
 import { useWishlist } from "../hooks/useWishlist";
 
-import Modal from "../components/Modal";
-import PopupAuthForm from "../components/PopupAuthForm";
 import ItemCardRow from "../components/ItemCardRow";
 import AccountMenu from "../components/AccountMenu";
 
 export default function Wishlist() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { accountData, setAccountData } = useContext(AccountContext);
 
   const { userId, name, profilePic, timestamp, wishlist, purchasedItems, soldItems } = accountData;
   const { currentUser, deleteFromWishlist, newWishlist } = useWishlist();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   console.log(newWishlist);
 
   useEffect(() => {
@@ -31,22 +26,10 @@ export default function Wishlist() {
     }
   }, [newWishlist]);
 
-  if (!isLoggedIn) {
-  }
   return (
-    <div className="w-full h-full relative md:flex md:gap-24">
+    <div className="w-full h-full md:w-[90%] md:max-w-[1200px] md:flex md:justify-center md:gap-20 mx-auto md:px-10">
       <AccountMenu />
-      <div className="w-full mx-auto">
-        <div
-          onClick={() => {
-            if (currentUser) {
-              alert("logged in!");
-            } else {
-              setIsModalOpen(true);
-              alert("not logged in!");
-            }
-          }}
-        ></div>
+      <div className="w-[90%] mx-auto md:">
         <h3 className="mb-9">Wishlist</h3>
         <div>
           {wishlist &&
@@ -68,15 +51,6 @@ export default function Wishlist() {
             ))}
         </div>
       </div>
-      {isModalOpen && (
-        <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <PopupAuthForm
-            onSubmit={() => {
-              setIsModalOpen(false);
-            }}
-          />
-        </Modal>
-      )}
     </div>
   );
 }
