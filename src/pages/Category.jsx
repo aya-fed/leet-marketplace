@@ -20,6 +20,10 @@ export default function Category() {
   }, []);
 
   useEffect(() => {
+    setCategory(params.categoryName);
+  }, [params.categoryName]);
+
+  useEffect(() => {
     setItems(listings.filter(item => item.category === category))
   }, [category, listings]);
 
