@@ -47,7 +47,7 @@ const Header = () => {
       </div>
 
       {/* sidebar note - Michelle I have scraped the props for the sidebar and merged them with the Sidebar I developed.  */} 
-      <div className={`${!hamburgerOpen && '-translate-x-80'} h-screen ease-in duration-500 fixed`}>
+      <div className={`${!hamburgerOpen && '-translate-x-80'} h-screen ease-in duration-500 fixed z-[100]`}>
         <Sidebar className=""/>
       </div>   
       
