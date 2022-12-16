@@ -21,8 +21,8 @@ const defaultClassNamesArr = [
   "max-h-[95vh]",
   "overflow-y-scroll",
   "scrollbar-thin",
-  "scrollbar-track-neutral-100",
-  "scrollbar-thumb-neutral-400",
+  "scrollbar-track-background-2",
+  "scrollbar-thumb-background-4",
 ];
 const defaultClasses = defaultClassNamesArr.map(className => className).join(" ");
 

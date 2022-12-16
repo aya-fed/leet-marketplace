@@ -34,7 +34,7 @@ export default function ListView({ items: propItems }) {
             console.log(item);
               return (
                 <div key={index}>
-            <Link to={`/item-detail/${item.itemId}`} > <ItemCard item={item} /></Link>
+                  <Link to={`/item-detail/${item.itemId}`} > <ItemCard item={item} /></Link>
                 </div>
               );
             })}

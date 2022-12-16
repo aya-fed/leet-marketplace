@@ -41,6 +41,21 @@ const SelectDropdown = ({
       ...styles,
       color: "#FFF",
       background: "#1E2235",
+      zIndex: "1000",
+      position: "relative",
+      "::-webkit-scrollbar": {
+        width: "4px",
+        height: "0px",
+      },
+      "::-webkit-scrollbar-track": {
+        background: "#252A41",
+      },
+      "::-webkit-scrollbar-thumb": {
+        background: "#424867",
+      },
+      "::-webkit-scrollbar-thumb:hover": {
+        background: "#424867",
+      },
     }),
     option: (styles, state) => ({
       ...styles,
@@ -99,7 +114,7 @@ const SelectDropdown = ({
       <Select
         id={id}
         placeholder={<div>{placeholder}</div>}
-        value={!value.value ? null : value}
+        value={value}
         closeMenuOnSelect={closeMenuOnSelect}
         isMulti={isMulti}
         options={dropdownOptions}

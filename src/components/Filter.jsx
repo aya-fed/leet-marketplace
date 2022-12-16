@@ -6,59 +6,85 @@ import Checkbox from "./form/Checkbox";
 import makeAnimated from "react-select/animated";
 import itemCategories from "../data/categories";
 import SelectDropdown from "./form/SelectDropdown";
+import RangeFilter from "./form/RangeFilter";
 
-export default function Filter({ 
-  items: propItems, 
-  setItems: propSetItems, 
-  category:propCategory, 
-  setCategory: propSetCategory, 
-  allItems 
+export default function Filter({
+  setItems: propSetItems,
+  category: propCategory,
+  setCategory: propSetCategory,
+  allItems,
 }) {
   const animatedComponents = makeAnimated();
   const categories = itemCategories.slice();
   categories.unshift({ value: "", label: "All" });
 
   const [showFilter, setShowFilter] = useState(false); // for mobile
-  const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState(items);
-  const [categoryItems, setCategoryItems] = useState(items);
+  // states for items to display
+  const [categoryItems, setCategoryItems] = useState(null);
+  // states for showing filters
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoryMeta, setCategoryMeta] = useState(null);
   const [selectedMeta, setSelectedMeta] = useState({});
+  const [priceMinMax, setPriceMinMax] = useState(null);
+  const [priceRangeVals, setPriceRangeVals] = useState(null);
 
+  //
   useEffect(() => {
-    setItems(propItems);
-    setSelectedCategory(propCategory);
-    if (items) {
-      showMetaFilters(propCategory,items);
+    if (allItems.length > 0) {
+      setCategoryItems(allItems);
+      setPriceRange(allItems);
     }
-  }, [propItems, propCategory]);
+  }, [allItems]);
 
+  // Set pre-selected category as a selected category state and show meta filter
+  useEffect(() => {
+    if (propCategory && !selectedCategory) {
+      setSelectedCategory(propCategory);
+      filterWithCategory(propCategory);
+    }
+  }, [propCategory]);
+
+  // Set price min max values for the price range filter
+  function setPriceRange(itemArr) {
+    // console.log(itemArr);
+    const min = itemArr.reduce((a, b) => (a.price < b.price ? a : b));
+    const max = itemArr.reduce((a, b) => (a.price > b.price ? a : b));
+    setPriceMinMax({
+      min: min.price,
+      max: max.price,
+    });
+    setPriceRangeVals({
+      min: min.price,
+      max: max.price,
+    });
+  }
 
   // Category filter -----------------------------------------------------
   function onChangeCategory(e) {
-    console.log(e.value);
+    // console.log(e.value);
     const categoryVal = e.value;
     setSelectedCategory(categoryVal);
     propSetCategory(categoryVal);
     if (categoryVal) {
-      if (items) {
-        filterWithCategory(categoryVal, items);
+      if (allItems) {
+        filterWithCategory(categoryVal, allItems);
       }
     } else {
-      setFilteredItems(items);
+      setCategoryItems(allItems);
+      propSetItems(allItems);
+      setPriceRange(allItems);
       setCategoryMeta(null);
       setSelectedMeta({});
     }
   }
 
   function filterWithCategory(categoryVal) {
-    // Filter items
+    // Filter items with category
     const matchingItems = allItems.filter(item => item.category === categoryVal);
-    setFilteredItems(matchingItems);
     setCategoryItems(matchingItems);
     propSetItems(matchingItems);
-    console.log(matchingItems);
+    setPriceRange(matchingItems); // for price range filter
+    // console.log(matchingItems);
     showMetaFilters(categoryVal, matchingItems);
   }
 
@@ -107,14 +133,13 @@ export default function Filter({
   // Metadata filter onChange
   function onMetaFilterChange(metaName, e) {
     const selectedMetaCopy = { ...selectedMeta, [metaName]: e };
-
     if (e.length === 0) {
       // if empty delete property itself from the object
       delete selectedMetaCopy[metaName];
     }
     setSelectedMeta(selectedMetaCopy);
     if (selectedMetaCopy.length === 0) {
-      setFilteredItems(categoryItems);
+      propSetItems(categoryItems);
     } else {
       filterWithMeta(selectedMetaCopy);
     }
@@ -127,30 +152,42 @@ export default function Filter({
       // if the metadata is empty remove from matchingItems array
       if (Object.keys(item.metadata).length === 0) {
         match = false;
-        // } else {
-        //   Object.keys(metaFilter).forEach(key => {
-        //     // if the property doesn't exist remove from matchingItems array
-        //     if (!item.metadata.hasOwnProperty(key)) {
-        //       match = false;
-        //     } else if (metaFilter[key].findIndex(({ value }) => value === item.metadata[key]) < 0) {
-        //       match = false;
-        //     }
-        //   });
+      } else {
+        Object.keys(metaFilter).forEach(key => {
+          // if the property doesn't exist remove from matchingItems array
+          if (!item.metadata.hasOwnProperty(key)) {
+            match = false;
+          } else if (metaFilter[key].findIndex(({ value }) => value === item.metadata[key]) < 0) {
+            match = false;
+          }
+        });
       }
       if (match) {
         matchingItems.push(item);
       }
     });
-    setFilteredItems(matchingItems);
+    propSetItems(matchingItems);
+    setPriceRange(matchingItems);
   }
+
+  // Price filter -----------------------------------------------------
+  useEffect(() => {
+    // console.log(propItems);
+    if (priceMinMax && priceRangeVals) {
+      if (categoryItems) {
+        const matchingItems = categoryItems.filter(
+          item => item.price >= priceRangeVals.min && item.price <= priceRangeVals.max
+        );
+        propSetItems(matchingItems);
+      }
+    }
+  }, [priceRangeVals]);
 
   return (
     <div
-      className={`${
-        showFilter ? "p-4" : "p-2"
-      } 
+      className={`${showFilter ? "p-4" : "p-2"} 
       rounded-lg w-full bg-background-3 flex flex-wrap justify-center 
-      md:py-4 px-6 mb-6 md:min-w-[280px] md:max-h-[600px]
+      md:py-4 px-6 mb-6 md:min-w-[280px] md:max-w-[300px] md:max-h-[600px]
       `}
     >
       <div className={`w-full md:w-48 text-center md:hidden`} onClick={() => setShowFilter(!showFilter)}>
@@ -174,22 +211,26 @@ export default function Filter({
                   <SelectDropdown
                     key={meta.name + index}
                     name={meta.name}
+                    // label={meta.name}
+                    // labelClassName="text-xs ml-3 text-neutral-light"
                     placeholder={`${meta.name}`}
-                    value={{ value: selectedMeta[meta.name], label: selectedMeta[meta.name] }}
+                    value={selectedMeta[meta.name]}
                     options={
                       Object.keys(selectedMeta).length === 0 || !selectedMeta[meta.name]
                         ? meta.options
                         : meta.options.filter(opt => selectedMeta[meta.name].indexOf(opt.value) < 0)
                     }
                     isMulti
-                    closeMenuOnSelect={false}
+                    closeMenuOnSelect={true}
                     hideSelectedOptions={true}
                     onChange={e => onMetaFilterChange(meta.name, e)}
                     onReset={e => onMetaFilterChange(meta.name, e)}
-                    className="w-full"
+                    className="w-full relative"
                     isFilter
+                    stacked
                   />
                 );
+
                 break;
               case "checkbox":
                 return <Checkbox key={meta.name + index} checked={false} label={meta.name} onChange={e => {}} />;
@@ -199,6 +240,17 @@ export default function Filter({
                 break;
             }
           })}
+        {priceMinMax && (
+          <RangeFilter
+            id="price"
+            label="Price"
+            price
+            min={priceMinMax.min}
+            max={priceMinMax.max}
+            className="px-2"
+            setValue={setPriceRangeVals}
+          />
+        )}
       </div>
     </div>
   );
