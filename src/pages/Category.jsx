@@ -59,8 +59,10 @@ export default function Category() {
             allItems={listings}
           />
           <div>
-            <h2 className="mb-6 hidden md:block w-full text-neutral-light">{category} </h2>
-            <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
+            <div class="md:flex md:flex-between md:mb-4">
+              <h2 className="hidden md:block w-full text-neutral-light">{category} </h2>
+              <SortDropdown sortBy={sortBy} setSortBy={setSortBy} className={`-mt-3 md:mt-[unset]`} />
+            </div>
             <ListView items={items && items} />
           </div>
         </>
