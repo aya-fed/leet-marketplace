@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
-import sortOptions from "../data/SortOptions";
+import sortOptions from "../data/sortOptions";
 
 export default function SortDropdown({ sortBy, setSortBy }) {
   const [isOpen, setIsOpen] = useState(false);
