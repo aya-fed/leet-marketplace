@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { BiChevronDown } from "react-icons/bi"
+import { useNavigate, useRouteLoaderData } from "react-router"
+import { Link } from "react-router-dom"
 export default function SidebarItem({item}){
     const [open, setOpen] = useState(false)
 
@@ -28,10 +30,10 @@ export default function SidebarItem({item}){
         )
     }else{
         return (
-            <a href={item.path || "#"} className="sidebar-item plain  ">
+            <Link to={`category/${item.title}`} className="sidebar-item plain  " onClick={useRouteLoaderData}>
                 { item.icon && <i className={item.icon}></i> }
                 {item.title} 
-            </a>
+            </Link>
             
         )
     }
