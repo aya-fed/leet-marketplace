@@ -46,7 +46,7 @@ export default function Filter({
 
   // Set price min max values for the price range filter
   function setPriceRange(itemArr) {
-    console.log(itemArr);
+    // console.log(itemArr);
     const min = itemArr.reduce((a, b) => (a.price < b.price ? a : b));
     const max = itemArr.reduce((a, b) => (a.price > b.price ? a : b));
     setPriceMinMax({
@@ -61,7 +61,7 @@ export default function Filter({
 
   // Category filter -----------------------------------------------------
   function onChangeCategory(e) {
-    console.log(e.value);
+    // console.log(e.value);
     const categoryVal = e.value;
     setSelectedCategory(categoryVal);
     propSetCategory(categoryVal);
@@ -84,7 +84,7 @@ export default function Filter({
     setCategoryItems(matchingItems);
     propSetItems(matchingItems);
     setPriceRange(matchingItems); // for price range filter
-    console.log(matchingItems);
+    // console.log(matchingItems);
     showMetaFilters(categoryVal, matchingItems);
   }
 
