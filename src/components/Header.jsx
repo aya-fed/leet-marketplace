@@ -47,9 +47,8 @@ const Header = () => {
       </div>
 
       {/* sidebar note - Michelle I have scraped the props for the sidebar and merged them with the Sidebar I developed.  */} 
-      <div className={`${!hamburgerOpen && '-translate-x-60'}`}>
-        <Sidebar />
-        <AiOutlineClose className="float-right cursor-pointer m-2" onClick={handleToggle}/>
+      <div className={`${!hamburgerOpen && '-translate-x-80'} h-screen ease-in duration-500 fixed`}>
+        <Sidebar className=""/>
       </div>   
       
     </div>
