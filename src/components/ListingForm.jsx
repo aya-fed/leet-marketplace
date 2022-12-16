@@ -309,7 +309,6 @@ export default function ListingForm({ className }) {
   function findTargetElement(children, idName, state) {
     [...children].forEach(child => {
       if (child.id === idName) {
-        console.log(state);
         if (state === false) {
           child.style.borderColor = "#EA4335";
         } else {
@@ -468,7 +467,18 @@ export default function ListingForm({ className }) {
                   );
                   break;
                 case "inputNumber":
-                  return;
+                  return (
+                    <>
+                      <InputField
+                        value={metadata[meta.name]}
+                        label={`${meta.name} ${meta.unit && `(${meta.unit})`}`}
+                        type="number"
+                        placeholder={`${meta.name}  ${meta.unit && `(${meta.unit})`}`}
+                        onBlur={onBlur}
+                        onChange={e => onMetaChange(meta.name, e)}
+                      />
+                    </>
+                  );
                   break;
               }
             })}
@@ -556,7 +566,7 @@ export default function ListingForm({ className }) {
         <Button className="border-neutral-light text-neutral-light mt-6 w-1/2" onClick={() => navigate(-1)}>
           Cancel
         </Button>
-        <Button className="mt-6 w-1/2" onClick={onSubmit} disabled={!isFormValid ? true : false}>
+        <Button className="mt-6 w-1/2" onClick={onSubmit}>
           {`${isNewListing ? "Create" : "Update"} Listing`}
         </Button>
       </div>
