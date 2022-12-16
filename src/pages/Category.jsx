@@ -6,12 +6,14 @@ import { useFetchItems } from "../hooks/useFetchItems";
 import Filter from "../components/Filter";
 import ListView from "../components/ListView";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
-
+import SortDropdown from "../components/SortDropdown";
+import sortOptions from "../data/SortOptions";
 
 export default function Category() {
   const params = useParams();
   const [category, setCategory] = useState(() => params.categoryName);
   const [items, setItems] = useState([]);
+  const [sortBy, setSortBy] = useState(sortOptions[1]);
 
   const { getItems, listings, isLoading } = useFetchItems();
 
@@ -20,12 +22,25 @@ export default function Category() {
   }, []);
 
   useEffect(() => {
+    if (items.length > 0) {
+      setItems(prev => {
+        const copy = prev.slice();
+        copy.sort((a, b) => {
+          const key = sortBy.dbField;
+          const order = sortBy.order;
+          console.log(a[key]);
+          console.log(b[key]);
+          const result = (order === "asc" && a[key] > b[key]) || (order === "desc" && a[key] < b[key]) ? 1 : -1;
+          return result;
+        });
+        return copy;
+      });
+    }
+  }, [sortBy]);
+
+  useEffect(() => {
     setCategory(params.categoryName);
   }, [params.categoryName]);
-
-  // useEffect(() => {
-  //   setItems(listings.filter(item => item.category === category));
-  // }, [category, listings]);
 
   if (isLoading) {
     return <LoadingSpinner color="text-primary" />;
@@ -45,6 +60,7 @@ export default function Category() {
           />
           <div>
             <h2 className="mb-6 hidden md:block w-full text-neutral-light">{category} </h2>
+            <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
             <ListView items={items && items} />
           </div>
         </>
