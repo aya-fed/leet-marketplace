@@ -7,7 +7,7 @@ import Filter from "../components/Filter";
 import ListView from "../components/ListView";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import SortDropdown from "../components/SortDropdown";
-import sortOptions from "../data/SortOptions";
+import sortOptions from "../data/sortOptions";
 
 export default function Category() {
   const params = useParams();
