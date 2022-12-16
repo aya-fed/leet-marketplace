@@ -24,56 +24,12 @@ const BottomNav = () => {
     
     { name: "Notifications", icon:<AiFillBell />,  dis: "-" }
   ];
-//  const [active, setActive] = useState(0);
-//   return (
-//     <div className=" ">
-//     <div className="bg-[#252A41]    flex-1  md:invisible h-20  ">
-//       <ul className=" flex-1
-//         " >
-      
-//         <div className=" flex ">
-//         {Menus.map((menu, i) => (
-//           <li key={i} className="w-28 flex-1 pl-8  pr-4  bg-[#252a41]   ">
-//             <a
-//               className="flex-1 "
-//               onClick={() => setActive(i)}
-//             >
-//               <span
-//                 className={`text-xl  cursor-pointer duration-500 ${
-//                   i === active && " text-[#51D9D9] z-40  "
-//                 }`}
-//               >
-//               {menu.icon}
-//               </span>
-//               <span
-//                 className={` ${
-//                   active === i
-//                     ? "  opacity-100"
-//                     : "opacity-100 "
-//                 } `}
-//               >
-                
-            
-//               </span>
-              
-//             </a>
-//           </li>
-         
-//         ))}
-//            </div>
-//       </ul>
-//       </div>
-//       </div>
-    
-//   );
-// };
 
-// export default BottomNav;
 
   const [active, setActive] = useState(0);
   return (
     
-    <div className="bg-[#252A41] h-[5%]  rounded-t-xl fixed bottom-0  pt-4  md:hidden">
+    <div className="bg-[#252A41] h-[5%]  rounded-t-xl fixed bottom-0  pt-4  lg:hidden">
       <ul className="flex ">
         
           <span       
