@@ -93,7 +93,7 @@ function App() {
           </AccountContext.Provider>
         </AuthContext.Provider>
       </Router>
-      <BottomNav className="h-screen  ">/</BottomNav>
+      <BottomNav className="  ">/</BottomNav>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -110,3 +110,4 @@ function App() {
   );
 }
 export default App;
+

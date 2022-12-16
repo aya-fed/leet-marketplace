@@ -10,6 +10,7 @@ import NotificationIcon from "./ui/NotificationIcon";
 // note to incorporate development of footer element, I have had to adjust the background of this element and will need to sort out the flex box to make sure parts of the bottomnav are not lost on resize / smaller devices
 const BottomNav = () => {
   const Menus = [
+  
     { name: "Home", icon: <AiFillHome />, dis: "-" },
     
 
@@ -23,32 +24,72 @@ const BottomNav = () => {
     
     { name: "Notifications", icon:<AiFillBell />,  dis: "-" }
   ];
- const [active, setActive] = useState(0);
-  return (
-    <div className="bg-[#252A41]  max-h-[20rem] object-center  flex justify-center flex-shrink  rounded-t-xl  md:invisible">
-      <ul className="flex  fixed bottom-1  " >
-        <span
+//  const [active, setActive] = useState(0);
+//   return (
+//     <div className=" ">
+//     <div className="bg-[#252A41]    flex-1  md:invisible h-20  ">
+//       <ul className=" flex-1
+//         " >
+      
+//         <div className=" flex ">
+//         {Menus.map((menu, i) => (
+//           <li key={i} className="w-28 flex-1 pl-8  pr-4  bg-[#252a41]   ">
+//             <a
+//               className="flex-1 "
+//               onClick={() => setActive(i)}
+//             >
+//               <span
+//                 className={`text-xl  cursor-pointer duration-500 ${
+//                   i === active && " text-[#51D9D9] z-40  "
+//                 }`}
+//               >
+//               {menu.icon}
+//               </span>
+//               <span
+//                 className={` ${
+//                   active === i
+//                     ? "  opacity-100"
+//                     : "opacity-100 "
+//                 } `}
+//               >
+                
+            
+//               </span>
+              
+//             </a>
+//           </li>
+         
+//         ))}
+//            </div>
+//       </ul>
+//       </div>
+//       </div>
+    
+//   );
+// };
 
-        >
-          <span
-            className="w-3.5 h-3.5   top-4 
-          rounded-tr-[11px] "
+// export default BottomNav;
+
+  const [active, setActive] = useState(0);
+  return (
+    
+    <div className="bg-[#252A41] h-[5%]  rounded-t-xl fixed bottom-0  pt-4  md:hidden">
+      <ul className="flex ">
+        
+          <span       
+     
           ></span>
-          <span
-            className="w-3.5 h-3.5  top-4 
-          rounded-tl-[11px] "
-          ></span>
-        </span>
-        <div className="flex flex-row "> 
+       
+        <div  className="w-screen justify-evenly flex">
         {Menus.map((menu, i) => (
-          <li key={i} className="w-24   bg-[#252a41] ">
+          <li key={i} className="- " >
             <a
-              className="flex flex-col text-center pt-12 pl-8 pb-8"
+              className=" text-center  "
               onClick={() => setActive(i)}
             >
               <span
                 className={`text-xl cursor-pointer duration-500 ${
-                  i === active && " text-[#51D9D9] z-40 mb-2 "
+                  i === active && "  text-[#51D9D9]"
                 }`}
               >
               {menu.icon}
@@ -56,23 +97,19 @@ const BottomNav = () => {
               <span
                 className={` ${
                   active === i
-                    ? " duration-700 opacity-100"
-                    : "opacity-100 "
+                    ? " opacity-100"
+                    : ""
                 } `}
               >
                 
-            
               </span>
-              
             </a>
           </li>
-         
         ))}
-           </div>
+        </div>
       </ul>
+      
     </div>
-    
   );
 };
-
-export default BottomNav;
+export default BottomNav

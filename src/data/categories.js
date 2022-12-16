@@ -131,6 +131,7 @@ const itemCategories = [
             unit: "MHz",
           },
           {
+            
             name: "Boost Clock Speed",
             type: "inputNumber",
             unit: "MHz",
