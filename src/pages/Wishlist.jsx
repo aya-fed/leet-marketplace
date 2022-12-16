@@ -15,7 +15,7 @@ export default function Wishlist() {
   const { userId, name, profilePic, timestamp, wishlist, purchasedItems, soldItems } = accountData;
   const { currentUser, deleteFromWishlist, newWishlist } = useWishlist();
 
-  console.log(newWishlist);
+  // console.log(newWishlist);
 
   useEffect(() => {
     if (newWishlist.length > 0) {

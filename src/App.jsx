@@ -47,7 +47,7 @@ function App() {
   // user info to save in context
   useEffect(() => {
     if (userInfo) {
-      console.log("checking", userInfo);
+      // console.log("checking", userInfo);
       setAccountData({
         ...userInfo,
         userId: currentUserId,
