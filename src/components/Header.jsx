@@ -1,13 +1,13 @@
 // Coded by Michele Carter
 
 import { HiMagnifyingGlass } from "react-icons/hi2"
-import { AiOutlineClose } from "react-icons/ai"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from "./Sidebar";
 import Logo from "../assets/Leet-Logo.svg"
 import WishlistIcon from "./ui/WishlistIcon";
 import NotificationIcon from "./ui/NotificationIcon";
 import Button from "./ui/Button"
+
 
 const Header = () => {
 
@@ -19,6 +19,22 @@ const Header = () => {
     setHamburgerOpen(!hamburgerOpen)
   }; 
 
+  useEffect(() => {
+    if (window.innerWidth > 1280) setHamburgerOpen(true);
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
+
+  function checkWidth() {
+    const width = window.innerWidth;
+    if (width > 1280) {
+      setHamburgerOpen(true);
+    } else {
+      setHamburgerOpen(false);
+    }
+  }
+
+
   return (
     <div className="absolute top-0 left-0">
       <div className="w-full h-[100px] px-4 bg-background-2 z-[199] fixed flex items-center border-b gap-4">
@@ -26,7 +42,7 @@ const Header = () => {
         <div className="flex items-center">
           <div className="h-6 w-[34px] bg-gradient-2" ></div>
           {/* hamburger menu */}
-          <div className="flex-col flex-nowrap justify-around w-8 h-8 z-10 mr-10 text-background-4 cursor-pointer" onClick={handleToggle}>
+          <div className={`${hamburgerOpen && 'hidden'} flex-col flex-nowrap justify-around w-8 h-8 z-10 mr-10 text-background-4 cursor-pointer`} onClick={handleToggle}>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
@@ -42,7 +58,7 @@ const Header = () => {
         <div className="flex items-center gap-6">
           <div className="hidden md:block"><NotificationIcon size={20} /></div>
           <div className="hidden md:block"><WishlistIcon size={20}/></div>
-          <Button className="hidden md:block border items-center rounded-lg w-max px-4">Sign in</Button>
+          <Button className="md:block border items-center rounded-lg w-max px-4">Sign in</Button>
         </div>
       </div>
 
