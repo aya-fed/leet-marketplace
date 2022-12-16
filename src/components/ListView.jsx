@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function ListView({ items: propItems }) {
   const categories = itemCategories.slice();
   categories.unshift({ value: "", label: "All" });
-  // console.log(categories);
+  
   const { getItems, listings } = useFetchItems();
   const [items, setItems] = useState(propItems ?? []);
   useEffect(() => {
@@ -29,12 +29,12 @@ export default function ListView({ items: propItems }) {
     <div>
       <div>
       
-        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-20">
+        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {items.map((item, index) => {
             console.log(item);
               return (
-                <div>
-            <Link to={`/item-detail/${item.itemId}`} > <ItemCard key={index} item={item} /></Link>
+                <div key={index}>
+                  <ItemCard item={item} />
                 </div>
               );
             })}

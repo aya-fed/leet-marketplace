@@ -16,8 +16,8 @@ function NotificationIcon({ className, size }) {
 
     return (
         <div>
-            {!isActive && <FaRegBell className='text-neutral-light' onClick={toggleState} size={size} />}
-            {isActive && <FaBell onClick={toggleState} size={size} />}
+            {!isActive && <FaRegBell className='text-primary cursor-pointer hover:scale-125 duration-500' onClick={toggleState} size={size} />}
+            {isActive && <FaBell className='text-primary cursor-pointer' onClick={toggleState} size={size} />}
         </div>
    
     )

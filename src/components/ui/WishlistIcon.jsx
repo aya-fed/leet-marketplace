@@ -15,8 +15,8 @@ function WishlistIcon({ className, size }) {
 
     return (
         <div>
-            {!isActive && <FaRegHeart  className='text-neutral-light' onClick={toggleState} size={size} />}
-            {isActive && <FaHeart  onClick={toggleState} size={size} />}
+            {!isActive && <FaRegHeart  className='text-primary cursor-pointer hover:scale-125 duration-500' onClick={toggleState} size={size} />}
+            {isActive && <FaHeart className='text-primary cursor-pointer hover:scale-125 duration-500' onClick={toggleState} size={size} />}
         </div>
    
     )
