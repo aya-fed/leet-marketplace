@@ -131,7 +131,6 @@ const itemCategories = [
             unit: "MHz",
           },
           {
-            
             name: "Boost Clock Speed",
             type: "inputNumber",
             unit: "MHz",
@@ -415,7 +414,7 @@ const itemCategories = [
           {
             name: "Output Power",
             type: "select",
-            options: ["600W", "650W", "700W", "750W", "800W", "850W", "100W & over", "Other"],
+            options: ["600W", "650W", "700W", "750W", "800W", "850W", "1000W & over", "Other"],
           },
         ],
       },
