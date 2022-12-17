@@ -427,7 +427,7 @@ export default function ListingForm({ className }) {
 
         <Select
           id="category"
-          value={{ value: category, label: category }}
+          value={category && { value: category, label: category }}
           label="Category"
           labelClassName="text-white"
           placeholder="Select category"
@@ -445,10 +445,10 @@ export default function ListingForm({ className }) {
                 case "select":
                   return (
                     <SelectDropdown
-                      value={{ value: metadata[meta.name], label: metadata[meta.name] }}
+                      value={metadata[meta.name] && { value: metadata[meta.name], label: metadata[meta.name] }}
                       label={meta.name}
                       key={index}
-                      placeholder="Select..."
+                      placeholder={`Select ${meta.name}`}
                       options={meta.options}
                       closeMenuOnSelect={true}
                       onChange={e => onMetaSelectChange(meta.name, e)}
@@ -488,7 +488,7 @@ export default function ListingForm({ className }) {
 
         <Select
           id="condition"
-          value={{ value: condition, label: condition }}
+          value={condition && { value: condition, label: condition }}
           label="Condition"
           labelClassName="text-white"
           placeholder="Select item condition"

@@ -22,7 +22,7 @@ export default function Filter({
   // states for items to display
   const [categoryItems, setCategoryItems] = useState(null);
   // states for showing filters
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(undefined);
   const [categoryMeta, setCategoryMeta] = useState(null);
   const [selectedMeta, setSelectedMeta] = useState({});
   const [priceMinMax, setPriceMinMax] = useState(null);
@@ -197,7 +197,7 @@ export default function Filter({
         <SelectDropdown
           options={categories}
           placeholder="Category"
-          value={{ value: selectedCategory, label: selectedCategory }}
+          value={selectedCategory && { value: selectedCategory, label: selectedCategory }}
           closeMenuOnSelect={true}
           components={animatedComponents}
           onChange={onChangeCategory}
@@ -221,6 +221,7 @@ export default function Filter({
                         : meta.options.filter(opt => selectedMeta[meta.name].indexOf(opt.value) < 0)
                     }
                     isMulti
+                    isClearable
                     closeMenuOnSelect={true}
                     hideSelectedOptions={true}
                     onChange={e => onMetaFilterChange(meta.name, e)}
