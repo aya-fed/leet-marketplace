@@ -86,6 +86,14 @@ const SelectDropdown = ({
       const transition = "opacity 300ms";
       return { ...styles, color, opacity, transition };
     },
+    placeholder: defaultStyles => {
+      return {
+        ...defaultStyles,
+        color: "#6b7280",
+        fontWeight: "light",
+        paddingLeft: !isFilter && "6px",
+      };
+    },
   };
   // group style
   const formatGroupLabel = data => (
@@ -94,10 +102,10 @@ const SelectDropdown = ({
       {/* <span>{data.options.length}</span> */}
     </div>
   );
-
+  console.log(value);
   return (
     <div
-      className={`
+      className={` 
     select-dropdown my-6 
       ${!stacked && label ? "sm:grid items-start sm:grid-cols-[1fr_minmax(0,_2fr)]" : ""}
       `}
@@ -110,29 +118,34 @@ const SelectDropdown = ({
           {required && <RequiredChip />}
         </div>
       )}
-
-      <Select
-        id={id}
-        placeholder={<div>{placeholder}</div>}
-        value={value}
-        closeMenuOnSelect={closeMenuOnSelect}
-        isMulti={isMulti}
-        options={dropdownOptions}
-        formatGroupLabel={formatGroupLabel}
-        isDisabled={isDisabled}
-        isSearchable={isSearchable}
-        onChange={e => onChange(e)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => {
-          setIsFocused(false);
-          // needs refactoring
-          setIsInvalid(required && value.value === "" ? true : false);
-        }}
-        styles={customStylesFilter}
-        components={{
-          IndicatorSeparator: () => null,
-        }}
-      />
+      {/* workaround for placeholder issue with single select */}
+      <div className="relative">
+        <div className="absolute left-4 text-neutral-dark font-light h-full flex items-center">
+          {!isMulti && value === { value: "", label: "" } && <p>{placeholder}</p>}
+        </div>
+        <Select
+          id={id}
+          placeholder={<div>{placeholder}</div>}
+          value={value}
+          closeMenuOnSelect={closeMenuOnSelect}
+          isMulti={isMulti}
+          options={dropdownOptions}
+          formatGroupLabel={formatGroupLabel}
+          isDisabled={isDisabled}
+          isSearchable={isSearchable}
+          onChange={e => onChange(e)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            setIsFocused(false);
+            // needs refactoring
+            setIsInvalid(required && value.value === "" ? true : false);
+          }}
+          styles={customStylesFilter}
+          components={{
+            IndicatorSeparator: () => null,
+          }}
+        />
+      </div>
     </div>
   );
 };
