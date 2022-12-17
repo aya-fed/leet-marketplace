@@ -47,7 +47,7 @@ export default function Category() {
   }
 
   return (
-    <div className="w-[90%] ml-10 flex flex-wrap md:flex-nowrap md:gap-10">
+    <div className="w-[90%] mx-auto flex flex-wrap md:flex-nowrap md:gap-5">
       <h3 className="mb-6 md:hidden text-neutral-light">{category}</h3>
       {listings.length > 0 && (
         <>
