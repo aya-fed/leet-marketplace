@@ -27,18 +27,15 @@ export default function ListView({ items: propItems }) {
 
   return (
     <div className="w-full">
-      <div>
-      
-        <div className="flex flex-wrap gap-6">
-          {items.map((item, index) => {
-            console.log(item);
-              return (
-                <div key={index}>
-                  <ItemCard item={item} />
-                </div>
-              );
-            })}
-        </div>
+      <div className="flex flex-wrap gap-4 justify-center">
+        {items.map((item) => {
+        // console.log(item);
+          return (
+            <div key={item.itemId}>
+              <ItemCard item={item} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
