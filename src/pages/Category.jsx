@@ -8,6 +8,7 @@ import ListView from "../components/ListView";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import SortDropdown from "../components/SortDropdown";
 import sortOptions from "../data/sortOptions";
+import { checkTargetForNewValues } from "framer-motion";
 
 export default function Category() {
   const params = useParams();
@@ -59,9 +60,9 @@ export default function Category() {
             allItems={listings}
           />
           <div>
-            <div class="md:flex md:flex-between md:mb-4">
+            <div>
               <h2 className="hidden md:block w-full text-neutral-light">{category} </h2>
-              <SortDropdown sortBy={sortBy} setSortBy={setSortBy} className={`-mt-3 md:mt-[unset]`} />
+              <SortDropdown sortBy={sortBy} setSortBy={setSortBy} className={`-mt-3 md:mt-[unset] z-[5] relative`} />
             </div>
             <ListView items={items && items} />
           </div>

@@ -1,6 +1,6 @@
 // Coded by Aya Saito
 
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { doc, collection, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 
@@ -10,10 +10,12 @@ export function useFetchItems() {
   const [listings, setListings] = useState([]);
   const [soldItems, setSoldItems] = useState([]);
   const listingsRef = collection(db, "listings");
+  const wishlistCountRef = doc(db, "wishlistCount", "wishlistCount");
 
-  function getItems() {
+  async function getItems() {
     const q = query(listingsRef, orderBy("timestamp", "desc")); // maybe add limit later on and add "load more" ?
-    fetchData(q);
+    const wlData = await getDoc(wishlistCountRef).then(doc=>doc.data())
+    fetchData(q, wlData);
   }
 
   function getUsersItems(userId) {
@@ -26,7 +28,7 @@ export function useFetchItems() {
     }
   }
 
-  async function fetchData(q) {
+  async function fetchData(q, wlData) {
     const qSnap = await getDocs(q);
     let listingsArr = [];
     let soldItemsArr = [];
@@ -34,7 +36,12 @@ export function useFetchItems() {
       const data = doc.data();
       // console.log(data);
       // have to add condition to separate active listings and sold items - come back after the class diagram is done
-      listingsArr.push({ itemId: doc.id, ...data });
+      if(wlData){
+        const num = wlData[doc.id] ?? 0;
+        listingsArr.push({ itemId: doc.id, wishlistCount: num, ...data });
+      } else {
+        listingsArr.push({ itemId: doc.id, ...data });
+      }
     });
     setListings(listingsArr);
     setIsLoading(false);

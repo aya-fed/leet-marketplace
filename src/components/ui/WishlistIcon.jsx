@@ -1,17 +1,23 @@
 // Coded by Michele Carter
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaRegHeart} from 'react-icons/fa'
 import { FaHeart} from 'react-icons/fa'
 
 
-function WishlistIcon({ className, size }) {
+function WishlistIcon({ className, size , state}) {
 
     const [isActive, setIsActive] = useState(false);
 
     function toggleState() {
+        if (typeof state !== undefined) {
         (setIsActive(!isActive))
+        }
     }
+
+    useEffect(() => {
+        setIsActive(state);
+    }, [state]);
 
     return (
         <div>
