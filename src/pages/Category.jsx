@@ -7,7 +7,7 @@ import Filter from "../components/Filter";
 import ListView from "../components/ListView";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import SortDropdown from "../components/SortDropdown";
-import sortOptions from "../data/SortOptions";
+import sortOptions from "../data/sortOptions";
 
 export default function Category() {
   const params = useParams();
@@ -47,7 +47,7 @@ export default function Category() {
   }
 
   return (
-    <div className="w-[90%] max-w-[1200px] mx-auto flex flex-wrap md:flex-nowrap md:gap-20">
+    <div className="w-[90%] ml-10 flex flex-wrap md:flex-nowrap md:gap-10">
       <h3 className="mb-6 md:hidden text-neutral-light">{category}</h3>
       {listings.length > 0 && (
         <>
@@ -59,8 +59,10 @@ export default function Category() {
             allItems={listings}
           />
           <div>
-            <h2 className="mb-6 hidden md:block w-full text-neutral-light">{category} </h2>
-            <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
+            <div class="md:flex md:flex-between md:mb-4">
+              <h2 className="hidden md:block w-full text-neutral-light">{category} </h2>
+              <SortDropdown sortBy={sortBy} setSortBy={setSortBy} className={`-mt-3 md:mt-[unset]`} />
+            </div>
             <ListView items={items && items} />
           </div>
         </>

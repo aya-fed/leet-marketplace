@@ -71,7 +71,7 @@ function App() {
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}>
           <AccountContext.Provider value={{ accountData, setAccountData }}>
             <Header />
-            <div className="my-[100px] py-[80px] flex flex-col justify-center xl:ml-80">
+            <div className="my-[100px] py-[80px] flex flex-col xl:ml-80">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/search/:keywords" element={<Search />} />

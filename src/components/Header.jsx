@@ -42,7 +42,7 @@ const Header = () => {
         <div className="flex items-center">
           <div className="h-6 w-[34px] bg-gradient-2" ></div>
           {/* hamburger menu */}
-          <div className={`${hamburgerOpen && 'hidden'} flex-col flex-nowrap justify-around w-8 h-8 z-10 mr-10 text-background-4 cursor-pointer`} onClick={handleToggle}>
+          <div className={`${hamburgerOpen && 'xl:hidden'} flex-col flex-nowrap justify-around w-8 h-8 z-10 mr-10 text-background-4 cursor-pointer`} onClick={handleToggle}>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>

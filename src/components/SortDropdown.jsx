@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
-import sortOptions from "../data/SortOptions";
+import sortOptions from "../data/sortOptions";
 
-export default function SortDropdown({ sortBy, setSortBy }) {
+export default function SortDropdown({ sortBy, setSortBy, className }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(sortBy ?? sortOptions[1]);
 
@@ -16,7 +16,7 @@ export default function SortDropdown({ sortBy, setSortBy }) {
     }
   }
   return (
-    <div className="w-min whitespace-nowrap text-sm text-neutral-light">
+    <div className={`w-min h-12 whitespace-nowrap text-sm text-neutral-light ${className}`}>
       {selectedOption && (
         <div
           className={`flex justify-start gap-2 items-center py-3 text-primary cursor-pointer`}
