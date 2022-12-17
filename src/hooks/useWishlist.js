@@ -49,12 +49,12 @@ export function useWishlist() {
     if (userId && itemId && currentWishlist) {
       const newList = currentWishlist.filter(item => item.itemId !== itemId);
       setNewWishlist(newList);
-      updateUserData(userId, newList, type); // update db
+      updateUserData(userId, newList, type, itemId); // update db
     }
     //
   }
 
-  async function updateUserData(userId, wishlistData, type) {
+  async function updateUserData(userId, wishlistData, type, itemId) {
     setIsLoading(true);
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
@@ -65,8 +65,25 @@ export function useWishlist() {
         wishlist: wishlistData,
       });
     }
+    updateWishlistCount(itemId, type);
     setIsLoading(false);
     toast.success(type === "add" ? messageAdd : messageDelete);
+  }
+
+  async function updateWishlistCount(itemId, type) {
+    setIsLoading(true);
+    const listingsRef = doc(db, "listings", itemId);
+    const docSnap = await getDoc(listingsRef);
+    let num = type === "add" ? 1 : -1;
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      num = num + data.wishlistCount;
+      // await updateDoc(listingsRef, {
+      //   ...data,
+      //   wishlistCount: num,
+      // });
+    }
+    setIsLoading(false);
   }
 
   return { currentUser, addToWishlist, deleteFromWishlist, newWishlist, setNewWishlist };
