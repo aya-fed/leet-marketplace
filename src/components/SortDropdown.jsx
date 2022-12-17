@@ -28,7 +28,7 @@ export default function SortDropdown({ sortBy, setSortBy, className }) {
       )}
 
       <div
-        className={`rounded bg-background-3 overflow-hidden shadow scale-y-0 ${
+        className={`rounded bg-background-4 overflow-hidden shadow-2xl scale-y-0 ${
           isOpen && "scale-y-100"
         } transition origin-top`}
       >
@@ -36,7 +36,7 @@ export default function SortDropdown({ sortBy, setSortBy, className }) {
           <div
             key={opt.id}
             className={`p-3 scale-y-0 cursor-pointer ${
-              selectedOption.id === opt.id ? "bg-background-4" : "hover:text-primary"
+              selectedOption.id === opt.id ? "bg-background-3" : "hover:text-primary"
             } ${isOpen && "scale-y-100 "} transition origin-top`}
             onClick={() => toggle(opt)}
           >

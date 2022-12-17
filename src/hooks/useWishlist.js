@@ -16,6 +16,7 @@ let type = "";
 //
 export function useWishlist() {
   const { accountData, setAccountData } = useContext(AccountContext);
+  const wishlistCountRef = doc(db, "wishlistCount", "wishlistCount");
 
   const [isLoading, setIsLoading] = useState(false);
   const [newWishlist, setNewWishlist] = useState([]);
@@ -44,6 +45,7 @@ export function useWishlist() {
       });
       setNewWishlist(newList);
       updateUserData(userId, newList, type, itemId); // update context & db
+      updateWishlistCount(itemId, type)
     }
     //
   }
@@ -54,6 +56,7 @@ export function useWishlist() {
       const newList = currentWishlist.filter(item => item.itemId !== itemId);
       setNewWishlist(newList);
       updateUserData(userId, newList, type, itemId); // update context & db
+      updateWishlistCount(itemId, type)
     }
     //
   }
@@ -73,22 +76,40 @@ export function useWishlist() {
       ...prev,
       wishlist: wishlistData,
     }));
-    updateWishlistSubCol(itemId, userId, type);
+    // updateWishlistSubCol(itemId, userId, type);
     setIsLoading(false);
     toast.success(type === "add" ? messageAdd : messageDelete);
   }
 
-  async function updateWishlistSubCol(itemId, userId, type) {
-    const wishlistCountRef = doc(db, "listings", itemId, "wishlist", userId);
-    if (type === "add") {
-      await setDoc(wishlistCountRef, {
-        userId: userId,
-        addedAt: serverTimestamp(),
-      });
-    } else if (type === "delete") {
-      await deleteDoc(wishlistCountRef);
+  async function updateWishlistCount(itemId, type){
+    const wlSnap = await getDoc(wishlistCountRef)
+    if (wlSnap.exists()) {
+      let num = 0;
+      const data = wlSnap.data();
+      console.log(data[itemId])
+      if(data[itemId]) {
+        num = type === "add" ? 1 : -1;
+        num = data[itemId] + num
+      } else {
+        num = 1
+      }
+      updateDoc(wishlistCountRef, {
+        ...data,
+        [itemId]: num,
+      })
     }
   }
+
+  // async function updateWishlistSubCol(itemId, userId, type) {
+  //   const wishlistCountRef = doc(db, "listings", itemId, "wishlist", "docForCount");
+  //   let num = type === "add" ? 1 : -1
+  //   const docSnap = await getDoc(wishlistCountRef);
+  //   if (docSnap.exists()) {
+  //     const data = docSnap.data();
+  //     num = num + data.wishlistCount
+  //   }
+  //   await setDoc(wishlistCountRef, {wishlistCount:num})
+  // }
 
   return { currentUser, addToWishlist, deleteFromWishlist, newWishlist, setNewWishlist };
 }

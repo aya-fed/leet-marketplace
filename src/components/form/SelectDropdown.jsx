@@ -102,7 +102,6 @@ const SelectDropdown = ({
       {/* <span>{data.options.length}</span> */}
     </div>
   );
-  console.log(value);
   return (
     <div
       className={` 
@@ -118,11 +117,7 @@ const SelectDropdown = ({
           {required && <RequiredChip />}
         </div>
       )}
-      {/* workaround for placeholder issue with single select */}
       <div className="relative">
-        <div className="absolute left-4 text-neutral-dark font-light h-full flex items-center">
-          {!isMulti && value === { value: "", label: "" } && <p>{placeholder}</p>}
-        </div>
         <Select
           id={id}
           placeholder={<div>{placeholder}</div>}

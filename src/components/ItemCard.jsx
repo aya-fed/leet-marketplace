@@ -23,7 +23,7 @@ function ItemCard({item}) {
     useEffect(() => {
         if (isLoggedIn && wishlist) {
             wishlist.forEach(wlItem => {
-                console.log(wlItem);
+                // console.log(wlItem);
                 if (wlItem.itemId === item.itemId) {
                     setIsInWishlist(true);
                 }
@@ -31,7 +31,6 @@ function ItemCard({item}) {
         }
     }, [wishlist, item]);
 
-    console.log(wishlist);
     useEffect(() => {
       if (newWishlist.length > 0) {
           setAccountData(prev => ({
