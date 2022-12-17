@@ -1,11 +1,13 @@
 // Coded by Aya Saito
 
-import { useEffect, useState } from "react";
-import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { useEffect, useState, useContext } from "react";
+import { doc, getDoc, serverTimestamp, updateDoc, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { getAuth } from "firebase/auth";
 
 import { toast } from "react-toastify";
+
+import AccountContext from "../context/AccountContext";
 
 const messageAdd = "Added to wishlist";
 const messageDelete = "Removed from wishlist";
@@ -13,6 +15,8 @@ let type = "";
 
 //
 export function useWishlist() {
+  const { accountData, setAccountData } = useContext(AccountContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [newWishlist, setNewWishlist] = useState([]);
   const [currentUser, setCurrentUser] = useState();
@@ -39,7 +43,7 @@ export function useWishlist() {
         addedAt: Date.now(), // serverTimestamp() is not currently supported inside arrays
       });
       setNewWishlist(newList);
-      updateUserData(userId, newList, type); // update db
+      updateUserData(userId, newList, type, itemId); // update context & db
     }
     //
   }
@@ -49,7 +53,7 @@ export function useWishlist() {
     if (userId && itemId && currentWishlist) {
       const newList = currentWishlist.filter(item => item.itemId !== itemId);
       setNewWishlist(newList);
-      updateUserData(userId, newList, type, itemId); // update db
+      updateUserData(userId, newList, type, itemId); // update context & db
     }
     //
   }
@@ -65,25 +69,25 @@ export function useWishlist() {
         wishlist: wishlistData,
       });
     }
-    updateWishlistCount(itemId, type);
+    setAccountData(prev => ({
+      ...prev,
+      wishlist: wishlistData,
+    }));
+    updateWishlistSubCol(itemId, userId, type);
     setIsLoading(false);
     toast.success(type === "add" ? messageAdd : messageDelete);
   }
 
-  async function updateWishlistCount(itemId, type) {
-    setIsLoading(true);
-    const listingsRef = doc(db, "listings", itemId);
-    const docSnap = await getDoc(listingsRef);
-    let num = type === "add" ? 1 : -1;
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      num = num + data.wishlistCount;
-      // await updateDoc(listingsRef, {
-      //   ...data,
-      //   wishlistCount: num,
-      // });
+  async function updateWishlistSubCol(itemId, userId, type) {
+    const wishlistCountRef = doc(db, "listings", itemId, "wishlist", userId);
+    if (type === "add") {
+      await setDoc(wishlistCountRef, {
+        userId: userId,
+        addedAt: serverTimestamp(),
+      });
+    } else if (type === "delete") {
+      await deleteDoc(wishlistCountRef);
     }
-    setIsLoading(false);
   }
 
   return { currentUser, addToWishlist, deleteFromWishlist, newWishlist, setNewWishlist };
