@@ -26,10 +26,10 @@ export default function ListView({ items: propItems }) {
   }, [listings, propItems]);
 
   return (
-    <div>
+    <div className="w-full">
       <div>
       
-        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+        <div className="flex flex-wrap gap-6">
           {items.map((item, index) => {
             console.log(item);
               return (
