@@ -4,7 +4,7 @@ import SidebarItem from "./SidebarItem.jsx"
 import items from "../data/SideNav.json"
 import Button from "./ui/Button.jsx"
 
-
+import { Link } from "react-router-dom"
 export default function Sidebar(){
   return (
       // Ethan - this is the component sidebar, item.map Connects to SidebarItem - if you wish to add a new page / link find in data/SideNav.Json
@@ -14,9 +14,12 @@ export default function Sidebar(){
     <div className="sidebar bg-[#252A41] h-[100vh] fixed top-0 left-0 overflow-auto flex flex-col  pt-24  w-80  ease-in duration-500 scrollbar-thin z-10 "
     > 
       
-      <Button label="New listing"
-        className=" mt-16 mb-4  scale-75 ">
-        New Listing
+      <Button
+        
+        label="New listing"
+        className=" mt-12 mb-4 ml-12 w-[75%] ">
+        <Link to='/create-listing'>New Listing</Link>
+        
       </Button>
 
       {items.map((item, index) => <SidebarItem key={index} item={item}  />)}

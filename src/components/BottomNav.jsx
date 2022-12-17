@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiFillHome, AiFillBell } from "react-icons/ai"
 import { FaUser } from "react-icons/fa"
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { HiMagnifyingGlass } from "react-icons/hi2"
 import WishlistIcon from "./ui/WishlistIcon";
 import NotificationIcon from "./ui/NotificationIcon";
@@ -11,7 +11,7 @@ import NotificationIcon from "./ui/NotificationIcon";
 const BottomNav = () => {
   const Menus = [
   
-    { name: "Home", icon: <AiFillHome />, dis: "-" },
+    { name: "Home", icon: <AiFillHome />, dis: "-",  link: <Link to="/Home" /> },
     
 
     {

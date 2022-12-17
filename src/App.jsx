@@ -88,8 +88,9 @@ function App() {
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/TEST" element={<TEST />} />
               </Routes>
-            </div>
-            <Footer />
+         
+              <Footer />
+                 </div>
           </AccountContext.Provider>
         </AuthContext.Provider>
       </Router>
