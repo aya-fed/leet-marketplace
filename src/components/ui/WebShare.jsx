@@ -1,5 +1,5 @@
 import { RWebShare } from "react-web-share";
-import { FiShare2 } from "react-icons/fi";
+import { HiOutlineShare } from "react-icons/hi";
 
 const WebShare = ({ text, title, url, className, size }) => {
   return (
@@ -11,7 +11,7 @@ const WebShare = ({ text, title, url, className, size }) => {
           title: title,
         }}
       >
-        <FiShare2 className={`cursor-pointer ${className}`} size={size} />
+        <HiOutlineShare className={`cursor-pointer ${className}`} size={size} />
       </RWebShare>
     </div>
   );

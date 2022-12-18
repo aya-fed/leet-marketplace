@@ -31,7 +31,7 @@ export default function TEST() {
 
   return (
     <div className="w-[90%] my-6 mx-auto">
-      <WebShare size={20} className="text-primary" />
+      <WebShare size={20} className="text-neutral-light" />
       {/* Checking Form components -------------------------------------------------- */}
       <form className="w-[85%] md:max-w-[600px] mx-auto mt-10">
         {/* Input ---------------------------------------------------------------- */}
