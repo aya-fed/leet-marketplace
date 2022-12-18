@@ -9,9 +9,11 @@ import SelectDropdown from "./form/SelectDropdown";
 import RangeFilter from "./form/RangeFilter";
 
 export default function Filter({
+  items: propItems,
   setItems: propSetItems,
   category: propCategory,
   setCategory: propSetCategory,
+  keywords: propKeywords,
   allItems,
 }) {
   const animatedComponents = makeAnimated();
@@ -30,11 +32,39 @@ export default function Filter({
 
   //
   useEffect(() => {
-    if (allItems.length > 0) {
-      setCategoryItems(allItems);
-      setPriceRange(allItems);
+    setCategoryItems(allItems);
+    setPriceRange(allItems);
+    setSelectedCategory("");
+    if (propKeywords) {
+      filterWithKeywords(propKeywords, allItems);
     }
-  }, [allItems]);
+  }, []);
+
+  // Filter by keywords (using parameter from the parent component)
+  useEffect(() => {
+    if (propKeywords && categoryItems) {
+      filterWithKeywords(propKeywords, propItems);
+    }
+  }, [selectedCategory]);
+
+  function filterWithKeywords(keywords, items) {
+    const keywordArr = keywords.trim().split(/ +/);
+    // console.log(keywordArr);
+    const matchingItems = items.filter(item => {
+      const title = item.title.toLowerCase();
+      return keywordArr.every(word => title.indexOf(word.toLowerCase()) > 0);
+    });
+    // console.log(matchingItems);
+    if (matchingItems.length > 0) {
+      setCategoryItems(matchingItems);
+      propSetItems(matchingItems);
+      setPriceRange(matchingItems);
+    } else {
+      setCategoryItems([]);
+      propSetItems([]);
+      setPriceRange([]);
+    }
+  }
 
   // Set pre-selected category as a selected category state and show meta filter
   useEffect(() => {
@@ -47,16 +77,21 @@ export default function Filter({
   // Set price min max values for the price range filter
   function setPriceRange(itemArr) {
     // console.log(itemArr);
-    const min = itemArr.reduce((a, b) => (a.price < b.price ? a : b));
-    const max = itemArr.reduce((a, b) => (a.price > b.price ? a : b));
-    setPriceMinMax({
-      min: min.price,
-      max: max.price,
-    });
-    setPriceRangeVals({
-      min: min.price,
-      max: max.price,
-    });
+    if (itemArr.length > 0) {
+      const min = itemArr.reduce((a, b) => (a.price < b.price ? a : b));
+      const max = itemArr.reduce((a, b) => (a.price > b.price ? a : b));
+      setPriceMinMax({
+        min: min.price,
+        max: max.price,
+      });
+      setPriceRangeVals({
+        min: min.price,
+        max: max.price,
+      });
+    } else {
+      setPriceMinMax({ min: 0, max: 0 });
+      setPriceRangeVals({ min: 0, max: 0 });
+    }
   }
 
   // Category filter -----------------------------------------------------

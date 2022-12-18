@@ -30,7 +30,7 @@ function ItemCard({item}) {
     }
   }, [wishlist, item]);
 
-  console.log(wishlist);
+  // console.log(wishlist);
   useEffect(() => {
     if (newWishlist.length > 0) {
       setAccountData(prev => ({
