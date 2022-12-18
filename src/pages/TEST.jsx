@@ -14,6 +14,7 @@ import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
 import AccountContext from "../context/AccountContext";
 import WebShare from "../components/ui/WebShare";
+import CommentList from "../components/CommentList";
 
 export default function TEST() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +32,11 @@ export default function TEST() {
 
   return (
     <div className="w-[90%] my-6 mx-auto">
-      <WebShare size={20} className="text-neutral-light" />
+      <div className="w-[90%] md:w-1/2 mx-auto">
+        <CommentList itemId="0HJns7rHFApEbFldWNAl" sellerId="xfMIznl4DISG1YCXqSawo7PrCIK2" />
+      </div>
+      <hr className="my-6" />
+
       {/* Checking Form components -------------------------------------------------- */}
       <form className="w-[85%] md:max-w-[600px] mx-auto mt-10">
         {/* Input ---------------------------------------------------------------- */}
@@ -114,6 +119,9 @@ export default function TEST() {
           )}
         </div>
       </div>
+      {/* Web share -------------------------------------------------- */}
+      <WebShare size={20} className="text-neutral-light" />
+
       {/* Truncate text using  -------------------------------------------------- */}
       <hr className="my-6" />
       <div className="text-neutral max-w-[350px]">
