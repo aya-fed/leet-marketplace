@@ -46,6 +46,8 @@ export function useFetchOneItem(itemId = null) {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
+      delete data.email;
+      delete data.wishlist;
       setSellerInfo(data);
       ///// loading stop
       setIsLoading(false);
