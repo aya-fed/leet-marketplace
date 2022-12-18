@@ -36,29 +36,32 @@ const Header = () => {
 
 
   return (
-    <div className="absolute top-0 left-0">
-      <div className="w-full h-[100px] px-4 bg-background-2 z-[199] fixed flex items-center border-b gap-4">
+    <div className="absolute top-0 left-0 w-full">
+      <div className="relative flex items-center justify-between h-[100px] bg-background-2 z-[199] border-b gap-4 px-4">
 
-        <div className="flex items-center">
-          <div className="h-6 w-[34px] bg-gradient-2" ></div>
+        <div className="flex items-center gap-4">
+          {/* Leet logo */}
+          <div className=" ">
+            <div className="items-center w-[90px] h-[77px]"><img src={Logo} /></div>
+          </div>
           {/* hamburger menu */}
-          <div className={`${hamburgerOpen && 'xl:hidden'} flex-col flex-nowrap justify-around w-8 h-8 z-10 mr-10 text-background-4 cursor-pointer`} onClick={handleToggle}>
+          <div className={`${hamburgerOpen && 'xl:hidden'} flex-col flex-nowrap justify-around w-8 h-8 z-10 text-background-4 cursor-pointer`} onClick=         {handleToggle}>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
             <div className="w-8 h-0.5 rounded-lg bg-primary origin-top-left mb-2"></div>
           </div>
-          {/* Leet logo */}
-          <div className="mr-10 w-[90px] h-[77px]"><img src={Logo} /></div>
-        </div>
+        </div> 
 
         {/* search bar */}
-        <div className="h-8 w-full rounded-3xl mr-10 bg-background-2 border border-primary justify-center"><HiMagnifyingGlass className="text-neutral-light float-right mt-2 mx-4"/></div>
+        <div className="md:grow">
+          <div className="h-8 rounded-3xl bg-background-2 border border-primary"><HiMagnifyingGlass className="text-neutral-light float-right mt-2 mx-4" /></div>
+        </div> 
 
         {/* wishlist/notification icons and sign in/account button */}
-        <div className="flex items-center gap-6">
-          <div className="hidden md:block"><NotificationIcon size={20} /></div>
-          <div className="hidden md:block"><WishlistIcon size={20}/></div>
-          <Button className="md:block border items-center rounded-lg w-max px-4">Sign in</Button>
+        <div className="hidden md:inline-flex items-center gap-6 ">
+          <div><NotificationIcon size={20} /></div>
+          <div><WishlistIcon size={20}/></div>
+          <Button className="border rounded-lg w-max px-4">Sign in</Button>
         </div>
       </div>
 

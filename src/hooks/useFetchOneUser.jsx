@@ -19,6 +19,8 @@ export function useFetchOneUser() {
     if (docSnap.exists()) {
       const data = docSnap.data();
       setUserInfo(data);
+      delete data.email;
+      delete data.wishlist;
       console.log(data);
       ///// loading stop
       setIsLoading(false);

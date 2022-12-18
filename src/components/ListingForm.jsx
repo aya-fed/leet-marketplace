@@ -349,7 +349,7 @@ export default function ListingForm({ className }) {
       formDataCopy = {
         ...formDataCopy,
         timestamp: serverTimestamp(),
-        wishlistCount: 0, // will be used for popularity sort
+        // wishlistCount: 0, // will be used for popularity sort
         seller: auth.currentUser.uid, // add seller uid
       };
       console.log(formDataCopy);
