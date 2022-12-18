@@ -35,7 +35,9 @@ export default function Filter({
     setCategoryItems(allItems);
     setPriceRange(allItems);
     setSelectedCategory("");
-    filterWithKeywords(propKeywords, allItems);
+    if (propKeywords) {
+      filterWithKeywords(propKeywords, allItems);
+    }
   }, []);
 
   // Filter by keywords (using parameter from the parent component)
