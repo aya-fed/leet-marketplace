@@ -11,14 +11,19 @@ import NotificationIcon from "./ui/NotificationIcon";
 const BottomNav = () => {
   const Menus = [
   
-    { name: "Home", icon: <AiFillHome />, dis: "-",  link: <Link to="/Home" /> },
-    
+    {
+      name: "Home",
+      icon: <AiFillHome />,
+    path: "/"
+    },
+           
+        
 
     {
       name: "Search", icon: <HiMagnifyingGlass  />
       , dis: "-"
     },
-    { name: "Wishlist", icon: <WishlistIcon  />, dis: "-" },
+    { name: "Wishlist", icon: <WishlistIcon  />, path: "/wishlist" },
     
     { name: "Profile", icon: <FaUser />, dis: "-" },
     
@@ -29,14 +34,15 @@ const BottomNav = () => {
   const [active, setActive] = useState(0);
   return (
     
-    <div className="bg-[#252A41] h-[5%]  rounded-t-xl fixed bottom-0  pt-4  lg:hidden">
+    <div className="bg-[#252A41] h-[10%]  rounded-t-xl fixed bottom-0  pt-4  lg:hidden z-50">
       <ul className="flex ">
         
           <span       
      
           ></span>
        
-        <div  className="w-screen justify-evenly flex">
+        <div className="w-screen justify-evenly flex">
+          
         {Menus.map((menu, i) => (
           <li key={i} className="- " >
             <a
@@ -45,12 +51,12 @@ const BottomNav = () => {
             >
               <span
                 className={`text-xl cursor-pointer duration-500 ${
-                  i === active && "  text-[#51D9D9]"
+                  i === active &&  "  text-[#51D9D9]"
                 }`}
               >
               {menu.icon}
               </span>
-              <span
+              <span 
                 className={` ${
                   active === i
                     ? " opacity-100"
