@@ -19,7 +19,7 @@ export default function ItemCardRow({ item, userId, buyerId, sellerId, isClosed,
     <div className="relative">
       <hr className=" mb-7 border-background-4" />
       <div className=" w-full grid grid-cols-[120px_auto] gap-4 mb-7 ">
-        <div className="w-[120px] h-[120px] rounded-[10px] overflow-hidden bg-background-2">
+        <div className="w-[120px] h-[120px] rounded-[10px] overflow-hidden">
           <img className="w-full h-full object-cover" src={item.imageUrl ?? item.imageUrls[0]} />
         </div>
         <div className="flex flex-col justify-between">
