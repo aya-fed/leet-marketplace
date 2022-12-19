@@ -21,25 +21,43 @@ export default function RangeFilter({
 
   useEffect(() => {
     if (min) {
+      console.log("change");
       setHandleMin(min);
+      updateValidRange(min, "miniVal");
     }
   }, [min]);
   useEffect(() => {
     if (max) {
       setHandleMax(max);
+      updateValidRange(max, "maxVal");
     }
   }, [max]);
 
+  console.log(validRange.max);
+  console.log(value);
+
   function onChange(e) {
-    const wrapperWidth = wrapperRef.current.clientWidth;
     if (e.target.id === "miniVal") {
       setHandleMin(e.target.value);
-      setValidRange(prev => ({ ...prev, min: (wrapperWidth / (max - min)) * (e.target.value - min) }));
-      propSetValue(prev => ({ ...prev, min: e.target.value }));
+      updateValidRange(e.target.value, e.target.id);
+      propSetValue(prev => ({ ...prev, ["min"]: e.target.value }));
     } else if (e.target.id === "maxVal") {
       setHandleMax(e.target.value);
-      setValidRange(prev => ({ ...prev, max: (wrapperWidth / (max - min)) * (max - e.target.value) }));
-      propSetValue(prev => ({ ...prev, max: e.target.value }));
+      updateValidRange(e.target.value, e.target.id);
+      propSetValue(prev => ({ ...prev, ["max"]: e.target.value }));
+    }
+  }
+
+  function updateValidRange(value, target) {
+    const wrapperWidth = wrapperRef.current.clientWidth;
+    if (target === "miniVal") {
+      setValidRange(prev => ({ ...prev, ["min"]: (wrapperWidth / (max - min)) * (value - min) }));
+    }
+    if (target === "maxVal") {
+      setValidRange(prev => ({ ...prev, ["max"]: (wrapperWidth / (max - min)) * (max - value) }));
+    }
+    if (min === max) {
+      setValidRange({ ["min"]: min, ["max"]: max });
     }
   }
   return (
@@ -48,12 +66,12 @@ export default function RangeFilter({
       <div ref={wrapperRef} className="relative left-1 my-6 -mx-2 w-full">
         {/* Track background -------------------------------------------- */}
         {/* bg */}
-        <div className="absolute w-full h-[1px]">
+        <div className="absolute w-full h-[2px] -mt-[1px]">
           <div className={`w-full h-full bg-background-4`}></div>
         </div>
         {/* Valid range */}
         <div
-          className="absolute w-full h-[1px]"
+          className="absolute w-full h-[2px] -mt-[1px] overflow-hidden"
           style={{ paddingLeft: validRange.min + "px", paddingRight: validRange.max + "px" }}
         >
           <div className={`w-full h-full bg-primary`}></div>
