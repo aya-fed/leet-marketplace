@@ -7,6 +7,7 @@ import Logo from "../assets/Leet-Logo.svg"
 import WishlistIcon from "./ui/WishlistIcon";
 import NotificationIcon from "./ui/NotificationIcon";
 import Button from "./ui/Button"
+import { Link } from "react-router-dom"
 
 
 const Header = () => {
@@ -53,19 +54,23 @@ const Header = () => {
         </div> 
 
         {/* search bar */}
-        <div className="md:grow">
-          <div className="h-8 rounded-3xl bg-background-2 border border-primary"><HiMagnifyingGlass className="text-neutral-light float-right mt-2 mx-4" /></div>
+        <div className="md:w-[60%]">
+          <div className="flex justify-between h-8 rounded-3xl bg-background-2 border border-primary p-2">
+            <input type="text" placeholder="search for something..." />
+            <HiMagnifyingGlass className="text-neutral-light float-right mx-4" />
+          </div>
         </div> 
 
         {/* wishlist/notification icons and sign in/account button */}
         <div className="hidden md:inline-flex items-center gap-6 ">
           <div><NotificationIcon size={20} /></div>
-          <div><WishlistIcon size={20}/></div>
+          <Link to="/wishlist"><WishlistIcon size={20}/></Link>
           <Button className="border rounded-lg w-max px-4">Sign in</Button>
         </div>
+
       </div>
 
-      {/* sidebar note - Michelle I have scraped the props for the sidebar and merged them with the Sidebar I developed.  */} 
+      {/* sidebar */} 
       <div className={`${!hamburgerOpen && '-translate-x-80'} h-screen ease-in duration-500 fixed z-[100]`}>
         <Sidebar className=""/>
       </div>   

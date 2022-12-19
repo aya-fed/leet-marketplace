@@ -36,6 +36,33 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
+  // Google Maps Places
+  const loadScript = (url, callback) => {
+    let script = document.createElement("script");
+    script.type = "text/javascript";
+
+    if (script.readyState) {
+      script.onreadystatechange = function () {
+        if (script.readyState === "loaded" || script.readyState === "complete") {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else {
+      script.onload = () => callback();
+    }
+
+    script.src = url;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  };
+
+  useEffect(() => {
+    loadScript(
+      `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_APP_GOOGLE_MAP_API_KEY}&libraries=places`,
+      () => {}
+    );
+  }, []);
+
   // auth status to save in context
   useEffect(() => {
     if (loggedIn) {
@@ -80,7 +107,7 @@ function App() {
                 <Route path="/item-detail/:itemId" element={<ItemDetail />} />
                 <Route path="/user-profile/:userId" element={<UserProfile />} />
                 <Route path="/create-listing" element={<CreateListing />} />
-                <Route path="/checkout" element={<CheckOut />} />
+                <Route path="/checkout/:itemId" element={<CheckOut />} />
                 <Route path="/edit-listing/:itemId" element={<EditListing />} />
                 <Route path="/my-account" element={<MyAccount />} />
                 <Route path="/my-listings" element={<MyListings />} />
