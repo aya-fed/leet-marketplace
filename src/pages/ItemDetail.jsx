@@ -5,7 +5,7 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 import WishlistIcon from "../components/ui/WishlistIcon";
 import { Link } from "react-router-dom";
 import Button from "../components/ui/Button"
-import Webshare from "../components/ui/Webshare"
+// import Webshare from "../components/ui/Webshare"
 
 export default function ItemDetail() {
   const params = useParams();
@@ -43,7 +43,7 @@ export default function ItemDetail() {
         <div className="text-2xl mb-[30px]">{item.title}</div>
         <div>
           <div className="text-2xl text-primary">${item.price}</div>
-          <div><Webshare /></div>
+          {/* <div><Webshare /></div> */}
           <Link to="/wishlist"><WishlistIcon size={20}/></Link>
           <Button>Buy now</Button>
         </div>
