@@ -58,8 +58,8 @@ const InputField = ({
           value={value}
           min={min}
           max={max}
-          minlength={minlength}
-          maxlength={maxlength}
+          minLength={minlength}
+          maxLength={maxlength}
           className={twMerge(`
             w-full py-2 
             border 

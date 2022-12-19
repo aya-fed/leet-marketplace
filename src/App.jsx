@@ -91,12 +91,12 @@ function App() {
         name: "",
         email: "",
         profilePic: "",
+        location: "",
         timestamp: "",
         wishlist: [],
         purchased: [],
         sold: [],
         account: {
-          location: "",
           balance: "",
           recipientName: "",
           address: "",
