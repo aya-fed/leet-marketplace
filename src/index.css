@@ -33,7 +33,7 @@
 
 
   /* overriding form input elements */
-  [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], select {
+  [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
     @apply bg-transparent p-0 border-0
   }
   [type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus{
@@ -41,6 +41,9 @@
   }
   select:focus  {
     @apply ring-transparent ring-0;
+  }
+  textarea {
+    @apply resize-none
   }
 
    /* Range filter */

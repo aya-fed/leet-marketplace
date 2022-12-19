@@ -1,7 +1,6 @@
 // Coded by Aya Saito
 
 import { useState, useEffect, useContext } from "react";
-import { BiEditAlt } from "react-icons/bi";
 
 import AccountContext from "../context/AccountContext";
 import AuthContext from "../context/AuthContext";
@@ -11,6 +10,7 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 import ItemCardRow from "../components/ItemCardRow";
 import AccountMenu from "../components/AccountMenu";
 import { useNavigate } from "react-router";
+import EditIcon from "../components/ui/EditIcon";
 
 export default function MyListings() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -50,8 +50,7 @@ export default function MyListings() {
                     navigate(`/edit-listing/${item.itemId}`);
                   }}
                 >
-                  <div className="text-sm">Edit</div>
-                  <BiEditAlt size={24} />
+                  <EditIcon size={20} showText />
                 </div>
               </div>
             ))}

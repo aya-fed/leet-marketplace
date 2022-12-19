@@ -159,7 +159,14 @@ export default function PopupAuthForm({ onSubmit: propOnSubmit, mode: propMode }
           <div className="mt-6">{textTop}</div>
           <form onSubmit={onSubmit}>
             {mode === "signUp" && (
-              <InputField type="text" id="name" value={name} placeholder="Display name" onChange={onChange} />
+              <InputField
+                type="text"
+                id="name"
+                value={name}
+                maxlength="20"
+                placeholder="Display name"
+                onChange={onChange}
+              />
             )}
 
             <InputField type="text" id="email" value={email} placeholder="Email address" onChange={onChange} />
