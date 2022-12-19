@@ -27,6 +27,7 @@ export default function Filter({
   const [selectedCategory, setSelectedCategory] = useState(undefined);
   const [categoryMeta, setCategoryMeta] = useState(null);
   const [selectedMeta, setSelectedMeta] = useState({});
+  const [selectedCondition, setSelectedCondition] = useState(undefined);
   const [priceMinMax, setPriceMinMax] = useState(null);
   const [priceRangeVals, setPriceRangeVals] = useState(null);
 
@@ -205,6 +206,14 @@ export default function Filter({
     setPriceRange(matchingItems);
   }
 
+  // Condition filter -----------------------------------------------------
+  function filterWithCondition(e) {
+    // Filter items with condition
+    const matchingItems = categoryItems.filter(item => item.condition === e.value);
+    setSelectedCondition(e.value);
+    propSetItems(matchingItems);
+    setPriceRange(matchingItems);
+  }
   // Price filter -----------------------------------------------------
   useEffect(() => {
     // console.log(propItems);
@@ -276,6 +285,23 @@ export default function Filter({
                 break;
             }
           })}
+
+        <SelectDropdown
+          options={[
+            "Brand new",
+            "Opened - never used",
+            "Used, like new",
+            "Used, good",
+            "Used, ok",
+            "As-is or not working",
+          ]}
+          placeholder="Condition"
+          value={selectedCondition && { value: selectedCondition, label: selectedCondition }}
+          closeMenuOnSelect={true}
+          components={animatedComponents}
+          onChange={e => filterWithCondition(e)}
+          isFilter
+        />
         {priceMinMax && (
           <RangeFilter
             id="price"
