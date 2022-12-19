@@ -3,7 +3,7 @@
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 
-import { collection, doc, serverTimestamp } from "firebase/firestore";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useFetchOneItem } from "../hooks/useFetchOneItem";
 
@@ -24,7 +24,7 @@ export default function CheckOut() {
 
   const [isPickup, setIsPickup] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const [address, setAddress] = useState("");
+  const [paymentComplete, setPaymentComplete] = useState(false);
   const [formData, setFormData] = useState({
     isPickup: isPickup,
     name: "",
@@ -38,38 +38,56 @@ export default function CheckOut() {
     }));
   }
 
-  const [showSpinner, setShowSpinner] = useState(false);
   useEffect(() => {
     if (currentStep === 3) {
-      setShowSpinner(true);
       window.scrollTo(0, 0);
+      // with the real-payment promise, wait for promise to be resolve for the payment, then save
+      // this is just a demo so just saving it to db now
+      saveToDb();
       setTimeout(() => {
-        setShowSpinner(false);
+        setPaymentComplete(true);
       }, 1000);
     }
   }, [currentStep]);
 
   // show spinner while loading
-  if (isLoading || showSpinner) {
+  if (isLoading || (currentStep === 3 && !paymentComplete)) {
     return <LoadingSpinner />;
   }
 
   // Update db - buyers subcollection, seller's subcollection & soldItems
-  const buyerRef = doc(db, "users", auth.currentUser.uid, "private", "purchased");
-  const sellerRef = doc(db, "users", item.seller, "private", "sold");
-  const soldItemsRef = doc(db, "soldItems", itemId);
+  async function saveToDb() {
+    const buyerRef = doc(db, "users", auth.currentUser.uid, "purchased", itemId);
+    const sellerRef = doc(db, "users", item.seller, "sold", itemId);
+    const soldItemsRef = doc(db, "soldItems", itemId);
 
-  const data = {
-    itemId: item.itemId,
-    title: item.title,
-    price: item.price,
-    buyer: auth.currentUser.uid,
-    seller: item.seller,
-    purchasedAt: serverTimestamp(), ////////////////////////////////////////////
-    isPickup: isPickup,
-    shippingInfo: { name: formData.name, address: formData.address },
-    status: "paid",
-  };
+    const data = {
+      itemId: itemId,
+      title: item.title,
+      price: item.price,
+      buyer: auth.currentUser.uid,
+      seller: item.seller,
+      isPickup: isPickup,
+      shippingInfo: { name: formData.name, address: formData.address },
+      purchasedAt: serverTimestamp(),
+      status: "paid",
+    };
+    const dataCopy = { ...data };
+    delete dataCopy.shippingInfo; // for soldItems collection
+
+    await setDoc(buyerRef, data).catch(error => {
+      // toast.error(`Error - `);
+      console.log(error);
+    });
+    await setDoc(sellerRef, data).catch(error => {
+      // toast.error(`Error - `);
+      console.log(error);
+    });
+    await setDoc(soldItemsRef, dataCopy).catch(error => {
+      // toast.error(`Error - `);
+      console.log(error);
+    });
+  }
 
   // postage
   const postage = !item.postage || item.postage === "" ? 0 : parseFloat(item.postage);
@@ -157,9 +175,9 @@ export default function CheckOut() {
         {currentStep === 2 && (
           <div className="w-full md:w-1/2 text-neutral-light">
             <div>
-              <h4 className="mb-3">Shipping Address</h4>
-              <div>{formData.name}</div>
-              <div>{formData.address}</div>
+              <h4 className="mb-3">Shipping Information</h4>
+              <div className="text-white">{formData.name}</div>
+              <div className="mt-2 text-white">{formData.address}</div>
             </div>
             <hr className="mt-8 border-neutral" />
             <div className="mt-10 grid grid-flow-row">
@@ -182,6 +200,7 @@ export default function CheckOut() {
                   </div>
                 </div>
               </div>
+              <p className="text-xs text-warning">* This payment process is just a demo</p>
               <div>
                 <InputField
                   id="nameOnCard"
@@ -233,7 +252,7 @@ export default function CheckOut() {
                 >
                   Back
                 </Button>
-                <Button onClick={() => setCurrentStep(prev => prev + 1)}>Next</Button>
+                <Button onClick={() => setCurrentStep(prev => prev + 1)}>Pay now</Button>
               </div>
             </div>
           </div>
