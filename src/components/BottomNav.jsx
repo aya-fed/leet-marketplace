@@ -1,71 +1,43 @@
-import React, { useState } from "react";
-import { AiFillHome, AiFillBell } from "react-icons/ai"
+// Coded By Ethan Cullen
+// Bottom Navigation Bar 
+// All Styling Inline 
 import { FaUser } from "react-icons/fa"
-import { Link } from "react-router-dom";
-import { HiMagnifyingGlass } from "react-icons/hi2"
+import { AiFillHome, AiFillBell } from "react-icons/ai"
 import WishlistIcon from "./ui/WishlistIcon";
-import NotificationIcon from "./ui/NotificationIcon";
+import { HiMagnifyingGlass } from "react-icons/hi2"
+import { Link, useMatch, useResolvedPath } from "react-router-dom"
 
-// Ethan Bottom Nav, Still needs to be linked to buttons
-// note to incorporate development of footer element, I have had to adjust the background of this element and will need to sort out the flex box to make sure parts of the bottomnav are not lost on resize / smaller devices
-const BottomNav = () => {
-  const Menus = [
-  
-    { name: "Home", icon: <AiFillHome />, dis: "-" },
-    
-
-    {
-      name: "Search", icon: <HiMagnifyingGlass  />
-      , dis: "-"
-    },
-    { name: "Wishlist", icon: <WishlistIcon  />, dis: "-" },
-    
-    { name: "Profile", icon: <FaUser />, dis: "-" },
-    
-    { name: "Notifications", icon:<AiFillBell />,  dis: "-" }
-  ];
-
-
-  const [active, setActive] = useState(0);
+export default function BottomNav() {
   return (
+    <nav className="nav bg-[#252A41] h-[10%]  rounded-t-xl fixed bottom-0  pt-4  lg:hidden z-50">
+      <div className="flex" >
+        <div className="">
+            <ul className="w-screen justify-evenly flex">
+      <Link to="/" className="Home"><AiFillHome/>
+  </Link>
     
-    <div className="bg-[#252A41] h-[5%]  rounded-t-xl fixed bottom-0  pt-4  lg:hidden">
-      <ul className="flex ">
-        
-          <span       
-     
-          ></span>
-       
-        <div  className="w-screen justify-evenly flex">
-        {Menus.map((menu, i) => (
-          <li key={i} className="- " >
-            <a
-              className=" text-center  "
-              onClick={() => setActive(i)}
-            >
-              <span
-                className={`text-xl cursor-pointer duration-500 ${
-                  i === active && "  text-[#51D9D9]"
-                }`}
-              >
-              {menu.icon}
-              </span>
-              <span
-                className={` ${
-                  active === i
-                    ? " opacity-100"
-                    : ""
-                } `}
-              >
-                
-              </span>
-            </a>
-          </li>
-        ))}
+        <CustomLink  to="/search/:keywords" ><HiMagnifyingGlass/></CustomLink>
+        <CustomLink  to="/wishlist"><WishlistIcon/></CustomLink>
+        <CustomLink to="/user-profile/:userId"><FaUser/></CustomLink>
+        <CustomLink to="/my-listings"><AiFillBell/></CustomLink>
+          </ul>
+          </div>
         </div>
-      </ul>
-      
-    </div>
-  );
-};
-export default BottomNav
+    </nav>
+  )
+}
+
+function CustomLink({ to, children, ...props }) {
+  const resolvedPath = useResolvedPath(to)
+  const isActive = useMatch({ path: resolvedPath.pathname, end: true })
+
+  return (
+    <div  >
+    <li className={isActive ? "active" : ""}>
+      <Link to={to} {...props}>
+        {children}
+      </Link>
+      </li>
+      </div>
+  )
+}

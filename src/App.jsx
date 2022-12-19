@@ -99,6 +99,7 @@ function App() {
           <AccountContext.Provider value={{ accountData, setAccountData }}>
             <Header />
             <div className="my-[100px] py-[80px] flex flex-col xl:ml-80">
+                    <BottomNav />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/search/:keywords" element={<Search />} />
@@ -115,12 +116,13 @@ function App() {
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/TEST" element={<TEST />} />
               </Routes>
-            </div>
-            <Footer />
+         
+              <Footer />
+                 </div>
           </AccountContext.Provider>
         </AuthContext.Provider>
       </Router>
-      <BottomNav className="  ">/</BottomNav>
+
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
