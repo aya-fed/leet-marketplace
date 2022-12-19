@@ -1,26 +1,64 @@
 import ListView from "../components/ListView";
+import Carousel from "../components/Carousel";
+import Filter from "../components/Filter";
+import { AiOutlineLaptop } from "react-icons/ai"
+import { FaGamepad, FaHeadset, FaRegKeyboard, FaMouse } from "react-icons/fa"
+import { FiCpu, FiMonitor } from "react-icons/fi"
+import { ImPowerCord } from "react-icons/im"
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="w-[90%] my-6 mx-auto">
-      just checking theme configs...
-      <p className="w-fit">Base</p>
-      <p className="w-fit text-primary">primary</p>
-      <p className="w-fit text-secondary">secondary</p>
-      <p className="w-fit text-secondary-dark">secondary-dark</p>
-      <p className="w-fit text-warning">warning</p>
-      <p className="w-fit text-yellow">yellow</p>
-      <p className="w-fit text-neutral-light">neutral-light</p>
-      <p className="w-fit text-neutral">neutral</p>
-      <p className="w-fit text-neutral-dark">neutral-dark</p>
-      <p className="text-gradient-1 text-xl">gradient-1</p>
-      <div className="flex mt-5 gap-2 flex-wrap max-w-20">
-        <div className="h-20 w-40 p-2 text-xs bg-background-1 rounded shadow-xl">background-1</div>
-        <div className="h-20 w-40 p-2 text-xs bg-background-2 rounded shadow-xl">background-2</div>
-        <div className="h-20 w-40 p-2 text-xs bg-background-3 rounded shadow-xl">background-3</div>
-        <div className="h-20 w-40 p-2 text-xs bg-background-4 rounded shadow-xl">background-4</div>
-        <div className="h-20 w-40 p-2 text-xs bg-gradient-1 rounded shadow-xl">gradient-1</div>
+    <div ><Carousel/>
+    <div className="w-[95%] my-6 md:mx-2 ml-12 overflow-scroll  overflow-x-auto flex flex-1  ">
+   
+        <div className=" flex mt-5 gap-2   max-w-20 ">
+          
+          <div className="h-20 w-40 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100">
+            <AiOutlineLaptop
+              className="hover:animate-bounce  ml-16 mt-4" />
+            Laptops
+          </div>
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100">         <FaGamepad
+              className="hover:animate-bounce  ml-16 mt-4" />
+            Consoles
+          </div>
+
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FaHeadset
+              className="hover:animate-bounce  ml-16 mt-4" />
+            Headsets
+          </div>
+
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FiCpu
+              className="hover:animate-bounce  ml-16 mt-4" />
+           CPU
+          </div>
+
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FaRegKeyboard
+              className="hover:animate-bounce  ml-16 mt-4" />
+            Keyboard
+          </div>
+
+        
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FiMonitor
+              className="hover:animate-bounce  ml-16 mt-4" />
+            Monitor
+          </div>
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FaMouse
+              className="hover:animate-bounce  ml-16 mt-4" />
+            Mice
+          </div>
+          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><ImPowerCord
+              className="hover:animate-bounce  ml-16 mt-4" />
+            PowerSupplies
+          </div>
+
+        </div>
       </div>
+    
+      <ListView />
+      
     </div>
+    
   );
 }

@@ -63,7 +63,7 @@
 
 @layer components {
 	.bg-gradient-1 {
-	    @apply bg-gradient-to-r from-secondary to-primary;
+	    @apply bg-gradient-to-br from-secondary to-primary;
 	}
 	.text-gradient-1 {
     @apply pb-1 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary;
