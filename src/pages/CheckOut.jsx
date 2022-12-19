@@ -1,20 +1,32 @@
+// Coded by Aya Saito
+
 import { useNavigate, useParams } from "react-router";
-import { useFetchOneItem } from "../hooks/useFetchOneItem";
 import { useEffect, useState } from "react";
+
+import { collection, doc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import { useFetchOneItem } from "../hooks/useFetchOneItem";
+
 import Button from "../components/ui/Button";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import InputField from "../components/form/InputField";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import { getAuth } from "firebase/auth";
+import AddressAutoComplete from "../components/form/AddressAutoComplete";
 
 export default function CheckOut() {
+  // const googleApiKey = import.meta.env.VITE_APP_GOOGLE_MAP_API_KEY;
+  const auth = getAuth();
   const params = useParams();
   const navigate = useNavigate();
   const itemId = params.itemId;
   const { item, sellerInfo, isLoading } = useFetchOneItem(itemId);
 
-  const [isPickup, setIsPickup] = useState();
+  const [isPickup, setIsPickup] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [address, setAddress] = useState("");
   const [formData, setFormData] = useState({
+    isPickup: isPickup,
     name: "",
     address: "",
   });
@@ -42,6 +54,24 @@ export default function CheckOut() {
     return <LoadingSpinner />;
   }
 
+  // Update db - buyers subcollection, seller's subcollection & soldItems
+  const buyerRef = doc(db, "users", auth.currentUser.uid, "private", "purchased");
+  const sellerRef = doc(db, "users", item.seller, "private", "sold");
+  const soldItemsRef = doc(db, "soldItems", itemId);
+
+  const data = {
+    itemId: item.itemId,
+    title: item.title,
+    price: item.price,
+    buyer: auth.currentUser.uid,
+    seller: item.seller,
+    purchasedAt: serverTimestamp(), ////////////////////////////////////////////
+    isPickup: isPickup,
+    shippingInfo: { name: formData.name, address: formData.address },
+    status: "paid",
+  };
+
+  // postage
   const postage = !item.postage || item.postage === "" ? 0 : parseFloat(item.postage);
 
   return (
@@ -64,28 +94,41 @@ export default function CheckOut() {
         {/* Step 1 ----------------------------------------------------------------------------------------- */}
         {currentStep === 1 && (
           <div className="w-full md:w-1/2 md:-mt-8">
-            <div>
-              <InputField
-                id="name"
-                value={formData.name}
-                label="Recipient Name"
-                labelClassName="text-sm"
-                placeholder="Enter recipient name..."
-                stacked
-                required
-                onChange={onChange}
-              />
-              <InputField
-                id="address"
-                value={formData.address}
-                label="Shipping Address"
-                labelClassName="text-sm"
-                placeholder="Enter shipping address..."
-                stacked
-                required
-                onChange={onChange}
-              />
-            </div>
+            {item.pickup ? <></> : <></>}
+            {!isPickup && (
+              <div id="checkoutForm">
+                <InputField
+                  id="name"
+                  value={formData.name}
+                  label="Recipient Name"
+                  labelClassName="text-sm"
+                  placeholder="Enter recipient name..."
+                  stacked
+                  required
+                  onChange={onChange}
+                />
+                {/* <InputField
+                  id="address"
+                  value={formData.address}
+                  label="Shipping Address"
+                  labelClassName="text-sm"
+                  placeholder="Enter shipping address..."
+                  stacked
+                  required
+                  onChange={onChange}
+                /> */}
+                <AddressAutoComplete
+                  id="address"
+                  value={formData.address}
+                  label="Shipping Address"
+                  labelClassName="text-sm"
+                  placeholder="Enter shipping address..."
+                  stacked
+                  required
+                  onChange={onChange}
+                />
+              </div>
+            )}
             <div className="mt-10 grid grid-flow-row gap-5 text-neutral ">
               <div className="flex justify-between gap-4">
                 <div>{item.title}</div>
