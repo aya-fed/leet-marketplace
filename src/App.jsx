@@ -79,7 +79,6 @@ function App() {
     if (isLoggedIn) {
       // let data = { ...accountData };
       let data = { ...userInfo };
-      console.log(userPrivateInfo);
       data = { ...data, ...userPrivateInfo };
 
       setAccountData({

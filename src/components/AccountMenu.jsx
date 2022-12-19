@@ -5,7 +5,9 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
 
+import { useAuthStatus } from "../hooks/useAuthStatus";
 import AuthContext from "../context/AuthContext";
+import AccountContext from "../context/AccountContext";
 
 import { HiUser, HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import { AiOutlineDollarCircle, AiOutlineTag } from "react-icons/ai";
@@ -14,6 +16,7 @@ import { MdLogout } from "react-icons/md";
 import WishlistIcon from "./ui/WishlistIcon";
 import Modal from "../components/Modal";
 import PopupAuthForm from "../components/PopupAuthForm";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 const accountMenuItems = [
   {
@@ -49,10 +52,11 @@ const accountMenuItems = [
 
 export default function AccountMenu() {
   const auth = getAuth();
-
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { loggedIn, currentUserId, isLoading } = useAuthStatus();
+  const { accountData, setAccountData } = useContext(AccountContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [isMenuHidden, setIsMenuHidden] = useState(true);
   const [activeMenuItem, setActiveMenuItem] = useState();
 
@@ -61,10 +65,14 @@ export default function AccountMenu() {
 
   // if not logged in then show sign in popup
   useEffect(() => {
-    if (!auth.currentUser) {
-      // setIsModalOpen(true);
+    if (!isLoading) {
+      if (loggedIn) {
+        setLoaded(true);
+      } else {
+        setIsModalOpen(true);
+      }
     }
-  }, [auth]);
+  }, [isLoading]);
 
   // set active item to highlight it in the menu
   useEffect(() => {
@@ -117,7 +125,6 @@ export default function AccountMenu() {
                   setIsMenuHidden(true);
                   if (menuItem.name === "Log out") {
                     auth.signOut();
-                    setIsLoggedIn(false); // update auth context
                     navigate("/");
                     toast.success("Successfully logged out");
                   } else {
@@ -141,7 +148,7 @@ export default function AccountMenu() {
           isModalOpen={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
-            navigate(-1);
+            navigate("/");
           }}
         >
           <PopupAuthForm
