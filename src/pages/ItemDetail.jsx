@@ -47,7 +47,7 @@ export default function ItemDetail() {
           <div className="text-3xl text-primary">${item.price}</div>
           <div className="flex gap-10 items-center">
             <div><WebShare size={20} /></div>
-            <Link to="/wishlist"><WishlistIcon size={20}/></Link>
+            <div><WishlistIcon size={20}/></div>
             <Button className="px-4">Buy now</Button>
           </div>
         </div>
