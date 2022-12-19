@@ -1,89 +1,95 @@
 // Coded by Aya Saito
 
 import { useContext, useEffect, useState } from "react";
-import { useFetchOneUser } from "../hooks/useFetchOneUser";
 import AuthContext from "../context/AuthContext";
+import AccountContext from "../context/AccountContext";
 
-import { BiEditAlt } from "react-icons/bi";
 import AccountMenu from "../components/AccountMenu";
 import MyAccountInput from "../components/form/MyAccountInput";
 import { PlaceholderProfilePic } from "../components/ui/PlaceholderProfilePic";
+import EditIcon from "../components/ui/EditIcon";
+import Button from "../components/ui/Button";
 
 export default function MyAccount() {
   const [userData, setUserData] = useState(null);
   const { isLoggedIn, userId } = useContext(AuthContext);
+  const { accountData } = useContext(AccountContext);
 
-  const { fetchOneUser, userInfo } = useFetchOneUser();
-
-  const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [isEditingBalance, setIsEditingBalance] = useState(false);
-  const [isEditingAccount, setIsEditingAccount] = useState(false);
+  const [isEditProfile, setIsEditProfile] = useState(false);
+  const [isEditBankAccount, setIsEditBankAccount] = useState(false);
+  const [isEditAccount, setIsEditAccount] = useState(false);
   const [profileFormData, setProfileFormData] = useState(null);
   const [balanceFormData, setBalanceFormData] = useState(null);
   const [accountFormData, setAccountFormData] = useState(null);
 
   useEffect(() => {
-    if (userId) {
-      fetchOneUser(userId);
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    if (userInfo) {
+    if (accountData) {
       setProfileFormData({
-        name: userInfo.name,
-        sellingLocation: userInfo.sellingLocation ?? "",
-        profilePic: userInfo.profilePic ?? "",
-        timestamp: userInfo.timestamp,
+        name: accountData.name,
+        sellingLocation: accountData.account && accountData.account.location ? accountData.account.location : "-",
+        profilePic: accountData.profilePic ?? "",
       });
       setBalanceFormData({
-        accountBalance: userInfo.accountBalance ?? 0,
-        bankAccount: userInfo.bankAccount ?? "12-3456-7890123-00",
+        accountBalance: accountData.account && accountData.account.balance ? accountData.account.balance : 0,
+        bankAccount:
+          accountData.account && accountData.account.bankAccount
+            ? accountData.account.bankAccount
+            : "12-3456-7890123-00",
       });
       setAccountFormData({
-        email: userInfo.email,
-        address: userInfo.address ?? "",
+        email: accountData.email,
+        recipientName:
+          accountData.account && accountData.account.recipientName ? accountData.account.recipientName : "-",
+        address: accountData.account && accountData.account.address ? accountData.account.address : "-",
       });
     }
-  }, [userInfo]);
+  }, [accountData]);
 
   return (
-    <div className="w-full h-full md:w-[90%] md:max-w-[1200px] md:flex md:justify-center md:gap-20 mx-auto md:px-10">
+    <div className="w-full h-full md:w-[90%] md:max-w-[1200px] md:flex md:justify-center md:gap-10 mx-auto md:px-10">
       <AccountMenu />
       <div className="w-[85%] mx-auto md:w-full">
-        {userInfo && profileFormData && (
-          <div className="w-full md:grid md:grid-cols-[50%_50%] gap-[10%]">
+        {accountData && profileFormData && (
+          <div className="w-full md:grid md:grid-cols-2 gap-20">
             <div>
               {/* Profile ---------------------------------------------------------------*/}
               <div className="relative">
-                <BiEditAlt className="absolute top-2 right-0 text-primary" />
+                <EditIcon
+                  className={`absolute top-2 right-0 text-primary ${isEditProfile && "hidden"}`}
+                  showText
+                  onClick={() => setIsEditProfile(true)}
+                />
+                <Button
+                  className={`absolute top-0 right-0 h-4 w-20 text-sm bg-primary border-none text-background-1 font-semibold ${
+                    !isEditProfile && "hidden"
+                  }`}
+                >
+                  Save
+                </Button>
                 <h3 className="mb-6 text-neutral-light">Profile</h3>
-                <div className="flex gap-5 items-center">
-                  <div className="w-32 h-32 shrink-0">
+                <div className="flex gap-3 items-center">
+                  <div className="w-24 h-24 shrink-0">
                     {profileFormData.profilePic ? (
-                      <img src={profileFormData.profilePic} className="object-cover w-full h-full rounded-[64px]" />
+                      <img src={profileFormData.profilePic} className="object-cover w-full h-full rounded-[56px]" />
                     ) : (
-                      <PlaceholderProfilePic className="w-full h-full rounded-[28px] text-neutral" />
+                      <PlaceholderProfilePic className="w-full h-full text-neutral" />
                     )}
                   </div>
                   {/* show file uploader in edit more */}
-                  {isEditingProfile && <div></div>}
-                  <div>
+                  {isEditProfile && <div></div>}
+                  <div className="w-full">
                     <MyAccountInput
                       id="name"
                       label="Display Name"
                       value={profileFormData.name}
-                      disabled={isEditingProfile ? false : true}
+                      disabled={isEditProfile ? false : true}
                     />
                     <MyAccountInput
                       id="name"
                       label="Location"
-                      value={profileFormData.location ?? ""}
-                      disabled={isEditingProfile ? false : true}
+                      value={profileFormData.sellingLocation ?? "-"}
+                      disabled={isEditProfile ? false : true}
                     />
-                    <div className="text-xs text-neutral">
-                      Member since {profileFormData.timestamp.toDate().toLocaleDateString("en-NZ")}
-                    </div>
                   </div>
                 </div>
                 <hr className=" my-6 border-background-4" />
@@ -95,23 +101,34 @@ export default function MyAccount() {
                 <h3 className="mb-6 text-neutral-light">Balance</h3>
                 <div className="flex gap-5 items-center">
                   <div className="w-full">
-                    <div className="flex justify-between w-full">
+                    <div className="relative w-full">
                       <MyAccountInput
                         id="accountBalance"
                         label="Account Balance"
                         value={"$" + balanceFormData.accountBalance.toFixed(2) ?? 0}
                         disabled={true}
                       />
-                      <div className="mt-2 text-primary text-sm whitespace-nowrap">Transfer out</div>
+                      <div className="absolute -top-1 right-0 text-primary text-sm">Transfer out</div>
                     </div>
-                    <div className="flex justify-between w-full">
+                    <div className="relative w-full">
                       <MyAccountInput
                         id="bankAccount"
                         label="Bank Account"
-                        value={balanceFormData.bankAccount ?? ""}
-                        disabled={isEditingBalance ? false : true}
+                        value={balanceFormData.bankAccount ?? "-"}
+                        disabled={isEditBankAccount ? false : true}
                       />
-                      <BiEditAlt className="text-primary mt-2" />
+                      <EditIcon
+                        className={`absolute -top-2 right-0 text-primary ${isEditBankAccount && "hidden"}`}
+                        showText
+                        onClick={() => setIsEditBankAccount(true)}
+                      />
+                      <Button
+                        className={`absolute -top-2 right-0 h-4 w-20 text-sm bg-primary border-none text-background-1 font-semibold ${
+                          !isEditBankAccount && "hidden"
+                        }`}
+                      >
+                        Save
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -122,25 +139,44 @@ export default function MyAccount() {
             {/* Account  ---------------------------------------------------------------*/}
             <div>
               <div className="relative">
-                <BiEditAlt className="absolute top-2 right-0 text-primary" />
+                <EditIcon
+                  className={`absolute top-2 right-0 text-primary ${isEditAccount && "hidden"}`}
+                  showText
+                  onClick={() => setIsEditAccount(true)}
+                />
+                <Button
+                  className={`absolute top-0 right-0 h-4 w-20 text-sm bg-primary border-none text-background-1 font-semibold ${
+                    !isEditAccount && "hidden"
+                  }`}
+                >
+                  Save
+                </Button>
                 <h3 className="mb-6 text-neutral-light">Account</h3>
                 <div className="flex gap-5 items-center">
                   <div className="w-full">
-                    <div className="flex justify-between w-full">
+                    <div className="w-full">
                       <MyAccountInput
                         id="email"
                         label="Email"
                         value={accountFormData.email}
-                        disabled={isEditingAccount ? false : true}
+                        disabled={isEditAccount ? false : true}
                       />
                     </div>
-                    <div className="flex justify-between w-full">
+                    <div className="w-full">
                       <MyAccountInput
                         id="name"
-                        label="Bank Account"
-                        value={accountFormData.bankAccount ?? ""}
-                        disabled={isEditingAccount ? false : true}
+                        label="Shipping Recipient Name"
+                        value={accountFormData.recipientName ?? "-"}
+                        disabled={isEditAccount ? false : true}
                       />
+                      <div className="w-full">
+                        <MyAccountInput
+                          id="name"
+                          label="Shipping Address"
+                          value={accountFormData.address ?? "-"}
+                          disabled={isEditAccount ? false : true}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

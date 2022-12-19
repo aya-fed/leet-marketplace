@@ -89,12 +89,18 @@ function App() {
       setAccountData({
         userId: "",
         name: "",
+        email: "",
         profilePic: "",
         timestamp: "",
         wishlist: [],
         purchased: [],
         sold: [],
-        account: {},
+        account: {
+          location: "",
+          balance: "",
+          recipientName: "",
+          address: "",
+        },
       });
     }
   }, [userInfo, userPrivateInfo]);
