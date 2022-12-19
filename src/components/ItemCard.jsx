@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useContext } from 'react'
 import WishlistIcon from './ui/WishlistIcon'
-
 import { useWishlist } from "../hooks/useWishlist";
 import AuthContext from "../context/AuthContext";
 import AccountContext from "../context/AccountContext";
