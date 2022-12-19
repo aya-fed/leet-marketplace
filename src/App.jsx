@@ -30,7 +30,7 @@ import TEST from "./pages/TEST";
 
 function App() {
   const { loggedIn, currentUserId } = useAuthStatus();
-  const { userInfo } = useAccountData();
+  const { userInfo, userPrivateInfo } = useAccountData();
 
   const [accountData, setAccountData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,29 +68,39 @@ function App() {
     if (loggedIn) {
       setIsLoggedIn(true);
       setUserId(currentUserId);
+    } else {
+      setIsLoggedIn(false);
+      setUserId(null);
     }
   }, [loggedIn]);
 
   // user info to save in context
   useEffect(() => {
-    if (userInfo) {
-      // console.log("checking", userInfo);
+    if (isLoggedIn) {
+      // let data = { ...accountData };
+      let data = { ...userInfo };
+      console.log(userPrivateInfo);
+      data = { ...data, ...userPrivateInfo };
+
       setAccountData({
-        ...userInfo,
+        ...data,
         userId: currentUserId,
       });
-    } else if (!isLoggedIn) {
+    } else {
       setAccountData({
         userId: "",
         name: "",
         profilePic: "",
         timestamp: "",
         wishlist: [],
-        purchasedItems: [],
-        soldItems: [],
+        purchased: [],
+        sold: [],
+        account: {},
       });
     }
-  }, [userInfo]);
+  }, [userInfo, userPrivateInfo]);
+
+  // console.log(accountData);
 
   return (
     <div className="App">
