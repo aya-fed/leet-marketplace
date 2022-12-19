@@ -12,20 +12,22 @@ import { Link } from "react-router-dom"
 
 const Header = () => {
 
-  // Hamburger menu state setting for open/close toggle
+  // Define variable state using useState hook
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
-  // Hamburger open/close toggle
+  // Hamburger state toggler
   const handleToggle = () => {
     setHamburgerOpen(!hamburgerOpen)
   }; 
 
+ // Hook for cheking viewport and adds an event listener for resize event
   useEffect(() => {
     if (window.innerWidth > 1280) setHamburgerOpen(true);
     window.addEventListener("resize", checkWidth);
     return () => window.removeEventListener("resize", checkWidth);
   }, []);
 
+   // Function for checking breakpoint and setting hamburger state
   function checkWidth() {
     const width = window.innerWidth;
     if (width > 1280) {
@@ -65,7 +67,7 @@ const Header = () => {
         <div className="hidden md:inline-flex items-center gap-6 ">
           <div><NotificationIcon size={20} /></div>
           <Link to="/wishlist"><WishlistIcon size={20}/></Link>
-          <Button className="border rounded-lg w-max px-4">Sign in</Button>
+          <Button className="px-4">Sign in</Button>
         </div>
 
       </div>

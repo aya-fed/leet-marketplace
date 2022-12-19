@@ -5,7 +5,7 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 import WishlistIcon from "../components/ui/WishlistIcon";
 import { Link } from "react-router-dom";
 import Button from "../components/ui/Button"
-// import Webshare from "../components/ui/Webshare"
+import WebShare from "../components/ui/WebShare"
 
 export default function ItemDetail() {
   const params = useParams();
@@ -31,21 +31,25 @@ export default function ItemDetail() {
   
   return (
     <div className="flex">
-      <div className=""> 
-        <img className="w-[411px] h-[411px] mx-10" src={item.imageUrls[0]} />
-        <div className="flex mt-3 ml-10 w-[411px] justify-between">
-          <img className="w-[127px] h-[110px]" src={item.imageUrls[0]} />
-          <img className="w-[127px] h-[110px]" src={item.imageUrls[0]} />
-          <img className="w-[127px] h-[110px]" src={item.imageUrls[0]} />
+      <div className="mx-10"> 
+        <img className="w-[611px] h-[611px] " src={item.imageUrls[0]} />
+        <div className="flex mt-3 w-[411px] gap-4">
+          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
+          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
+          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
+          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
+          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
         </div>        
       </div>
-      <div className="w-[800px] h-[725px] overflow-y-scroll">
-        <div className="text-2xl mb-[30px]">{item.title}</div>
-        <div>
-          <div className="text-2xl text-primary">${item.price}</div>
-          {/* <div><Webshare /></div> */}
-          <Link to="/wishlist"><WishlistIcon size={20}/></Link>
-          <Button>Buy now</Button>
+      <div className="w-[800px] min-h-fit">
+        <div className="text-3xl mb-[30px]">{item.title}</div>
+        <div className="flex mb-[30px] justify-between">
+          <div className="text-3xl text-primary">${item.price}</div>
+          <div className="flex gap-10 items-center">
+            <div><WebShare size={20} /></div>
+            <Link to="/wishlist"><WishlistIcon size={20}/></Link>
+            <Button className="px-4">Buy now</Button>
+          </div>
         </div>
         
         <div>{descText}</div>
