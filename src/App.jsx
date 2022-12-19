@@ -92,6 +92,8 @@ function App() {
     }
   }, [userInfo]);
 
+  console.log(import.meta.env.VITE_APP_GOOGLE_MAP_API_KEY);
+
   return (
     <div className="App">
       <Router>

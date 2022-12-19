@@ -59,7 +59,6 @@ function ItemCard({item}) {
 
           <div className='flex justify-between w-full py-2 px-4 drop-shadow-lg'>
             <p className='text-primary'>${item.price}</p>
-            {/* <WishlistIcon /> */}
           </div>
         </div>
       </Link>

@@ -3,7 +3,6 @@ import { useFetchOneItem } from "../hooks/useFetchOneItem";
 import { useParams } from "react-router";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import WishlistIcon from "../components/ui/WishlistIcon";
-import { Link } from "react-router-dom";
 import Button from "../components/ui/Button"
 import Webshare from "../components/ui/Webshare"
 
