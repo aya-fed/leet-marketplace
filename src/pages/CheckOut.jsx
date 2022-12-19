@@ -64,6 +64,7 @@ export default function CheckOut() {
     const data = {
       itemId: itemId,
       title: item.title,
+      imageUrl: item.imageUrls[0] ?? "",
       price: item.price,
       buyer: auth.currentUser.uid,
       seller: item.seller,

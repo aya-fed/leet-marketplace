@@ -2,11 +2,12 @@
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export function useAccountData() {
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState(null);
+  const [userPrivateInfo, setUserPrivateInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const auth = getAuth();
@@ -14,8 +15,10 @@ export function useAccountData() {
       if (auth.currentUser) {
         //if user exists
         getUserInfo(auth.currentUser.uid);
+        getUserPrivateInfo(auth.currentUser.uid);
       } else {
         setUserInfo({});
+        userPrivateInfo({});
       }
       setIsLoading(false);
     });
@@ -30,5 +33,24 @@ export function useAccountData() {
     }
   }
 
-  return { userInfo, isLoading };
+  async function getUserPrivateInfo(userId) {
+    // sub collections
+    const purchasedRef = collection(db, "users", userId, "purchased");
+    const soldRef = collection(db, "users", userId, "sold");
+    const accountRef = collection(db, "users", userId, "account");
+
+    fetchData(purchasedRef, "purchased");
+    fetchData(soldRef, "sold");
+
+    async function fetchData(collectionRef, subCollectionName) {
+      const collectionSnap = await getDocs(collectionRef).then(items => {
+        setUserPrivateInfo(prev => ({
+          ...prev,
+          [subCollectionName]: items.docs.map(doc => doc.data()),
+        }));
+      });
+    }
+  }
+
+  return { userInfo, userPrivateInfo, isLoading };
 }

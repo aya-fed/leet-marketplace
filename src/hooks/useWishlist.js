@@ -37,7 +37,7 @@ export function useWishlist() {
     if (userId && itemId && currentWishlist) {
       const newList = currentWishlist.slice();
       newList.unshift({
-        imageUrl: imageUrl,
+        imageUrl: imageUrl ?? "",
         itemId: itemId,
         price: price,
         title: title,
@@ -45,7 +45,7 @@ export function useWishlist() {
       });
       setNewWishlist(newList);
       updateUserData(userId, newList, type, itemId); // update context & db
-      updateWishlistCount(itemId, type)
+      updateWishlistCount(itemId, type);
     }
     //
   }
@@ -56,7 +56,7 @@ export function useWishlist() {
       const newList = currentWishlist.filter(item => item.itemId !== itemId);
       setNewWishlist(newList);
       updateUserData(userId, newList, type, itemId); // update context & db
-      updateWishlistCount(itemId, type)
+      updateWishlistCount(itemId, type);
     }
     //
   }
@@ -81,22 +81,22 @@ export function useWishlist() {
     toast.success(type === "add" ? messageAdd : messageDelete);
   }
 
-  async function updateWishlistCount(itemId, type){
-    const wlSnap = await getDoc(wishlistCountRef)
+  async function updateWishlistCount(itemId, type) {
+    const wlSnap = await getDoc(wishlistCountRef);
     if (wlSnap.exists()) {
       let num = 0;
       const data = wlSnap.data();
-      console.log(data[itemId])
-      if(data[itemId]) {
+      console.log(data[itemId]);
+      if (data[itemId]) {
         num = type === "add" ? 1 : -1;
-        num = data[itemId] + num
+        num = data[itemId] + num;
       } else {
-        num = 1
+        num = 1;
       }
-      updateDoc(wishlistCountRef, {
+      setDoc(wishlistCountRef, {
         ...data,
         [itemId]: num,
-      })
+      });
     }
   }
 
