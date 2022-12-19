@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { BiEditAlt } from "react-icons/bi";
 
 import AccountContext from "../context/AccountContext";
+import AuthContext from "../context/AuthContext";
 import { useFetchItems } from "../hooks/useFetchItems";
 
 import LoadingSpinner from "../components/ui/LoadingSpinner";
@@ -12,17 +13,18 @@ import AccountMenu from "../components/AccountMenu";
 import { useNavigate } from "react-router";
 
 export default function MyListings() {
+  const { isLoggedIn } = useContext(AuthContext);
   const { accountData, setAccountData } = useContext(AccountContext);
   const { userId, name, profilePic, timestamp, wishlist, purchasedItems, soldItems } = accountData;
 
-  const { getUsersItems, listings, isLoading } = useFetchItems();
+  const { getUsersItems, listings, isLoading: itemsIsLoading } = useFetchItems();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userId) getUsersItems(userId);
   }, [userId]);
 
-  if (isLoading) {
+  if (isLoggedIn && itemsIsLoading) {
     return <LoadingSpinner color="text-primary" />;
   }
   return (

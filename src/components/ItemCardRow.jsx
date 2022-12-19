@@ -54,7 +54,7 @@ export default function ItemCardRow({ item, buyerId, sellerId, isClosed, review 
           >
             <div className="text-sm line-clamp-2">{item.title}</div>
             <div className="text-sm">
-              {type === "buyer" ? "Bought for " : type === "seller" ? "Sold for" : ""}
+              {type === "buyer" ? "Bought for " : type === "seller" ? "Sold for " : ""}
               <span className="text-primary">${item.price.toFixed(2)}</span>
             </div>
           </div>

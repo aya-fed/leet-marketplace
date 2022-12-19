@@ -18,7 +18,7 @@ export function useAccountData() {
         getUserPrivateInfo(auth.currentUser.uid);
       } else {
         setUserInfo({});
-        userPrivateInfo({});
+        setUserPrivateInfo({});
       }
       setIsLoading(false);
     });
