@@ -12,11 +12,11 @@ export default function BottomNav() {
     <nav className="nav bg-[#252A41] h-[10%]  rounded-t-xl fixed bottom-0  pt-4  lg:hidden z-50">
       <div className="flex" >
         <div className="">
-            <ul className="w-screen justify-evenly flex">
-      <Link to="/" className="Home"><AiFillHome/>
+            <ul className="w-screen justify-evenly flex text-xl">
+      <Link to="/" className="Home hover:animate-pulse hover:text-primary "><AiFillHome/>
   </Link>
     
-        <CustomLink  to="/search/:keywords" ><HiMagnifyingGlass/></CustomLink>
+        <CustomLink  to="/search/:keywords"  ><HiMagnifyingGlass /></CustomLink>
         <CustomLink  to="/wishlist"><WishlistIcon/></CustomLink>
         <CustomLink to="/user-profile/:userId"><FaUser/></CustomLink>
         <CustomLink to="/my-listings"><AiFillBell/></CustomLink>

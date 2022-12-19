@@ -1,3 +1,4 @@
+// Ethan Cullen
 import ListView from "../components/ListView";
 import Carousel from "../components/Carousel";
 import Filter from "../components/Filter";
@@ -6,13 +7,14 @@ import { FaGamepad, FaHeadset, FaRegKeyboard, FaMouse } from "react-icons/fa"
 import { FiCpu, FiMonitor } from "react-icons/fi"
 import { ImPowerCord } from "react-icons/im"
 import { Link } from "react-router-dom";
-
+import ListViewHorizontal from "../components/ListViewHorizontal";
 export default function Home() {
   return (
-    <div ><Carousel/>
-    <div className="w-[95%] my-6 md:mx-2 ml-12 overflow-scroll  overflow-x-auto flex flex-1  ">
+    <div ><Carousel className=""/>
+    
+    <div className="w-full my-6  overflow-scroll flex-grow flex overflow-x-auto  scrollbar-thin ">
    
-        <div className=" flex mt-5 gap-2   max-w-20 ">
+        <div className=" flex mt-5 gap-2  ">
           
           <div className="h-20 w-40 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100">
             <AiOutlineLaptop
@@ -55,9 +57,9 @@ export default function Home() {
 
         </div>
       </div>
+
     
-      <ListView />
-      
+      <ListViewHorizontal  className="   "/>
     </div>
     
   );
