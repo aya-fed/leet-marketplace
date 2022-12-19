@@ -61,7 +61,7 @@ const Modal = ({ isModalOpen, setIsModalOpen, onClose, title, className, ...prop
     }, 500);
   }
 
-  const bgHeight = window.innerHeight < document.body.clientHeight ? document.body.clientHeight : window.innerHeight;
+  const bgHeight = window.innerHeight < document.body.clientHeight ? docu.body.clientHeight : window.innerHeight;
   return (
     <AnimatePresence>
       <div
