@@ -29,30 +29,58 @@ export default function ItemDetail() {
   });
   
   return (
-    <div className="flex">
-      <div className=""> 
-        <img className="w-[611px] h-[611px] mx-10" src={item.imageUrls[0]} />
-        <div className="flex mt-3 ml-10 w-[611px] mx-10 justify-between">
-          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
-          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
-          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
-          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
-          <img className="w-[110px] h-[110px]" src={item.imageUrls[0]} />
-        </div>        
+    // Container wrapper
+    <div className="flex-col w-[90%] md:w-[95%] mx-auto">
+      
+      <div className="md:flex">
+      {/* Main image and thumnail wrapper */}
+      <div className="w-full mx-auto mb-5 md:mb-0 md:mr-5"> 
+        
+        <div className="flex-col">
+          {/* Main image */}
+          <img className="md:w-[40vw] mb-2" src={item.imageUrls[0]} />
+          {/* Thumbnail pics - hidden on viewports less than 768px */}
+          <div className="hidden md:flex  mt-3 md:w-[40vw] lg:w-40vw justify-between">
+            <img className="w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
+            <img className="w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
+            <img className="w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
+            <img className="hidden lg:flex w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
+            <img className="hidden xl:flex w-[115px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
+          </div>  
+        </div>
       </div>
-      <div className="w-[800px] h-[725px]">
-        <div className="text-2xl mb-[20px]">{item.title}</div>
-        <div className="flex items-center justify-between mb-5">
-          <div className="text-2xl text-primary">${item.price}</div>
-          <div className="flex items-center gap-6">
-            <div><Webshare /></div>
-            <div><WishlistIcon size={20}/></div>
-            <Button className="px-4">Buy now</Button>
+
+      {/* Item title */}
+      <div>
+        <div className="mb-4 h-[112px]">
+          <div className="text-2xl">{item.title}</div>
+          <div className="text-primary">{item.condition}</div>
+        </div>
+
+        {/* Item description */}
+        <div className="md:order-1 w-full ">{descText}</div>
+        </div>
+      </div>
+
+        {/* Wrapper for price, icons, buy now button and item description */}
+        <div className="flex flex-col md:flex-col-reverse">
+          {/* Price, icons and buy now button */}
+          <div className="flex items-center justify-between mb-5">
+            <div className="text-2xl text-primary">${item.price}</div>
+            <div className="flex items-center gap-6">
+              <div><Webshare /></div>
+              <div><WishlistIcon size={20}/></div>
+              <Button className="px-4">Buy now</Button>
           </div>
         </div>
         
-        <div className="h-[611px] overflow-auto pr-10">{descText}</div>
-      </div>
+
+        
+
+        {/* Seller info */}
+        <div className="w-full h-full">{sellerInfo.profilePic}</div>
+        <div className="w-full h-full" >{sellerInfo.name}</div>
+      </div>   
     </div>
   );
 }
