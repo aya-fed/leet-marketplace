@@ -61,7 +61,7 @@ export default function ItemDetail() {
         </div>
 
         {/* Item description */}
-        <div className="w-full xxl:text-2xl">{descText}</div>
+        <div className="w-full xxl:text-lg">{descText}</div>
         </div>
       </div>
 
