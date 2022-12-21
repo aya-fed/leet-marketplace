@@ -34,31 +34,32 @@ export default function ItemDetail() {
       
       <div className="md:flex">
       {/* Main image and thumnail wrapper */}
-      <div className="w-full mx-auto mb-5 md:mb-0 md:mr-5"> 
+      <div className="w-full xxl:w-[30vw] xxl:ml-0 mx-auto mb-5 md:mb-0 md:mr-5"> 
         
-        <div className="flex-col">
-          {/* Main image */}
-          <img className="md:w-[40vw] mb-2" src={item.imageUrls[0]} />
+        <div className="flex-col xxl:w-[40vw]">
+            {/* Main image */}
+          <div className="flex">
+            <img className="w-full xxl:w-[30vw] mb-2" src={item.imageUrls[0]} />
+          </div>
           {/* Thumbnail pics - hidden on viewports less than 768px */}
-          <div className="hidden md:flex  mt-3 md:w-[40vw] lg:w-40vw justify-between">
-            <img className="w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
-            <img className="w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
-            <img className="w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
-            <img className="hidden lg:flex w-[95px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
-            <img className="hidden xl:flex w-[115px] h-[95px] xl:w-[106px]" src={item.imageUrls[0]} />
+          <div className="hidden md:flex xxl:w-[30vw] justify-between gap-2 ">
+            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
+            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
+            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
+            <img className="hidden lg:flex md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
           </div>  
         </div>
       </div>
 
       {/* Item title */}
       <div>
-        <div className="mb-4 h-[112px]">
-          <div className="text-2xl">{item.title}</div>
-          <div className="text-primary">{item.condition}</div>
+        <div className="mb-4 h-[112px] lg:h-[80px] xl:h-[80px] xxl:h-[110px]">
+          <div className="text-2xl xxl:text-4xl">{item.title}</div>
+          <div className="text-primary xxl:text-2xl">{item.condition}</div>
         </div>
 
         {/* Item description */}
-        <div className="md:order-1 w-full ">{descText}</div>
+        <div className="md:order-1 w-full xxl:text-2xl">{descText}</div>
         </div>
       </div>
 
