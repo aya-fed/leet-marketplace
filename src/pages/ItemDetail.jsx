@@ -36,17 +36,19 @@ export default function ItemDetail() {
       {/* Main image and thumnail wrapper */}
       <div className="w-full xxl:w-[30vw] xxl:ml-0 mx-auto mb-5 md:mb-0 md:mr-5"> 
         
-        <div className="flex-col xxl:w-[40vw]">
-            {/* Main image */}
+        <div className="flex-col md:w-[40vw] lg:w-[30vw] xl:w-[25vw] xxl:w-[30vw] ">
+          {/* Main image */}
           <div className="flex">
-            <img className="w-full xxl:w-[30vw] mb-2" src={item.imageUrls[0]} />
+            <img className="w-full  mb-2" src={item.imageUrls[0]} />
           </div>
           {/* Thumbnail pics - hidden on viewports less than 768px */}
-          <div className="hidden md:flex xxl:w-[30vw] justify-between gap-2 ">
-            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-            <img className="hidden lg:flex md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
+          <div className="hidden md:flex justify-between flex-grow gap-2">
+            <img className="md:w-[95px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[145px] xxl:h-[90px] " src={item.imageUrls[0]} />
+            <img className="md:w-[95px] md:h-[70px] lg:w-[102px] xl:w-[115px]  xxl:w-[145px] xxl:h-[90px]" src={item.imageUrls[0]} />
+            <img className="hidden md:flex md:w-[95px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[145px] xxl:h-[90px]" src={item.imageUrls[0]} />
+            <img className="hidden lg:flex md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[145px] xxl:h-[90px]" src={item.imageUrls[0]} />
+            <img className="hidden xxl:flex md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[145px] xxl:h-[90px]" src={item.imageUrls[0]} />
+              
           </div>  
         </div>
       </div>
@@ -54,12 +56,12 @@ export default function ItemDetail() {
       {/* Item title */}
       <div>
         <div className="mb-4 h-[112px] lg:h-[80px] xl:h-[80px] xxl:h-[110px]">
-          <div className="text-2xl xxl:text-4xl">{item.title}</div>
+          <div className="text-2xl xxl:text-3xl">{item.title}</div>
           <div className="text-primary xxl:text-2xl">{item.condition}</div>
         </div>
 
         {/* Item description */}
-        <div className="md:order-1 w-full xxl:text-2xl">{descText}</div>
+        <div className="w-full xxl:text-2xl">{descText}</div>
         </div>
       </div>
 
