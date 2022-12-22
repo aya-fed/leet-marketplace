@@ -25,8 +25,8 @@ export default function ListView({ items: propItems }) {
   }, [listings, propItems]);
 
   return (
-    <div className="w-full ">
-      <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+    <div className="flex w-full justify-center">
+      <div className="flex flex-wrap gap-4 justify-center ">
         {items.map((item) => {
         // console.log(item);
           return (

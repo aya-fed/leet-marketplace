@@ -69,8 +69,8 @@ const Header = () => {
         </div> 
 
         {/* search bar */}
-        <div className="flex flex-grow max-w-[60%]">
-          <div className="relative md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
+        <div className="flex flex-grow justify-end">
+          <div className="relative w-[60px] md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
             <input type="text" />
             <HiMagnifyingGlass className="absolute top-[30%] right-0 bottom-0 mr-[20px] text-neutral-light cursor-pointer" />
           </div>
@@ -92,6 +92,7 @@ const Header = () => {
         <Sidebar />
       </div>   
       
+      {/* Modal */}
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onClose={() => setIsModalOpen(false)}>
           <PopupAuthForm
