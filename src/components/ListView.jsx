@@ -3,7 +3,6 @@
 import itemCategories from "../data/categories";
 import { useFetchItems } from "../hooks/useFetchItems";
 import ItemCard from "./ItemCard";
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 export default function ListView({ items: propItems }) {
@@ -26,7 +25,7 @@ export default function ListView({ items: propItems }) {
   }, [listings, propItems]);
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="flex flex-wrap gap-4 justify-center md:justify-start">
         {items.map((item) => {
         // console.log(item);
