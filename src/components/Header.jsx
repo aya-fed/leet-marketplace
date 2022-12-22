@@ -71,7 +71,7 @@ const Header = () => {
         {/* search bar */}
         <div className="flex flex-grow justify-end md:mx-[5%] xl:mx-[15%]">
           <div className="relative w-[60px] md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
-            <input type="text" />
+            <input className="w-[90%] mx-auto" type="text" />
             <HiMagnifyingGlass className="absolute top-[30%] right-0 bottom-0 mr-[20px] text-neutral-light cursor-pointer" />
           </div>
         </div> 
