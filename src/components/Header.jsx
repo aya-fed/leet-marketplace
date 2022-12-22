@@ -64,7 +64,7 @@ const Header = () => {
           </div>
           {/* Leet logo */}
           <div className="items-center w-[90px] h-[77px]">
-            <img className="w-[90px] h-[77px]" src={Logo} />
+            <Link to="/Home"><img className="w-[90px] h-[77px]" src={Logo} /></Link>
           </div>
         </div> 
 
