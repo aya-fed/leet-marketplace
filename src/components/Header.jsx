@@ -69,19 +69,20 @@ const Header = () => {
         </div> 
 
         {/* search bar */}
-        <div className="flex">
-          <div className="flex w-[50%] md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
+        <div className="flex flex-grow max-w-[60%]">
+          <div className="md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
             <input type="text" />
             <HiMagnifyingGlass className="text-neutral-light md:float-right mx-4 cursor-pointer" />
           </div>
         </div> 
 
         {/* wishlist/notification icons and sign in/account button */}
-        <div className="hidden md:inline-flex items-center gap-6 ">
+        <div className="hidden md:flex items-center justify-between gap-10">
           <div><NotificationIcon size={20} /></div>
-          <Link className="mr-[150px]" to="/wishlist"><WishlistIcon size={20} /></Link>
-          
-          <Button className="px-4" onClick={toggleModal}>Sign in</Button>
+          <Link className="" to="/wishlist"><WishlistIcon size={20} /></Link>
+          <div className="flex">
+            <Button className="px-4 min-w-[100px]" onClick={toggleModal}>Sign in</Button>
+          </div>
         </div>
       </div>
 
