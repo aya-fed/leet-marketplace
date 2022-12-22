@@ -52,8 +52,8 @@ const Header = () => {
 
 
   return (
-    <div className="fixed top-0 left-0 w-full ">
-      <div className="flex items-center justify-between h-[100px] bg-background-2 z-[50] border-b px-4">
+    <div className="fixed top-0 left-0 w-full z-[50]">
+      <div className="flex items-center justify-between h-[100px] bg-background-2 z-[50] border-b px-4 gap-4">
 
         <div className="flex items-center gap-4">
           {/* hamburger menu */}
@@ -64,20 +64,20 @@ const Header = () => {
           </div>
           {/* Leet logo */}
           <div className="items-center w-[90px] h-[77px]">
-            <Link to="/Home"><img className="w-[90px] h-[77px]" src={Logo} /></Link>
+            <Link to="/"className="Home"><img className="w-[90px] h-[77px]" src={Logo} /></Link>
           </div>
         </div> 
 
         {/* search bar */}
-        <div className="flex flex-grow max-w-[60%]">
-          <div className="md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
-            <input type="text" />
-            <HiMagnifyingGlass className="text-neutral-light md:float-right mx-4 cursor-pointer" />
+        <div className="flex flex-grow justify-end md:mx-[5%] xl:mx-[15%]">
+          <div className="relative w-[60px] md:w-full justify-between h-10 rounded-3xl bg-background-2 border border-primary p-2">
+            <input className="w-[90%] mx-auto" type="text" />
+            <HiMagnifyingGlass className="absolute top-[30%] right-0 bottom-0 mr-[20px] text-neutral-light cursor-pointer" />
           </div>
         </div> 
 
         {/* wishlist/notification icons and sign in/account button */}
-        <div className="hidden md:flex items-center justify-between gap-10">
+        <div className="hidden md:flex items-center justify-between md:gap-5 lg:gap-10">
           <div><NotificationIcon size={20} /></div>
           <Link className="" to="/wishlist"><WishlistIcon size={20} /></Link>
           <div className="flex">
@@ -92,6 +92,7 @@ const Header = () => {
         <Sidebar />
       </div>   
       
+      {/* Modal */}
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onClose={() => setIsModalOpen(false)}>
           <PopupAuthForm
