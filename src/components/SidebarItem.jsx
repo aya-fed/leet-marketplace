@@ -21,7 +21,7 @@ export default function SidebarItem({item}){
                     </span> 
                       <i  className="chevron toggle-btn" onClick={() => setOpen(!open)}><BiChevronDown /></i>
                 </div>
-               <div className="sidebar-content ">
+               <div className="sidebar-content  ">
                     {item.childrens.map((child, index) => <SidebarItem key={index} item={child} />)}
                     
                 </div>

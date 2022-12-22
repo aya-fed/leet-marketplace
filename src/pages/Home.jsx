@@ -9,10 +9,11 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
+    <div className="">
     <div ><Carousel/>
-    <div className="w-[95%] my-6 md:mx-2 ml-12 overflow-scroll  overflow-x-auto flex flex-1  ">
+    <div className="w-[90vw] j justify-center my-6 md:mx-2 ml-12  flex flex-1 -z-50 ">
    
-        <div className=" flex mt-5 gap-2   max-w-20 ">
+        <div className=" flex mt-5 gap-2   max-w-20 overflow-scroll  overflow-x-auto ">
           
           <div className="h-20 w-40 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100">
             <AiOutlineLaptop
@@ -59,6 +60,6 @@ export default function Home() {
       <ListView />
       
     </div>
-    
+    </div>
   );
 }
