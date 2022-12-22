@@ -30,58 +30,70 @@ export default function ItemDetail() {
   
   return (
     // Container wrapper
-    <div className="flex-col w-[90%] md:w-[95%] mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-[90%] mx-auto gap-10">
       
-      <div className="md:flex">
+      
       {/* Main image and thumnail wrapper */}
-      <div className="w-full xxl:w-[30vw] xxl:ml-0 mx-auto mb-5 md:mb-0 md:mr-5"> 
-        
-        <div className="flex-col xxl:w-[40vw]">
+      <div className="w-full"> 
+        <div className="grid ">
             {/* Main image */}
-          <div className="flex">
-            <img className="w-full xxl:w-[30vw] mb-2" src={item.imageUrls[0]} />
+            <img className="w-full mb-2" src={item.imageUrls[0]} />
+            
+            {/* Thumbnail pics - hidden on viewports less than 768px */}
+            <div className="hidden md:grid grid-cols-3 gap-3">
+              <div className="md:grid-cols-1 ">
+                <img className=" " src={item.imageUrls[0]} />
+              </div>
+              <div className="md:grid-cols-2">
+                <img className="" src={item.imageUrls[0]} />
+              </div>
+              <div className="md:grid-cols-3">
+                <img className="" src={item.imageUrls[0]} />
+              </div>
+              <div className="hidden xl:grid-cols-4">
+                <img className="md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[145px] xxl:h-[90px]" src={item.imageUrls[0]} />
+              </div>
+              <div className="hidden xxl:grid-cols-5">
+                <img className="md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[145px] xxl:h-[90px]" src={item.imageUrls[0]} />
+              </div>
+            </div>  
+        </div>
+      </div>
+
+      {/* Right hand side grid */}
+      <div className="grid grid-cols-1"> 
+        <div className="">
+
+          {/* Item title/description wrapper */}
+          <div className="mb-4 gap-4">
+            <div className="row-start-1 text-2xl xxl:text-3xl">{item.title}</div>
+            <div className="row-start-2 text-primary xxl:text-xl">{item.condition}</div>
           </div>
-          {/* Thumbnail pics - hidden on viewports less than 768px */}
-          <div className="hidden md:flex xxl:w-[30vw] justify-between gap-2 ">
-            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-            <img className="md:w-[85px] md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-            <img className="hidden lg:flex md:h-[70px] lg:w-[102px] xl:w-[115px] xxl:w-[185px] xxl:h-[120px]" src={item.imageUrls[0]} />
-          </div>  
-        </div>
-      </div>
-
-      {/* Item title */}
-      <div>
-        <div className="mb-4 h-[112px] lg:h-[80px] xl:h-[80px] xxl:h-[110px]">
-          <div className="text-2xl xxl:text-4xl">{item.title}</div>
-          <div className="text-primary xxl:text-2xl">{item.condition}</div>
-        </div>
-
-        {/* Item description */}
-        <div className="md:order-1 w-full xxl:text-2xl">{descText}</div>
-        </div>
-      </div>
-
-        {/* Wrapper for price, icons, buy now button and item description */}
-        <div className="flex flex-col md:flex-col-reverse">
-          {/* Price, icons and buy now button */}
-          <div className="flex items-center justify-between mb-5">
+        
+             
+          {/* Price, icons and buy now button wrapper*/}
+          <div className="grid grid-cols-1">
+          <div className="order-last flex items-center justify-between mb-5">
             <div className="text-2xl text-primary">${item.price}</div>
             <div className="flex items-center gap-6">
               <div><Webshare /></div>
               <div><WishlistIcon size={20}/></div>
               <Button className="px-4">Buy now</Button>
+            </div>
           </div>
+
+          {/* Item description */}
+          
+          <div className="md:order-last w-full ">{descText}</div>
+          </div>
+
+          {/* Seller info */}
+          <div className="w-full">{sellerInfo.profilePic}</div>
+          <div className="w-full" >{sellerInfo.name}</div>
         </div>
-        
-
-        
-
-        {/* Seller info */}
-        <div className="w-full h-full">{sellerInfo.profilePic}</div>
-        <div className="w-full h-full" >{sellerInfo.name}</div>
+          
       </div>   
     </div>
+    
   );
 }
