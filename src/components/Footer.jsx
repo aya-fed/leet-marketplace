@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className=" text-white">
       <div className="md:flex md:justify-between md:items-center sm:px-12 px-4   ">
         <h1
-          className="lg:text-4xl text-3xl  md:mb-0 mb-0 lg:leading-normal font-semibold
+          className="lg:text-4xl text-3xl  md:mb-0 mb-0 lg:leading-normal font-semibold 
          md:w-2/5 "
         >
           </h1>
@@ -21,7 +21,7 @@ const Footer = () => {
       >
         <span>© 2022 LEET. All rights reserved.</span>
         <span>Terms,  Privacy Policy</span>
-        <SocialIcons Icons={Icons}  />
+        <SocialIcons   />
       </div>
     </footer>
   );

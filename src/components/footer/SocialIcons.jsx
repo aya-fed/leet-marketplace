@@ -1,21 +1,20 @@
-import React from "react";
-
-
+// Ethan Cullen
+import React from "react"
+import WebShare from "../ui/WebShare"
+import { BsFacebook, BsTwitch, BsTwitter, BsDiscord } from "react-icons/bs";
 
 const SocialIcons = ({ Icons }) => {
   return (
-    <div className="text-teal-500">
-      {Icons.map((icon) => (
-        <span
-          key={icon.name}
-          className="p-2 cursor-pointer inline-flex items-center
-        rounded-full bg-gray-700 mx-1.5 text-xl hover:text-gray-100 hover:bg-teal-500
-        duration-300 "
-        >
-          <ion-icon name={icon.name}></ion-icon>
-        </span>
-      ))}
-    </div>
+    <div> Connect with us 
+    <div className="text-teal-500 text-3xl justify-center flex flex-row">
+      <WebShare > </WebShare>
+      <BsFacebook className="pt-2" />
+      <BsTwitch className="pt-2" />
+      <BsTwitter className="pt-2" />
+      <BsDiscord className="pt-2" />
+      </div>
+      
+      </div>
   );
 };
 
