@@ -93,14 +93,15 @@ const Header = () => {
           <div><NotificationIcon size={20} /></div>
           <Link className="" to="/wishlist"><WishlistIcon size={20} /></Link>
           <div className="flex">
-            {/* <Button className="px-4 min-w-[100px]" onClick={toggleModal}>Sign in</Button> */}
+            <Button className="px-4 min-w-[100px]" onClick={toggleModal}>Sign in</Button>
+            
             {auth.currentUser && (
               <Button onClick={{ toggleModal } && {onLogin}} className=" sm:w-[400px] mx-auto">
               Sign out
             </Button>
-          )}
+            )}
 
-      {!auth.currentUser && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>}
+            {/* {!auth.currentUser && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>} */}
             
           </div>
         </div>
