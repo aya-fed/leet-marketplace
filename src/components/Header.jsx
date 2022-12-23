@@ -10,6 +10,9 @@ import { Link } from "react-router-dom"
 import Button from "../components/ui/Button";
 import Modal from "../components/Modal";
 import PopupAuthForm from "../components/PopupAuthForm";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
+
 
 
 const Header = () => {
@@ -30,9 +33,6 @@ const Header = () => {
     setIsModalOpen(!isModalOpen)
   }
 
-  // const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  // const { accountData, setAccountData } = useContext(AccountContext);
-
   // Hook for cheking viewport and adds an event listener for resize event
   useEffect(() => {
     if (window.innerWidth > 1280) setHamburgerOpen(true);
@@ -48,6 +48,18 @@ const Header = () => {
     } else {
       setHamburgerOpen(false);
     }
+  }
+  
+  const auth = getAuth();
+
+  function onLogin() {
+    auth.signIn();
+    toast.success("Successfully logged in");
+  }
+
+  function onLogout() {
+    auth.logOut();
+    toast.success("Successfully logged out")
   }
 
 
@@ -81,10 +93,33 @@ const Header = () => {
           <div><NotificationIcon size={20} /></div>
           <Link className="" to="/wishlist"><WishlistIcon size={20} /></Link>
           <div className="flex">
-            <Button className="px-4 min-w-[100px]" onClick={toggleModal}>Sign in</Button>
+            {/* <Button className="px-4 min-w-[100px]" onClick={toggleModal}>Sign in</Button> */}
+            {auth.currentUser && (
+              <Button onClick={{ toggleModal } && {onLogin}} className=" sm:w-[400px] mx-auto">
+              Sign out
+            </Button>
+          )}
+
+      {!auth.currentUser && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>}
+            
           </div>
         </div>
       </div>
+
+      
+     
+
+     {/* Modal */}
+     {isModalOpen && (
+        <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onClose={() => setIsModalOpen(false)}>
+          <PopupAuthForm
+            onSubmit={() => {
+              onLogin()
+              setIsModalOpen(false);
+            }}
+          />
+        </Modal>
+      )}
 
       
       {/* sidebar */} 
@@ -92,16 +127,7 @@ const Header = () => {
         <Sidebar />
       </div>   
       
-      {/* Modal */}
-      {isModalOpen && (
-        <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onClose={() => setIsModalOpen(false)}>
-          <PopupAuthForm
-            onSubmit={() => {
-              setIsModalOpen(false);
-            }}
-          />
-        </Modal>
-      )}
+      
 
     </div>
   );

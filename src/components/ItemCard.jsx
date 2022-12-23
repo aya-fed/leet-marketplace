@@ -40,7 +40,7 @@ function ItemCard({item}) {
   }, [newWishlist]);
   return (
 
-    <div className="relative flex-col mx-auto h-90 w-[238px] xs:w-[180px] sm:w[] md:w-[185px] lg:w-[185px] xl:w-[205px] xxl:w-[250px] rounded-lg overflow-hidden bg-background-3 text-neutral-light">
+    <div className="relative flex-col mx-auto h-90 w-[238px] xs:w-[180px] sm:w[] md:w-[170px] lg:w-[185px] xl:w-[205px] xxl:w-[250px] rounded-lg overflow-hidden bg-background-3 text-neutral-light">
       <Link to={`/item-detail/${item.itemId}`}>
         <div className="bg-neutral-light">
           {item.imageUrls && item.imageUrls.length > 0 ? (<img className="w-full h-40" src={item.imageUrls[0]} alt={item.title} />) : (
