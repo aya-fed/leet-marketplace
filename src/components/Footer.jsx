@@ -1,3 +1,4 @@
+// Ethan Cullen
 import React from "react";
 import ItemsContainer from "./footer/ItemsContainer";
 import SocialIcons from "./footer/SocialIcons";

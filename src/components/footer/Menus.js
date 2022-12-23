@@ -1,7 +1,7 @@
 import React from "react";
 import { BsTwitch, BsFacebook, BsTwitter, BsDiscord } from 'react-icons/bs'
 
-// Ethan Social Icons componenet and Footer links = Menus 
+// Ethan Cullen  Social Icons componenet and Footer links = Menus 
 export const FAQ = [
   { name: "How To Sell", link: "#" },
   { name: "How To Buy", link: "#" },

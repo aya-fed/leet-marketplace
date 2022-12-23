@@ -1,3 +1,5 @@
+// Ethan Cullen
+
 import Item from "./Item.jsx";
 import { FAQ, RESOURCES, COMPANY, SUPPORT } from "./Menus.js";
 const ItemsContainer = () => {

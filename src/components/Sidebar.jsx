@@ -1,4 +1,4 @@
-// SIDEBAR.JSX
+// Ethan Cullen
 import { React, useContext } from "react"
 import SidebarItem from "./SidebarItem.jsx"
 import items from "../data/SideNav.json"
