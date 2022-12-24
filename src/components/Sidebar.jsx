@@ -17,8 +17,7 @@ export function Sidebar() {
     toast.success("Successfully logged out");
   }
   function onSignin() {
-
-  }
+}
   return (
 
     <div className="sidebar bg-[#252A41] h-[90vh]  left-0  overflow-scroll  flex-col  top-24  w-80  ease-in duration-500 scrollbar-thin z-[199] "
