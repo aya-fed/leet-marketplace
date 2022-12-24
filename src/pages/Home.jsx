@@ -1,66 +1,64 @@
 // Ethan Cullen
-import ListView from "../components/ListView";
+import { AiOutlineLaptop } from "react-icons/ai";
+import { FaGamepad, FaHeadset, FaMouse, FaRegKeyboard } from "react-icons/fa";
+import { FiCpu, FiMonitor } from "react-icons/fi";
+import { ImPowerCord } from "react-icons/im";
 import Carousel from "../components/Carousel";
-import Filter from "../components/Filter";
-import { AiOutlineLaptop } from "react-icons/ai"
-import { FaGamepad, FaHeadset, FaRegKeyboard, FaMouse } from "react-icons/fa"
-import { FiCpu, FiMonitor } from "react-icons/fi"
-import { ImPowerCord } from "react-icons/im"
-import { Link } from "react-router-dom";
+import ListView from "../components/ListView";
 
-export default function Home() {
+export function Home() {
   return (
     <div className="overflow-x-hidden">
-    <div ><Carousel/>
-    <div className="w-[90%] mx-auto my-6 flex flex-1 -z-50 ">
-   
-        <div className=" flex mx-auto mt-5 gap-2 max-w-full overflow-x-auto ">
-          
-          <div className="h-20 w-40 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100">
-            <AiOutlineLaptop
-              className="hover:animate-bounce  ml-16 mt-4" />
-            Laptops
-          </div>
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100">         <FaGamepad
-              className="hover:animate-bounce  ml-16 mt-4" />
-            Consoles
-          </div>
+      <div ><Carousel />
+        <div className="w-[90%] mx-auto my-6 flex flex-1 -z-50 ">
 
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FaHeadset
-              className="hover:animate-bounce  ml-16 mt-4" />
-            Headsets
-          </div>
+          <div className="flex max-w-full gap-2 mx-auto mt-5 overflow-x-auto ">
 
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FiCpu
-              className="hover:animate-bounce  ml-16 mt-4" />
-           CPU
-          </div>
+            <div className="w-40 h-20 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100">
+              <AiOutlineLaptop
+                className="mt-4 ml-16 hover:animate-bounce" />
+              Laptops
+            </div>
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100">         <FaGamepad
+              className="mt-4 ml-16 hover:animate-bounce" />
+              Consoles
+            </div>
 
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FaRegKeyboard
-              className="hover:animate-bounce  ml-16 mt-4" />
-            Keyboard
-          </div>
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100"><FaHeadset
+              className="mt-4 ml-16 hover:animate-bounce" />
+              Headsets
+            </div>
 
-        
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FiMonitor
-              className="hover:animate-bounce  ml-16 mt-4" />
-            Monitor
-          </div>
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><FaMouse
-              className="hover:animate-bounce  ml-16 mt-4" />
-            Mice
-          </div>
-          <div className="h-20 w-40 p-2 text-xl  bg-gradient-1   rounded text-center shadow-xl hover:animate-bounce opacity-50 hover:opacity-100"><ImPowerCord
-              className="hover:animate-bounce  ml-16 mt-4" />
-            PowerSupplies
-          </div>
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100"><FiCpu
+              className="mt-4 ml-16 hover:animate-bounce" />
+              CPU
+            </div>
 
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100"><FaRegKeyboard
+              className="mt-4 ml-16 hover:animate-bounce" />
+              Keyboard
+            </div>
+
+
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100"><FiMonitor
+              className="mt-4 ml-16 hover:animate-bounce" />
+              Monitor
+            </div>
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100"><FaMouse
+              className="mt-4 ml-16 hover:animate-bounce" />
+              Mice
+            </div>
+            <div className="w-40 h-20 p-2 text-xl text-center rounded shadow-xl opacity-50 bg-gradient-1 hover:animate-bounce hover:opacity-100"><ImPowerCord
+              className="mt-4 ml-16 hover:animate-bounce" />
+              PowerSupplies
+            </div>
+
+          </div>
         </div>
+
+        <ListView />
+
       </div>
-    
-      <ListView />
-      
-    </div>
     </div>
   );
 }

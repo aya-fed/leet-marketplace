@@ -9,11 +9,11 @@ import { useAuthStatus } from "./hooks/useAuthStatus";
 import { useAccountData } from "./hooks/useAccountData";
 
 import "./App.css";
-import Footer from "./components/Footer";
+import {Footer} from "./components/Footer";
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import BottomNav from "./components/BottomNav";
-import Home from "./pages/Home";
+import {Sidebar} from "./components/Sidebar";
+import {BottomNav} from "./components/BottomNav";
+import {Home} from "./pages/Home";
 import Search from "./pages/Search";
 import Category from "./pages/Category";
 import ItemDetail from "./pages/ItemDetail";

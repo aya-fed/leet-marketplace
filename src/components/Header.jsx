@@ -2,7 +2,7 @@
 
 import { HiMagnifyingGlass } from "react-icons/hi2"
 import React, { useState, useEffect } from 'react';
-import Sidebar from "./Sidebar";
+import { Sidebar } from "./Sidebar";
 import Logo from "../assets/Leet-Logo.svg"
 import WishlistIcon from "./ui/WishlistIcon";
 import NotificationIcon from "./ui/NotificationIcon";
@@ -19,11 +19,11 @@ const Header = () => {
 
   // Define variable state using useState hook
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  
+
   // Hamburger state toggler
   const handleToggle = () => {
     setHamburgerOpen(!hamburgerOpen)
-  }; 
+  };
 
   // Define state variable for the modal useState hook
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,7 +40,7 @@ const Header = () => {
     return () => window.removeEventListener("resize", checkWidth);
   }, []);
 
-   // Function for checking breakpoint and setting hamburger state
+  // Function for checking breakpoint and setting hamburger state
   function checkWidth() {
     const width = window.innerWidth;
     if (width > 1280) {
@@ -49,7 +49,7 @@ const Header = () => {
       setHamburgerOpen(false);
     }
   }
-  
+
   const auth = getAuth();
 
   function onLogin() {
@@ -76,9 +76,9 @@ const Header = () => {
           </div>
           {/* Leet logo */}
           <div className="items-center w-[90px] h-[77px]">
-            <Link to="/"className="Home"><img className="w-[90px] h-[77px]" src={Logo} /></Link>
+            <Link to="/" className="Home"><img className="w-[90px] h-[77px]" src={Logo} /></Link>
           </div>
-        </div> 
+        </div>
 
         {/* search bar */}
         <div className="flex flex-grow justify-end md:mx-[5%] xl:mx-[15%]">
@@ -86,7 +86,7 @@ const Header = () => {
             <input className="w-[90%] mx-auto" type="text" />
             <HiMagnifyingGlass className="absolute top-[30%] right-0 bottom-0 mr-[20px] text-neutral-light cursor-pointer" />
           </div>
-        </div> 
+        </div>
 
         {/* wishlist/notification icons and sign in/account button */}
         <div className="hidden md:flex items-center justify-between md:gap-5 lg:gap-10">
@@ -94,24 +94,24 @@ const Header = () => {
           <Link className="" to="/wishlist"><WishlistIcon size={20} /></Link>
           <div className="flex">
             <Button className="px-4 min-w-[100px]" onClick={toggleModal}>Sign in</Button>
-            
+
             {auth.currentUser && (
-              <Button onClick={{ toggleModal } && {onLogin}} className=" sm:w-[400px] mx-auto">
-              Sign out
-            </Button>
+              <Button onClick={{ toggleModal } && { onLogin }} className=" sm:w-[400px] mx-auto">
+                Sign out
+              </Button>
             )}
 
             {/* {!auth.currentUser && <Button onClick={() => setIsModalOpenContentCheck(true)}>Sign in</Button>} */}
-            
+
           </div>
         </div>
       </div>
 
-      
-     
 
-     {/* Modal */}
-     {isModalOpen && (
+
+
+      {/* Modal */}
+      {isModalOpen && (
         <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onClose={() => setIsModalOpen(false)}>
           <PopupAuthForm
             onSubmit={() => {
@@ -122,13 +122,13 @@ const Header = () => {
         </Modal>
       )}
 
-      
-      {/* sidebar */} 
+
+      {/* sidebar */}
       <div className={`${!hamburgerOpen && 'z-[50] -translate-x-80'} h-screen ease-in duration-500 fixed z-[50] `}>
         <Sidebar />
-      </div>   
-      
-      
+      </div>
+
+
 
     </div>
   );

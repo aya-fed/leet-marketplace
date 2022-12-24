@@ -1,30 +1,27 @@
 // Ethan Cullen
-import React from "react";
-import ItemsContainer from "./footer/ItemsContainer";
-import SocialIcons from "./footer/SocialIcons";
-import { Icons } from "./footer/Menus";
 
-const Footer = () => {
+import { ItemsContainer } from "./footer/ItemsContainer";
+import { SocialIcons } from "./footer/SocialIcons";
+
+function Footer() {
   return (
-    <footer className=" text-white">
-      <div className="md:flex md:justify-between md:items-center sm:px-12 px-4   ">
+    <footer className="text-white ">
+      <div className="px-4 md:flex md:justify-between md:items-center sm:px-12 ">
         <h1
-          className="lg:text-4xl text-3xl  md:mb-0 mb-0 lg:leading-normal font-semibold 
-         md:w-2/5 "
+          className="mb-0 text-3xl font-semibold lg:text-4xl md:mb-0 lg:leading-normal md:w-2/5 "
         >
-          </h1>
-          </div>
+        </h1>
+      </div>
       <ItemsContainer />
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10
-      text-center pt-4  text-gray-400 text-sm"
+        className="grid grid-cols-1 gap-10 pt-4 text-sm text-center text-gray-400 sm:grid-cols-2 lg:grid-cols-3"
       >
         <span>© 2022 LEET. All rights reserved.</span>
         <span>Terms,  Privacy Policy</span>
-        <SocialIcons   />
+        <SocialIcons />
       </div>
     </footer>
   );
-};
+}
 
-export default Footer;
+export { Footer };

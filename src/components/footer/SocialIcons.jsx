@@ -1,21 +1,20 @@
 // Ethan Cullen
-import React from "react"
-import WebShare from "../ui/WebShare"
-import { BsFacebook, BsTwitch, BsTwitter, BsDiscord } from "react-icons/bs";
 
-const SocialIcons = ({ Icons }) => {
+import { BsDiscord, BsFacebook, BsTwitch, BsTwitter } from "react-icons/bs";
+import WebShare from "../ui/WebShare";
+
+function SocialIcons({ }) {
   return (
-    <div> Connect with us 
-    <div className="text-teal-500 text-3xl justify-center flex flex-row">
-      <WebShare > </WebShare>
-      <BsFacebook className="pt-2" />
-      <BsTwitch className="pt-2" />
-      <BsTwitter className="pt-2" />
-      <BsDiscord className="pt-2" />
+    <div> Connect with us
+      <div className="flex flex-row justify-center text-3xl text-teal-500">
+        <WebShare> </WebShare>
+        <BsFacebook className="pt-2" />
+        <BsTwitch className="pt-2" />
+        <BsTwitter className="pt-2" />
+        <BsDiscord className="pt-2" />
       </div>
-      
-      </div>
+    </div>
   );
-};
+}
 
-export default SocialIcons;
+export { SocialIcons };
